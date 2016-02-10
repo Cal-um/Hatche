@@ -15,10 +15,7 @@ class CustomCell: UITableViewCell {
   @IBOutlet weak var dohLabel: UILabel!
 
   
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    // Initialization code
-  }
+
   
   
 }
