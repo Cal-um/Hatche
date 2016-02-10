@@ -14,11 +14,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    // Override point for customization after application launch.
-    return true
+    
+    let fetchRequest = NSFetchRequest(entityName: "Profile")
+    do {
+      let results = try managedObjectContext.executeFetchRequest(fetchRequest)
+      if results.count == 0 {
+        addTestData()
+      }
+    } catch {
+      fatalError("Error fetching data!")
+    
+    }
+  
+    
+
+  return true
   }
+
+  func addTestData() {
+    guard let entity = NSEntityDescription.entityForName("Profile", inManagedObjectContext: managedObjectContext) else {
+      fatalError("Could not find entity descriptions!")
+    }
+    
+    
+    let bob = Profile(entity: entity, insertIntoManagedObjectContext: managedObjectContext)
+    bob.name = "Gerty"
+    bob.species = "Gargoyle Gecko"
+    bob.dob = NSDate()
+    
+    saveContext()
+  }
+
+  
+  
+
 
   func applicationWillResignActive(application: UIApplication) {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
