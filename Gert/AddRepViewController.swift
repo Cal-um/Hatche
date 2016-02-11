@@ -125,21 +125,3 @@ class AddRepViewController: UITableViewController, UITextFieldDelegate {
 
 
 
-/*
-if profile == nil {
-  if let name = nameTextField.text, species = speciesTextField.text, dob: NSDate = datePicker.date, entity = NSEntityDescription.entityForName("Profile", inManagedObjectContext: managedObjectContext) where !name.isEmpty && !species.isEmpty {
-    profile = Profile(entity: entity, insertIntoManagedObjectContext: managedObjectContext)
-    profile?.name = name
-    profile?.species = species
-    profile?.dob = dob
-    print(profile)
-    var error:NSError?
-    managedObjectContext!.save()
-    
-    
-  }else{
-    print("error")
-  }
-  
-}
-*/

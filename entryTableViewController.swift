@@ -11,12 +11,13 @@ import CoreData
 
 class entryTableViewController: UITableViewController {
   
+  var fetchedResultsController: NSFetchedResultsController!
   var managedObjectContext: NSManagedObjectContext!
   
   var profiles = [Profile]()
   
   func fetchAllProfiles() {
-    
+     
     
     
     let fetchRequest = NSFetchRequest(entityName: "Profile")
@@ -37,6 +38,7 @@ class entryTableViewController: UITableViewController {
 
       if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
        managedObjectContext = appDelegate.managedObjectContext
+       
   }
       
     }
@@ -105,6 +107,22 @@ class entryTableViewController: UITableViewController {
     let destination = segue.destinationViewController as! AddRepViewController
     destination.managedObjectContext = managedObjectContext
     }
+    
+    if segue.identifier == "ProfileTab" {
+      let tabBarController = segue.destinationViewController as! UITabBarController
+      let nav = tabBarController.viewControllers![0] as! UINavigationController
+      let destinationController = nav.topViewController as! TabBarProfileViewController
+      
+      if let selectedIndexPath = tableView.indexPathForSelectedRow {
+        let selectedProfile = profiles[selectedIndexPath.row]
+        destinationController.selectedProfile = selectedProfile
+      }
+    }
+  
+  }
+  
+  @IBAction func cancelTabView(segue:UIStoryboardSegue) {
+    
   }
 
 }
