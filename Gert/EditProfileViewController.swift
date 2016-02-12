@@ -15,10 +15,7 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
   
   var profile: Profile!
   
-  @IBAction func dissmissWhenTapped(sender: AnyObject) {
-    nameTextField.resignFirstResponder()
-    speciesTextField.resignFirstResponder()
-  }
+ 
   @IBOutlet weak var nameTextField: UITextField!
   @IBOutlet weak var speciesTextField: UITextField!
   @IBOutlet weak var datePicker: UIDatePicker!
@@ -33,13 +30,12 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
       speciesTextField.text = profile.species
       datePicker.date = profile.dob!
     }
-    
-  //MARK: INPUT ITEMS AND KEYBOARD
+  }
   
-
-  
-  
- 
+  @IBAction func dissmissWhenTapped(sender: AnyObject) {
+    nameTextField.resignFirstResponder()
+    speciesTextField.resignFirstResponder()
+  }
   
   func textFieldShouldReturn(textField: UITextField) -> Bool {
     if textField == nameTextField {
@@ -49,60 +45,24 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
     }
     return true
   }
-  
-  }
-
-  //MARK: Add Hatchling
-  
 
   
-  
-  
-  /*@IBAction func sendToCoreOnAdd(segue:UIStoryboardSegue) {
-    
-    
-    navigationController?.popViewControllerAnimated(true)
-    
-    if profile == nil {
-      if let name = nameTextField.text, species = speciesTextField.text, dob: NSDate = datePicker.date  {
-        
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        profile = NSEntityDescription.insertNewObjectForEntityForName("Profile", inManagedObjectContext: appDelegate.managedObjectContext) as! Profile
-        profile?.name = name
-        profile?.species = species
-        profile?.dob = dob
-        print(profile)
-        
-        do {
-          try appDelegate.managedObjectContext.save()
-        } catch {
-          fatalError("Failure to save context: \(error)")
-        }
-        
-      }else{
-        print("error enter all info")
-      }
-      
-    }
-    
-  }
-  */
   func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-    
-    let oldTextName: NSString = nameTextField.text!
-    let oldTextSpecies: NSString = speciesTextField.text!
-    
-    let newTextName: NSString = oldTextName.stringByReplacingCharactersInRange(range, withString: string)
-    let newTextSpecies: NSString = oldTextSpecies.stringByReplacingCharactersInRange(range, withString: string)
-    
-    saveButton.enabled = ((newTextName.length > 0) || (newTextSpecies.length > 0))
-    
+    if textField == nameTextField {
+      let oldTextName: NSString = nameTextField.text!
+      let newTextName: NSString = oldTextName.stringByReplacingCharactersInRange(range, withString: string)
+      saveButton.enabled = (newTextName.length > 0)
+    } else if textField == speciesTextField {
+      let oldTextSpecies: NSString = speciesTextField.text!
+      let newTextSpecies: NSString = oldTextSpecies.stringByReplacingCharactersInRange(range, withString: string)
+      saveButton.enabled = (newTextSpecies.length > 0)
+    }
     return true
   }
   
- 
-    
-    
+  
+  
+  
   
   
   @IBAction func enabledSaveButton(sender: AnyObject) {
@@ -118,6 +78,79 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
     if comparasonOne == comparasonTwo {
       saveButton.enabled = false
     }
+  }
+
+  
+  
+  
+  
+  
+  
+  
+  //MARK: INPUT ITEMS AND KEYBOARD
+  
+
+  
+  
+ 
+  
+   
+  
+
+  //MARK: Edit Hatchling
+  
+
+  
+  
+  
+  @IBAction func sendToCoreOnSave(segue:UIStoryboardSegue) {
+    
+    
+    navigationController?.popViewControllerAnimated(true)
+    
+    if profile != nil {
+      if let name = nameTextField.text, species = speciesTextField.text, dob: NSDate = datePicker.date  {
+        
+        profile.name = name
+        profile.species = species
+        profile.dob = dob
+        print(profile)
+        
+        do {
+          try managedObjectContext.save()
+        } catch {
+          fatalError("Failure to save context: \(error)")
+        }
+        
+      }else{
+        print("error enter all info")
+      }
+      
+    }
+    
+  }
+
+  @IBAction func deleteObject(sender: UIButton) {
+    
+    
+    
+    let title = "WARNING"
+    let message = "This Action Will Delete Profile Permanently"
+    let ac = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+    
+    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+    ac.addAction(cancelAction)
+    
+    let deleteProfile = UIAlertAction(title: "Delete", style: .Destructive, handler: { (action) -> Void in
+      self.managedObjectContext.deleteObject(self.profile)
+    self.dismissViewControllerAnimated(false, completion: nil)
+    })
+    
+    
+     ac.addAction(deleteProfile)
+     presentViewController(ac, animated: true, completion: nil)
+    
+    
   }
   
   

@@ -10,7 +10,7 @@
         <scene sceneID="2w5-pf-JQJ">
             <objects>
                 <tableViewController id="8eK-Iz-5ry" customClass="entryTableViewController" customModule="Gert" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="133" sectionHeaderHeight="28" sectionFooterHeight="28" id="94g-KU-RJ4">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="133" sectionHeaderHeight="28" sectionFooterHeight="28" id="94g-KU-RJ4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -447,7 +447,6 @@
                                                         <!--2016-02-01 12:09:24 +0000-->
                                                     </date>
                                                     <connections>
-                                                        <action selector="enableSaveButton:" destination="Dg9-hH-b8l" eventType="editingDidBegin" id="6OB-tF-Y5U"/>
                                                         <action selector="enabledSaveButton:" destination="Dg9-hH-b8l" eventType="valueChanged" id="QXI-wt-SnV"/>
                                                     </connections>
                                                 </datePicker>
@@ -476,6 +475,9 @@
                                                     <state key="normal" title="DELETE PROFILE">
                                                         <color key="titleColor" red="1" green="0.0" blue="0.01026766514" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="deleteObject:" destination="Dg9-hH-b8l" eventType="touchUpInside" id="ISM-2X-Ghw"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -495,11 +497,14 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Title" id="YH2-YD-1dW">
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Save" id="VYx-Oc-xuO"/>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Save" id="VYx-Oc-xuO">
+                            <connections>
+                                <action selector="sendToCoreOnSave:" destination="Dg9-hH-b8l" id="8nN-ds-Mvt"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="cancelButton" destination="WDf-Zh-njv" id="K2M-pJ-Q0e"/>
                         <outlet property="datePicker" destination="cYu-Ly-IBl" id="2H7-bL-eM1"/>
                         <outlet property="nameTextField" destination="fgg-jZ-Ft8" id="W0a-mU-uRq"/>
                         <outlet property="saveButton" destination="VYx-Oc-xuO" id="YjQ-w6-Lqr"/>

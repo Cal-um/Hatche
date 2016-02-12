@@ -112,6 +112,7 @@ class entryTableViewController: UITableViewController {
       let tabBarController = segue.destinationViewController as! UITabBarController
       let nav = tabBarController.viewControllers![0] as! UINavigationController
       let destinationController = nav.topViewController as! TabBarProfileViewController
+      destinationController.managedObjectContext = managedObjectContext
       
       if let selectedIndexPath = tableView.indexPathForSelectedRow {
         let selectedProfile = profiles[selectedIndexPath.row]
