@@ -99,5 +99,28 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
     
     return true
   }
+  
+ 
+    
+    
+  
+  
+  @IBAction func enabledSaveButton(sender: AnyObject) {
+    saveButton.enabled = true
+    
+    let savedDate = profile.dob
+    let datePickerDate = datePicker.date
+    let dateFormatter = NSDateFormatter()
+    dateFormatter.dateFormat = "dd-MM-yyyy"
+    let comparasonOne = dateFormatter.stringFromDate(savedDate!)
+    let comparasonTwo = dateFormatter.stringFromDate(datePickerDate)
+    
+    if comparasonOne == comparasonTwo {
+      saveButton.enabled = false
+    }
+  }
+  
+  
+  
 
 }

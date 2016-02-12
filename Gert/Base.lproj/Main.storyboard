@@ -446,6 +446,10 @@
                                                     <date key="date" timeIntervalSinceReferenceDate="476021364.498487">
                                                         <!--2016-02-01 12:09:24 +0000-->
                                                     </date>
+                                                    <connections>
+                                                        <action selector="enableSaveButton:" destination="Dg9-hH-b8l" eventType="editingDidBegin" id="6OB-tF-Y5U"/>
+                                                        <action selector="enabledSaveButton:" destination="Dg9-hH-b8l" eventType="valueChanged" id="QXI-wt-SnV"/>
+                                                    </connections>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
