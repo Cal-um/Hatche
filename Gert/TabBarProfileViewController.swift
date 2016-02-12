@@ -44,6 +44,12 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate {
     
   }
   
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if let dest = segue.destinationViewController as? EditProfileViewController {
+      dest.managedObjectContext = managedObjectContext
+      dest.profile = selectedProfile
+      }
+    }
   
   
 
