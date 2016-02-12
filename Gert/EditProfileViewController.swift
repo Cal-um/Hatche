@@ -121,7 +121,6 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
         } catch {
           fatalError("Failure to save context: \(error)")
         }
-        
       }else{
         print("error enter all info")
       }
@@ -143,13 +142,19 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
     
     let deleteProfile = UIAlertAction(title: "Delete", style: .Destructive, handler: { (action) -> Void in
       self.managedObjectContext.deleteObject(self.profile)
+      
+    
+      
+    
+    
     self.dismissViewControllerAnimated(false, completion: nil)
+  
     })
-    
-    
+  
+  
      ac.addAction(deleteProfile)
      presentViewController(ac, animated: true, completion: nil)
-    
+     
     
   }
   

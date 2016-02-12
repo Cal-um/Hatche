@@ -48,6 +48,8 @@ class entryTableViewController: UITableViewController {
     
     fetchAllProfiles()
     tableView.reloadData()
+    saveContext()
+    
   }
 
     override func didReceiveMemoryWarning() {
@@ -125,5 +127,18 @@ class entryTableViewController: UITableViewController {
   @IBAction func cancelTabView(segue:UIStoryboardSegue) {
     
   }
+  
+  func saveContext () {
+    if managedObjectContext.hasChanges {
+      do {
+        try managedObjectContext.save()
+      } catch {
+        let nserror = error as NSError
+        NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+        abort()
+      }
+    }
+  }
+
 
 }
