@@ -11,9 +11,15 @@ import CoreData
 
 class TabBarProfileViewController: UIViewController, UINavigationBarDelegate {
   
-  var selectedProfile: Profile?
-  var managedObjectContext: NSManagedObjectContext!
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    let tbvc = self.tabBarController  as! TabBarViewController
+    selectedProfile = tbvc.selectedProfile!
+    managedObjectContext = tbvc.managedObjectContext!
+  }
   
+  var selectedProfile: Profile!
+  var managedObjectContext: NSManagedObjectContext!
   
   @IBOutlet weak var name: UILabel!
   @IBOutlet weak var species: UILabel!

@@ -112,8 +112,8 @@ class entryTableViewController: UITableViewController {
     
     if segue.identifier == "ProfileTab" {
       let tabBarController = segue.destinationViewController as! UITabBarController
-      let nav = tabBarController.viewControllers![0] as! UINavigationController
-      let destinationController = nav.topViewController as! TabBarProfileViewController
+      let destinationController = tabBarController as! TabBarViewController
+      
       destinationController.managedObjectContext = managedObjectContext
       
       if let selectedIndexPath = tableView.indexPathForSelectedRow {
