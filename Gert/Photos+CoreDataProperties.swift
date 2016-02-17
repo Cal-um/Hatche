@@ -1,5 +1,5 @@
 //
-//  Profile+CoreDataProperties.swift
+//  Photos+CoreDataProperties.swift
 //  Gert
 //
 //  Created by Calum Harris on 16/02/2016.
@@ -12,11 +12,9 @@
 import Foundation
 import CoreData
 
-extension Profile {
+extension Photos {
 
-    @NSManaged var dob: NSDate
-    @NSManaged var name: String
-    @NSManaged var species: String
-    @NSManaged var photo: NSSet?
+    @NSManaged var photoID: NSNumber
+    @NSManaged var owner: Profile
 
 }

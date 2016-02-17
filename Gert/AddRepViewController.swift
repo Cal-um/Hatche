@@ -9,12 +9,6 @@
 import UIKit
 import CoreData
 
-protocol AddRepViewControllerDelegate: class {
-  func itemDetailViewControllerDidCancel(controller: AddRepViewController)
-  func itemDetailViewController(controller: AddRepViewController, didFinishAddingItem item: entryTableViewController)
-  func itemDetailViewController(controller: AddRepViewController, didFinishEditingItem item: entryTableViewController)
-}
-
 
 class AddRepViewController: UITableViewController, UITextFieldDelegate {
 

@@ -19,15 +19,18 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate {
   }
   
   var selectedProfile: Profile!
+  var photos: Photos!
   var managedObjectContext: NSManagedObjectContext!
+ 
+
   
   @IBOutlet weak var name: UILabel!
   @IBOutlet weak var species: UILabel!
   @IBOutlet weak var age: UILabel!
   
   
- 
-  
+
+  //let store = photos.owner!
 
  
   override func viewWillAppear(animated: Bool) {
@@ -41,7 +44,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate {
       
       name.text = selectedProfile.name
       species.text = selectedProfile.species
-      age.text = ageCalc.difference(ageCalcInput!)
+      age.text = ageCalc.difference(ageCalcInput)
       
     } else {
       print("error in transfer")
@@ -56,6 +59,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate {
       dest.profile = selectedProfile
       }
     }
+  
   
   
 

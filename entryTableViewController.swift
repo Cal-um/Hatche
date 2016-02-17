@@ -91,7 +91,7 @@ class entryTableViewController: UITableViewController {
           dateFormatter.dateFormat = "dd-MM-yyyy"
           return dateFormatter.stringFromDate(cat!)
         }*/
-        newCell.dohLabel.text = age.difference(dateOfHatch!)
+        newCell.dohLabel.text = age.difference(dateOfHatch)
         
       }
 

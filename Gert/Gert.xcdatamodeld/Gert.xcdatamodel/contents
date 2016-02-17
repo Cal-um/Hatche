@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15C50" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Automatic">
+    <entity name="Photos" representedClassName=".Photos" syncable="YES">
+        <attribute name="photoID" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="owner" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="photo" inverseEntity="Profile" syncable="YES"/>
+    </entity>
     <entity name="Profile" representedClassName=".Profile" syncable="YES">
         <attribute name="dob" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="species" attributeType="String" syncable="YES"/>
+        <relationship name="photo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photos" inverseName="owner" inverseEntity="Photos" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Profile" positionX="457" positionY="-216" width="128" height="88"/>
+        <element name="Photos" positionX="459" positionY="-198" width="128" height="75"/>
+        <element name="Profile" positionX="457" positionY="-216" width="128" height="105"/>
     </elements>
 </model>

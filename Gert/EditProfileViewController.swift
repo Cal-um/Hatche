@@ -28,7 +28,7 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
     if let profile = profile {
       nameTextField.text = profile.name
       speciesTextField.text = profile.species
-      datePicker.date = profile.dob!
+      datePicker.date = profile.dob
     }
   }
   
@@ -72,7 +72,7 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
     let datePickerDate = datePicker.date
     let dateFormatter = NSDateFormatter()
     dateFormatter.dateFormat = "dd-MM-yyyy"
-    let comparasonOne = dateFormatter.stringFromDate(savedDate!)
+    let comparasonOne = dateFormatter.stringFromDate(savedDate)
     let comparasonTwo = dateFormatter.stringFromDate(datePickerDate)
     
     if comparasonOne == comparasonTwo {

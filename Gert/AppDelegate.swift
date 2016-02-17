@@ -44,6 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     bob.dob = NSDate()
     
     saveContext()
+    print(applicationDocumentsDirectory)
   }
 
   

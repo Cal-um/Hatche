@@ -2,7 +2,7 @@
 //  Profile.swift
 //  Gert
 //
-//  Created by Calum Harris on 01/02/2016.
+//  Created by Calum Harris on 16/02/2016.
 //  Copyright © 2016 Calum Harris. All rights reserved.
 //
 
@@ -14,8 +14,4 @@ class Profile: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
 
- 
-
-  }
-
-  
+}
