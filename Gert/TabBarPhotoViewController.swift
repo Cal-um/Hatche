@@ -11,34 +11,84 @@ import CoreData
 
 class TabBarPhotoViewController: UICollectionViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
   
+  var managedObjectContext: NSManagedObjectContext!
+  
+  var selectedProfile: Profile!
+  var image: UIImage?
+  var profileImages: Photos?
+   var sam: [Photos] = []
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     let tbvc = self.tabBarController  as! TabBarViewController
     selectedProfile = tbvc.selectedProfile!
     managedObjectContext = tbvc.managedObjectContext!
     
-    profileImages = NSEntityDescription.insertNewObjectForEntityForName("Photos",inManagedObjectContext: managedObjectContext) as? Photos
+    
+    let width = CGRectGetWidth(collectionView!.frame) / 3
+    let layout = collectionViewLayout as! UICollectionViewFlowLayout
+    layout.itemSize = CGSize(width: width, height: width)
+    
   }
   
-  var managedObjectContext: NSManagedObjectContext!
   
-  var selectedProfile: Profile!
-  
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    
+    sam = fetchPhotos(selectedProfile)
+    print(sam.count)
+    collectionView?.reloadData()
+  }
+ 
+ 
+  func fetchPhotos(into: Profile) -> [Photos] {
+    var convert: [Photos]
+    convert = into.photo!.allObjects as! [Photos]
+    
+    return convert
+  }
 
-  var image: UIImage?
-  var profileImages: Photos?
-    
-   func savePhoto() {
-    
-    
-    
-if let  profileImages = profileImages, owner = selectedProfile  {
+
+  
+  // MARK: - Collection View Data Source
+ 
   
   
-    profileImages.photoID = Photos.nextPhotoID()
+  override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return sam.count
+  }
   
-    profileImages.owner = owner
-       print(applicationDocumentsDirectory)
+  override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    
+    let identifier = "picture"
+    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! CollectionViewCell
+    let picture = sam[indexPath.row]
+    let selectPhoto = picture.photoImage
+    if let selectPhoto = selectPhoto {
+    
+    cell.PhotoImageView.image = selectPhoto
+    }
+    
+    return cell
+  }
+
+  
+  
+  // MARK: - Camera and Saving Photo
+  
+  
+  
+  func savePhoto() {
+  profileImages = NSEntityDescription.insertNewObjectForEntityForName("Photos",inManagedObjectContext: managedObjectContext) as? Photos
+    
+    if let  profileImages = profileImages, owner = selectedProfile  {
+  
+  
+      profileImages.photoID = Photos.nextPhotoID()
+  
+      profileImages.owner = owner
+      print(applicationDocumentsDirectory)
     
     
     if let image = image {
@@ -59,9 +109,10 @@ if let  profileImages = profileImages, owner = selectedProfile  {
       }
       }else {
       print("error enter all info")
+      }
+    }
   }
-  }
-  }
+  
   
   func takePhotoWithCamera() {
     let imagePicker = UIImagePickerController()
@@ -76,10 +127,7 @@ if let  profileImages = profileImages, owner = selectedProfile  {
     
      image = info[UIImagePickerControllerEditedImage] as? UIImage
      savePhoto()
-    
-    
-    //dismissViewControllerAnimated(true, completion: nil)
-  }
+    }
   
   
   func imagePickerControllerDidCancel(picker: UIImagePickerController) {
@@ -106,13 +154,8 @@ if let  profileImages = profileImages, owner = selectedProfile  {
     presentViewController(alertController, animated: true, completion: nil)
   }
   
-
-
-
   
-  
-      
-    func pickPhoto() {
+  func pickPhoto() {
     if UIImagePickerController.isSourceTypeAvailable(.Camera) {
       showPhotoMenu()
     } else {
@@ -127,6 +170,7 @@ if let  profileImages = profileImages, owner = selectedProfile  {
     
   }
 
+  
 
   
 
