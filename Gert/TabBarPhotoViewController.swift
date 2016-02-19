@@ -72,6 +72,18 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     
     return cell
   }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "photoView" {
+      if let selectedIndexPath = collectionView!.indexPathsForSelectedItems()?.first {
+        let picture = sam[selectedIndexPath.row]
+        let selectPhoto = picture.photoImage
+        let destinationVC =  segue.destinationViewController as! PhotoView
+        destinationVC.selectPhoto = selectPhoto
+      }
+    
+    }
+  }
 
   
   
