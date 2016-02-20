@@ -134,7 +134,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="PhotoImageView" destination="mvT-br-zx8" id="7sf-07-kSm"/>
-                                    <segue destination="fS4-kk-iID" kind="show" identifier="photoView" id="5Ge-5k-vTx"/>
+                                    <segue destination="fS4-kk-iID" kind="showDetail" identifier="photoView" action="showViewController:sender:" id="5Ge-5k-vTx"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
