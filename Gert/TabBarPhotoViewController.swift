@@ -24,12 +24,9 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     selectedProfile = tbvc.selectedProfile!
     managedObjectContext = tbvc.managedObjectContext!
     
-    
-    
+    collectionViewInitialView()
     
   }
-  
-  @IBOutlet weak var tapToOpen: CollectionViewCell!
   
   
   override func viewWillAppear(animated: Bool) {
@@ -50,10 +47,27 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   }
   
 
-  func returnUIImage(indexPath: NSIndexPath) -> UIImage {
+  func returnUIImage(indexPath: NSIndexPath) -> UIImage? {
     let picture = sam[indexPath.row]
     let selectPhoto = picture.photoImage
-    return selectPhoto!
+    return selectPhoto
+  }
+  
+  func collectionViewInitialView() -> UICollectionViewFlowLayout {
+    let width = CGRectGetWidth(collectionView!.frame) / 3
+    let layout = collectionViewLayout as! UICollectionViewFlowLayout
+    layout.itemSize = CGSize(width: width, height: width)
+    return layout
+  }
+
+  func collectionViewSingleImageScroll() -> UICollectionViewFlowLayout {
+    
+    let width = 320
+    let height = 548
+    let layout = collectionViewLayout as! UICollectionViewFlowLayout
+    layout.itemSize = CGSize(width: width, height: height)
+    layout.scrollDirection = .Horizontal
+    return layout
   }
   
   // MARK: - Collection View Data Source
@@ -68,46 +82,28 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     
     let identifier = "picture"
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! CollectionViewCell
-    
     let selectPhoto = returnUIImage(indexPath)
+    if let selectPhoto = selectPhoto {
+    
     
     cell.PhotoImageView.image = selectPhoto
-    
-    
-    return cell
+    }
+     return cell
   }
-  
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-    
-    let width = CGRectGetWidth(collectionView.frame) / 3
-    let layout = CGSize(width: width, height: width)
-    return layout
-   
-    if tapToOpen == true {
-      let width = 320
-      let height = 548
-      
-    }
-    }
-  
-    
+
     
   
 
-  override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-    let place = indexPath
-    print(place)
-    collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredVertically, animated: true)
-    let width = 320
-    let height = 548
-    let layout = collectionViewLayout as! UICollectionViewFlowLayout
-    layout.itemSize = CGSize(width: width, height: height)
-    layout.scrollDirection = .Horizontal
-   
+  override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    
+    collectionView.setCollectionViewLayout(collectionViewSingleImageScroll(), animated:true)
+    //collectionViewSingleImageScroll()
     collectionView.pagingEnabled = true
+    collectionView.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: .CenteredHorizontally)
+    collectionViewSingleImageScroll()
     navigationController?.hidesBarsOnTap = true
     tabBarController?.hidesBottomBarWhenPushed = true
-    return false
+  
     
   }
 

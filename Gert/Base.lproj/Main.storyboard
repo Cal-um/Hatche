@@ -133,7 +133,7 @@
                                     <constraint firstItem="mvT-br-zx8" firstAttribute="top" secondItem="VE7-DV-mnG" secondAttribute="top" id="W9h-9j-XmW"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="PhotoImageView" destination="mvT-br-zx8" id="7sf-07-kSm"/>
+                                    <outlet property="PhotoImageView" destination="mvT-br-zx8" id="cab-Ca-YOD"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -157,9 +157,6 @@
                             <barButtonItem systemItem="action" id="4XT-aG-7So"/>
                         </rightBarButtonItems>
                     </navigationItem>
-                    <connections>
-                        <outlet property="tapToOpen" destination="VE7-DV-mnG" id="1eR-b2-Fcq"/>
-                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="etI-Lf-FZf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="zfA-cM-si8" userLabel="Exit" sceneMemberID="exit"/>
