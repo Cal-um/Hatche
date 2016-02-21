@@ -25,11 +25,11 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     managedObjectContext = tbvc.managedObjectContext!
     
     
-    let width = CGRectGetWidth(collectionView!.frame) / 3
-    let layout = collectionViewLayout as! UICollectionViewFlowLayout
-    layout.itemSize = CGSize(width: width, height: width)
+    
     
   }
+  
+  @IBOutlet weak var tapToOpen: CollectionViewCell!
   
   
   override func viewWillAppear(animated: Bool) {
@@ -48,8 +48,13 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     
     return convert
   }
+  
 
-
+  func returnUIImage(indexPath: NSIndexPath) -> UIImage {
+    let picture = sam[indexPath.row]
+    let selectPhoto = picture.photoImage
+    return selectPhoto!
+  }
   
   // MARK: - Collection View Data Source
  
@@ -63,27 +68,50 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     
     let identifier = "picture"
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! CollectionViewCell
-    let picture = sam[indexPath.row]
-    let selectPhoto = picture.photoImage
-    if let selectPhoto = selectPhoto {
+    
+    let selectPhoto = returnUIImage(indexPath)
     
     cell.PhotoImageView.image = selectPhoto
-    }
+    
     
     return cell
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "photoView" {
-      if let selectedIndexPath = collectionView!.indexPathsForSelectedItems()?.first {
-        let picture = sam[selectedIndexPath.row]
-        let selectPhoto = picture.photoImage
-        let destinationVC =  segue.destinationViewController as! PhotoView
-        destinationVC.selectPhoto = selectPhoto
-      }
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
     
+    let width = CGRectGetWidth(collectionView.frame) / 3
+    let layout = CGSize(width: width, height: width)
+    return layout
+   
+    if tapToOpen == true {
+      let width = 320
+      let height = 548
+      
     }
+    }
+  
+    
+    
+  
+
+  override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    let place = indexPath
+    print(place)
+    collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredVertically, animated: true)
+    let width = 320
+    let height = 548
+    let layout = collectionViewLayout as! UICollectionViewFlowLayout
+    layout.itemSize = CGSize(width: width, height: height)
+    layout.scrollDirection = .Horizontal
+   
+    collectionView.pagingEnabled = true
+    navigationController?.hidesBarsOnTap = true
+    tabBarController?.hidesBottomBarWhenPushed = true
+    return false
+    
   }
+
+  
 
   
   
@@ -137,7 +165,7 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
     dismissViewControllerAnimated(true, completion: nil)
     
-     image = info[UIImagePickerControllerEditedImage] as? UIImage
+     image = info[UIImagePickerControllerOriginalImage] as? UIImage
      savePhoto()
     }
   
