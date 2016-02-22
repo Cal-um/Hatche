@@ -13,7 +13,12 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   
   var managedObjectContext: NSManagedObjectContext!
   
-  var selectedProfile: Profile!
+  var selectedProfile: Profile! {
+    didSet {
+      navigationItem.title = selectedProfile.name + "'s photos"
+    }
+  }
+  
   var image: UIImage?
   var profileImages: Photos?
    var sam: [Photos] = []
@@ -57,9 +62,22 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     let width = CGRectGetWidth(collectionView!.frame) / 3
     let layout = collectionViewLayout as! UICollectionViewFlowLayout
     layout.itemSize = CGSize(width: width, height: width)
+    
+    layout.scrollDirection = .Vertical
+    collectionView!.pagingEnabled = false
+    navigationController?.hidesBarsOnTap = false
+
+    navigationItem.setLeftBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "unwindToEntryTable"), animated: true)
+    navigationItem.setRightBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "addPicture"),animated: true)
+    collectionView!.reloadData()
+    
     return layout
   }
 
+  func unwindToEntryTable(){
+    self.performSegueWithIdentifier("unwindToEntryTable", sender: self)
+  }
+  
   func collectionViewSingleImageScroll() -> UICollectionViewFlowLayout {
     
     let width = 320
@@ -67,7 +85,18 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     let layout = collectionViewLayout as! UICollectionViewFlowLayout
     layout.itemSize = CGSize(width: width, height: height)
     layout.scrollDirection = .Horizontal
+    collectionView!.pagingEnabled = true
+    
+    navigationController?.hidesBarsOnTap = true
+    
+    
+    navigationItem.setLeftBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "collectionViewInitialView"), animated: true)
+    navigationItem.setRightBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: nil),animated: true)
+    collectionView!.reloadData()
+    
     return layout
+    
+    
   }
   
   // MARK: - Collection View Data Source
@@ -84,26 +113,28 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! CollectionViewCell
     let selectPhoto = returnUIImage(indexPath)
     if let selectPhoto = selectPhoto {
-    
-    
+      
+      if cell.frame.width == cell.frame.height {
+        cell.PhotoImageView.contentMode = UIViewContentMode.ScaleAspectFill
+      } else {
+        cell.PhotoImageView.contentMode = UIViewContentMode.ScaleAspectFit
+      }
+   
     cell.PhotoImageView.image = selectPhoto
     }
-     return cell
+    return cell
   }
 
-    
-  
+
 
   override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-    
+   
+    collectionView.reloadData()
+
     collectionView.setCollectionViewLayout(collectionViewSingleImageScroll(), animated:true)
-    //collectionViewSingleImageScroll()
-    collectionView.pagingEnabled = true
+    
     collectionView.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: .CenteredHorizontally)
-    collectionViewSingleImageScroll()
-    navigationController?.hidesBarsOnTap = true
-    tabBarController?.hidesBottomBarWhenPushed = true
-  
+   
     
   }
 
@@ -199,7 +230,7 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     }
   }
   
-  @IBAction func addPicture (sender: UIBarButtonItem) {
+  func addPicture () {
     
     pickPhoto()
     

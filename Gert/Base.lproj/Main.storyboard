@@ -119,7 +119,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mvT-br-zx8">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mvT-br-zx8">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                         </imageView>
                                     </subviews>
@@ -145,7 +145,7 @@
                     <navigationItem key="navigationItem" id="uEX-jf-fik">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="NY8-xm-LjZ">
                             <connections>
-                                <segue destination="zfA-cM-si8" kind="unwind" unwindAction="cancelTabView:" id="Afu-oL-QJV"/>
+                                <segue destination="zfA-cM-si8" kind="unwind" identifier="unwindToEntryTable" unwindAction="cancelTabView:" id="Afu-oL-QJV"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>

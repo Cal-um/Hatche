@@ -12,5 +12,16 @@ class CollectionViewCell: UICollectionViewCell {
   
   
   @IBOutlet weak var PhotoImageView: UIImageView!
+ 
   
+  
+  func changeToAspectFill() {
+    self.PhotoImageView.contentMode = .ScaleAspectFill
+  }
+
+  func changeToAspectFit() {
+    self.PhotoImageView.contentMode = .ScaleAspectFit
+  }
+
+
 }
