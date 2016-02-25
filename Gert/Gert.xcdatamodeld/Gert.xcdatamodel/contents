@@ -8,7 +8,7 @@
         <attribute name="dob" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="species" attributeType="String" syncable="YES"/>
-        <relationship name="photo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photos" inverseName="owner" inverseEntity="Photos" syncable="YES"/>
+        <relationship name="photo" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Photos" inverseName="owner" inverseEntity="Photos" syncable="YES"/>
     </entity>
     <elements>
         <element name="Photos" positionX="459" positionY="-198" width="128" height="75"/>

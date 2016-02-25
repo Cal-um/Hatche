@@ -79,28 +79,6 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
       saveButton.enabled = false
     }
   }
-
-  
-  
-  
-  
-  
-  
-  
-  //MARK: INPUT ITEMS AND KEYBOARD
-  
-
-  
-  
- 
-  
-   
-  
-
-  //MARK: Edit Hatchling
-  
-
-  
   
   
   @IBAction func sendToCoreOnSave(segue:UIStoryboardSegue) {
@@ -141,6 +119,7 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
     ac.addAction(cancelAction)
     
     let deleteProfile = UIAlertAction(title: "Delete", style: .Destructive, handler: { (action) -> Void in
+      self.deleteSavedPhotos(self.profile)
       self.managedObjectContext.deleteObject(self.profile)
       
     
@@ -158,7 +137,23 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
     
   }
   
+  func deleteSavedPhotos(inputProfile: Profile) {
+    if let photoIDArray = inputProfile.photo {
+      let photosCast = photoIDArray.allObjects as! [Photos]
+      for i in photosCast {
+        i.removePhotoFile()
+      }
+    }
+  }
   
   
+  
+  /*func fetchPhotos(into: Profile) -> [Photos] {
+    var convert: [Photos]
+    convert = into.photo!.allObjects as! [Photos]
+    
+    return convert
+  }*/
+
 
 }

@@ -29,6 +29,18 @@ class Photos: NSManagedObject {
     return (applicationDocumentsDirectory as NSString).stringByAppendingPathComponent(filename)
   }
   
+  func removePhotoFile() {
+      let path = photoPath
+      let fileManager = NSFileManager.defaultManager()
+      if fileManager.fileExistsAtPath(path) {
+        do {
+          try fileManager.removeItemAtPath(path)
+        } catch {
+          print("Error removing file: \(error)")
+        }
+      }
+    }
+
   
   
   class func nextPhotoID() -> Int {
