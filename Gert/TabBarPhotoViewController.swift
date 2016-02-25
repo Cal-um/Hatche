@@ -12,7 +12,8 @@ import CoreData
 class TabBarPhotoViewController: UICollectionViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
   
   var managedObjectContext: NSManagedObjectContext!
-  
+  var sorted: [Photos] = []
+
   var selectedProfile: Profile! {
     didSet {
       navigationItem.title = selectedProfile.name + "'s photos"
@@ -21,7 +22,11 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   
   var image: UIImage?
   var profileImages: Photos?
-   var sam: [Photos] = []
+  var sam: [Photos] = [] {
+    didSet {
+      sorted = sam.sort({ Int($0.photoID) > Int($1.photoID) })
+    }
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -30,20 +35,28 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     managedObjectContext = tbvc.managedObjectContext!
     
     collectionViewInitialView()
-    
+    inputSam()
   }
   
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
+    inputSam()
     
+   
+    
+  }
+ 
+  func inputSam(){
     
     sam = fetchPhotos(selectedProfile)
     print(sam.count)
-    collectionView?.reloadData()
+    //sorted = []
+    //sorted = sam.sort({$0.photoID.compare($1.photoID) == NSComparisonResult.OrderedDescending })
+    //sorted = sam
+    //sorted = sam.sort({ Int($0.photoID) > Int($1.photoID) })
   }
- 
- 
+  
   func fetchPhotos(into: Profile) -> [Photos] {
     var convert: [Photos]
     convert = into.photo!.allObjects as! [Photos]
@@ -51,9 +64,10 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     return convert
   }
   
-
+  var picture: Photos!
+  
   func returnUIImage(indexPath: NSIndexPath) -> UIImage? {
-    let picture = sam[indexPath.row]
+     picture = sorted[indexPath.row]
     let selectPhoto = picture.photoImage
     return selectPhoto
   }
@@ -69,7 +83,9 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
 
     navigationItem.setLeftBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "unwindToEntryTable"), animated: true)
     navigationItem.setRightBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "addPicture"),animated: true)
-    collectionView!.reloadData()
+    
+    
+    
     
     return layout
   }
@@ -90,21 +106,68 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     navigationController?.hidesBarsOnTap = true
     
     
-    navigationItem.setLeftBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "collectionViewInitialView"), animated: true)
-    navigationItem.setRightBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: nil),animated: true)
-    collectionView!.reloadData()
+    navigationItem.setLeftBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "fadeBack"), animated: true)
+    navigationItem.setRightBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: "deletePhoto"),animated: true)
+    
+    
+  
     
     return layout
-    
-    
   }
+  
+  func deletePhoto() {
+    
+    let index = self.collectionView!.indexPathsForVisibleItems()
+    let selectedPhotoIndexPath = index[0]
+    picture = sorted[selectedPhotoIndexPath.row]
+    let title = "WARNING"
+    let message = "This Action Will Delete The Selected Photo"
+    let ac = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+    
+    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+    ac.addAction(cancelAction)
+    
+    let deletePhoto = UIAlertAction(title: "Delete", style: .Destructive, handler: { (action) -> Void in
+     
+      self.picture.removePhotoFile()
+      if let picture = self.picture {
+      self.managedObjectContext.deleteObject(picture)
+      }
+      
+      
+      
+   
+      self.saveContext()
+      
+
+      self.inputSam()
+      print("print SAM", self.sam)
+      
+      
+      
+      print("print picture start ", self.picture, " print PictureEnd")
+      self.collectionView!.deleteItemsAtIndexPaths(index) //}, completion: nil)
+
+    
+    })
+    
+    ac.addAction(deletePhoto)
+    presentViewController(ac, animated: true, completion: nil)
+
+  
+  }
+  
+  func fadeBack() {
+    collectionView!.setCollectionViewLayout(self.collectionViewInitialView(), animated:true)
+  }
+  
   
   // MARK: - Collection View Data Source
  
   
   
   override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return sam.count
+    return sorted.count
   }
   
   override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -125,14 +188,14 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     return cell
   }
 
-
+  
 
   override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
    
-    collectionView.reloadData()
-
-    collectionView.setCollectionViewLayout(collectionViewSingleImageScroll(), animated:true)
     
+    collectionView.reloadData()
+    
+    collectionView.setCollectionViewLayout(collectionViewSingleImageScroll(), animated:true)     
     collectionView.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: .CenteredHorizontally)
    
     
@@ -144,7 +207,19 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   
   // MARK: - Camera and Saving Photo
   
-  
+  func saveContext () {
+    if managedObjectContext.hasChanges {
+      do {
+        try managedObjectContext.save()
+        print("save Successful")
+      } catch {
+        let nserror = error as NSError
+        NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+        abort()
+      }
+    }
+  }
+
   
   func savePhoto() {
   profileImages = NSEntityDescription.insertNewObjectForEntityForName("Photos",inManagedObjectContext: managedObjectContext) as? Photos
@@ -168,6 +243,8 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
       }
       }
   
+      
+
       do {
         try managedObjectContext.save()
         print(profileImages)
@@ -178,24 +255,45 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
       print("error enter all info")
       }
     }
-  }
+      }
   
   
   func takePhotoWithCamera() {
     let imagePicker = UIImagePickerController()
     imagePicker.sourceType = .Camera
     imagePicker.delegate = self
-    imagePicker.allowsEditing = true
+    imagePicker.allowsEditing = false
     presentViewController(imagePicker, animated: true, completion: nil)
   }
   
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
     dismissViewControllerAnimated(true, completion: nil)
     
-     image = info[UIImagePickerControllerOriginalImage] as? UIImage
-     savePhoto()
+    image = info[UIImagePickerControllerOriginalImage] as? UIImage
+    savePhoto()
+    saveContext()
+    inputSam()
+    
+    
+    var paths = [NSIndexPath]()
+    paths.append(NSIndexPath(forRow: 0, inSection: 0))
+    delay(0.5){
+      UIView.animateWithDuration(1.0, animations: { () -> Void in self.collectionView!.insertItemsAtIndexPaths(paths) }, completion: nil)
+    }
+    
+   
     }
   
+  func delay(delay: Double, closure: ()->()) {
+    dispatch_after(
+      dispatch_time(
+        DISPATCH_TIME_NOW,
+        Int64(delay * Double(NSEC_PER_SEC))
+      ),
+      dispatch_get_main_queue(),
+      closure
+    )
+  }
   
   func imagePickerControllerDidCancel(picker: UIImagePickerController) {
       dismissViewControllerAnimated(true, completion: nil)
@@ -238,7 +336,6 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   }
 
   
-
   
 
 }

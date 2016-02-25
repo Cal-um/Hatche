@@ -149,11 +149,7 @@
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="camera" id="aUT-px-hsT">
-                                <connections>
-                                    <action selector="addPicture:" destination="SG1-3D-BzM" id="5HX-KK-oyc"/>
-                                </connections>
-                            </barButtonItem>
+                            <barButtonItem systemItem="camera" id="aUT-px-hsT"/>
                             <barButtonItem systemItem="action" id="4XT-aG-7So"/>
                         </rightBarButtonItems>
                     </navigationItem>
