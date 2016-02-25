@@ -16,10 +16,14 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate {
     let tbvc = self.tabBarController  as! TabBarViewController
     selectedProfile = tbvc.selectedProfile!
     managedObjectContext = tbvc.managedObjectContext!
+    
+    setProfilePicCircle()
+   
+    
+    
   }
   
   var selectedProfile: Profile!
-  var photos: Photos!
   var managedObjectContext: NSManagedObjectContext!
  
 
@@ -27,12 +31,9 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate {
   @IBOutlet weak var name: UILabel!
   @IBOutlet weak var species: UILabel!
   @IBOutlet weak var age: UILabel!
+  @IBOutlet weak var profilePic: UIImageView!
   
   
-
-  //let store = photos.owner!
-
- 
   override func viewWillAppear(animated: Bool) {
     
     
@@ -53,6 +54,43 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate {
     
   }
   
+  func setProfilePicCircle() {
+    profilePic.layer.borderWidth=1.0
+    profilePic.layer.masksToBounds = false
+    profilePic.layer.borderColor = UIColor.whiteColor().CGColor
+    profilePic.layer.cornerRadius = 13
+    profilePic.layer.cornerRadius = profilePic.frame.size.height/2
+    profilePic.clipsToBounds = true
+    let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("imageTapped"))
+    profilePic.userInteractionEnabled = true
+    profilePic.addGestureRecognizer(tapGestureRecognizer)
+  }
+  
+  func imageTapped() {
+    
+    let ac = UIAlertController(title: "Change Profile Picture", message: nil, preferredStyle: .ActionSheet)
+    
+    if profile.profilePic
+    let removePhoto = UIAlertAction(title: "Remove Profile Picture", style: .Destructive, handler: nil)
+    ac.addAction(removePhoto)
+    
+    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+    ac.addAction(cancelAction)
+    
+    if selectedProfile.photo!.count > 0 {
+      let addFromPhotoAlbum = UIAlertAction(title: "Choose From Album", style: .Default, handler: nil)
+      ac.addAction(addFromPhotoAlbum)
+    }
+    
+    let takePhoto = UIAlertAction(title: "Take Photo", style: .Default, handler: nil)
+    ac.addAction(takePhoto)
+    
+    presentViewController(ac, animated: true, completion: nil)
+    
+  }
+  
+  
+  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if let dest = segue.destinationViewController as? EditProfileViewController {
       dest.managedObjectContext = managedObjectContext
@@ -60,7 +98,4 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate {
       }
     }
   
-  
-  
-
 }

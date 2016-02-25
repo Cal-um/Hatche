@@ -21,6 +21,7 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   }
   
   var image: UIImage?
+  var picture: Photos!
   var profileImages: Photos?
   var sam: [Photos] = [] {
     didSet {
@@ -36,6 +37,7 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     
     collectionViewInitialView()
     inputSam()
+    
   }
   
   
@@ -43,18 +45,12 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     super.viewWillAppear(animated)
     inputSam()
     
-   
-    
   }
  
-  func inputSam(){
+  func inputSam() {
     
     sam = fetchPhotos(selectedProfile)
-    print(sam.count)
-    //sorted = []
-    //sorted = sam.sort({$0.photoID.compare($1.photoID) == NSComparisonResult.OrderedDescending })
-    //sorted = sam
-    //sorted = sam.sort({ Int($0.photoID) > Int($1.photoID) })
+
   }
   
   func fetchPhotos(into: Profile) -> [Photos] {
@@ -64,7 +60,6 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     return convert
   }
   
-  var picture: Photos!
   
   func returnUIImage(indexPath: NSIndexPath) -> UIImage? {
      picture = sorted[indexPath.row]
@@ -109,9 +104,6 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     navigationItem.setLeftBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "fadeBack"), animated: true)
     navigationItem.setRightBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: "deletePhoto"),animated: true)
     
-    
-  
-    
     return layout
   }
   
@@ -133,28 +125,13 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
       if let picture = self.picture {
       self.managedObjectContext.deleteObject(picture)
       }
-      
-      
-      
-   
       self.saveContext()
-      
-
       self.inputSam()
-      print("print SAM", self.sam)
-      
-      
-      
-      print("print picture start ", self.picture, " print PictureEnd")
-      self.collectionView!.deleteItemsAtIndexPaths(index) //}, completion: nil)
-
-    
+      self.collectionView!.deleteItemsAtIndexPaths(index)
     })
     
     ac.addAction(deletePhoto)
     presentViewController(ac, animated: true, completion: nil)
-
-  
   }
   
   func fadeBack() {
@@ -198,13 +175,8 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     collectionView.setCollectionViewLayout(collectionViewSingleImageScroll(), animated:true)     
     collectionView.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: .CenteredHorizontally)
    
-    
-  }
+    }
 
-  
-
-  
-  
   // MARK: - Camera and Saving Photo
   
   func saveContext () {
@@ -331,12 +303,7 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   func addPicture () {
     
     pickPhoto()
-    
-    
   }
-
-  
-  
 
 }
   

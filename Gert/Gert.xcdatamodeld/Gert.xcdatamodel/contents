@@ -7,11 +7,12 @@
     <entity name="Profile" representedClassName=".Profile" syncable="YES">
         <attribute name="dob" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="profilePicID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="species" attributeType="String" syncable="YES"/>
         <relationship name="photo" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Photos" inverseName="owner" inverseEntity="Photos" syncable="YES"/>
     </entity>
     <elements>
         <element name="Photos" positionX="459" positionY="-198" width="128" height="75"/>
-        <element name="Profile" positionX="457" positionY="-216" width="128" height="105"/>
+        <element name="Profile" positionX="457" positionY="-216" width="128" height="120"/>
     </elements>
 </model>
