@@ -51,7 +51,7 @@
                                     <outlet property="nameLabel" destination="fKD-VH-10d" id="tvV-RC-Y58"/>
                                     <outlet property="profilePic" destination="kz7-Jg-a4U" id="qYN-65-Z7h"/>
                                     <outlet property="speciesLabel" destination="3Fg-5h-JQ8" id="Gk6-Qn-RIj"/>
-                                    <segue destination="ENW-HQ-4pN" kind="presentation" identifier="ProfileTab" id="PR1-yG-egm"/>
+                                    <segue destination="ENW-HQ-4pN" kind="presentation" identifier="ProfileTab" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="PR1-yG-egm"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

@@ -77,15 +77,14 @@ class entryTableViewController: UITableViewController {
         let age = Time()
         
         let dateOfHatch = profile.dob
-        let photoLocation = profile.photoImage
         
         newCell.nameLabel.text = profile.name
         newCell.speciesLabel.text = profile.species
         newCell.dohLabel.text = age.difference(dateOfHatch)
         
-        if let _ = profile.profilePicID{
-        newCell.profilePic.image = photoLocation
-          }
+        //if let _ = profile.profilePicID{
+        newCell.profilePic.image = profile.photoImage
+         // }
         
         newCell.profilePic.layer.borderWidth = 1.0
         newCell.profilePic.layer.masksToBounds = false

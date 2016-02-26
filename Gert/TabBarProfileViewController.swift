@@ -91,7 +91,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     ac.addAction(addFromPhotoAlbum)
     
     
-    let takePhoto = UIAlertAction(title: "Take Photo", style: .Default, handler: nil)
+    let takePhoto = UIAlertAction(title: "Take Photo", style: .Default, handler: {_ in self.takePhotoWithCamera()})
     ac.addAction(takePhoto)
     
     presentViewController(ac, animated: true, completion: nil)
