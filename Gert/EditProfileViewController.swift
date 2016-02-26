@@ -144,6 +144,9 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
         i.removePhotoFile()
       }
     }
+    if let _ = profile.profilePicID {
+      profile.removePhotoFile()
+    }
   }
   
   

@@ -19,10 +19,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     
     setProfilePicCircle()
    
-   // if let photo = selectedProfile.profilePicID {
-      
-      
-   // }
+
     
     
   }
@@ -39,11 +36,18 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
   @IBOutlet weak var species: UILabel!
   @IBOutlet weak var age: UILabel!
   @IBOutlet weak var profilePic: UIImageView!
-  
+ 
+  let defaultProfilePic = UIImage(named: "egg")
   
   
   override func viewWillAppear(animated: Bool) {
     
+    
+    if selectedProfile.profilePicID != nil {
+      profilePic.image = profilePicLoad
+    } else {
+      profilePic.image = defaultProfilePic
+    }
     
     if let selectedProfile = selectedProfile {
       navigationItem.title = selectedProfile.name
@@ -51,10 +55,10 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
       let ageCalc = Time()
       let ageCalcInput = selectedProfile.dob
       
+      
       name.text = selectedProfile.name
       species.text = selectedProfile.species
       age.text = ageCalc.difference(ageCalcInput)
-      profilePic.image = profilePicLoad
       
     } else {
       print("error in transfer")
@@ -63,7 +67,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
   }
   
   func setProfilePicCircle() {
-    profilePic.layer.borderWidth=1.0
+    profilePic.layer.borderWidth = 1.0
     profilePic.layer.masksToBounds = false
     profilePic.layer.borderColor = UIColor.whiteColor().CGColor
     profilePic.layer.cornerRadius = 13
@@ -78,10 +82,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     
     let ac = UIAlertController(title: "Change Profile Picture", message: nil, preferredStyle: .ActionSheet)
     
-    if selectedProfile.profilePicID == true {
-      let removePhoto = UIAlertAction(title: "Remove Profile Picture", style: .Destructive, handler: nil)
-      ac.addAction(removePhoto)
-    }
+    
     
     let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
     ac.addAction(cancelAction)
@@ -90,14 +91,21 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     let addFromPhotoAlbum = UIAlertAction(title: "Choose From Album", style: .Default, handler:{_ in self.choosePhotoFromLibrary()})
     ac.addAction(addFromPhotoAlbum)
     
-    
+    if UIImagePickerController.isSourceTypeAvailable(.Camera) == true {
     let takePhoto = UIAlertAction(title: "Take Photo", style: .Default, handler: {_ in self.takePhotoWithCamera()})
     ac.addAction(takePhoto)
+    }
+    
+    if selectedProfile.photoImage != nil   {
+      let removePhoto = UIAlertAction(title: "Remove Profile Picture", style: .Destructive, handler: {_ in self.removeProfilePic()})
+      ac.addAction(removePhoto)
+    }
     
     presentViewController(ac, animated: true, completion: nil)
     
   }
   var image: UIImage?
+  
   func saveProfilePhoto() {
     
     if let  _ =  image {
@@ -113,7 +121,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
           } catch {
             print("Error Writing File: \(error)")
           }
-        }
+        
         
         
         
@@ -127,6 +135,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
         print("error enter all info")
       }
     }
+  }
   }
 
   
@@ -158,6 +167,14 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     saveProfilePhoto()
   }
   
+  func removeProfilePic() {
+    
+      selectedProfile.removePhotoFile()
+      profilePic.image = defaultProfilePic
+      selectedProfile.profilePicID = nil
+      saveContext()
+      
+  }
   
   
   
@@ -167,5 +184,19 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
       dest.profile = selectedProfile
       }
     }
+  
+  func saveContext () {
+    if managedObjectContext.hasChanges {
+      do {
+        try managedObjectContext.save()
+        print("save Successful")
+      } catch {
+        let nserror = error as NSError
+        NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+        abort()
+      }
+    }
+  }
+
   
 }
