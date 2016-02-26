@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class TabBarProfileViewController: UIViewController, UINavigationBarDelegate {
+class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -19,19 +19,27 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate {
     
     setProfilePicCircle()
    
+   // if let photo = selectedProfile.profilePicID {
+      
+      
+   // }
     
     
   }
   
   var selectedProfile: Profile!
   var managedObjectContext: NSManagedObjectContext!
- 
+  var profilePicLoad: UIImage? {
+    return selectedProfile.photoImage
+  }
+
 
   
   @IBOutlet weak var name: UILabel!
   @IBOutlet weak var species: UILabel!
   @IBOutlet weak var age: UILabel!
   @IBOutlet weak var profilePic: UIImageView!
+  
   
   
   override func viewWillAppear(animated: Bool) {
@@ -46,11 +54,11 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate {
       name.text = selectedProfile.name
       species.text = selectedProfile.species
       age.text = ageCalc.difference(ageCalcInput)
+      profilePic.image = profilePicLoad
       
     } else {
       print("error in transfer")
     }
-    
     
   }
   
@@ -70,17 +78,18 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate {
     
     let ac = UIAlertController(title: "Change Profile Picture", message: nil, preferredStyle: .ActionSheet)
     
-    if profile.profilePic
-    let removePhoto = UIAlertAction(title: "Remove Profile Picture", style: .Destructive, handler: nil)
-    ac.addAction(removePhoto)
+    if selectedProfile.profilePicID == true {
+      let removePhoto = UIAlertAction(title: "Remove Profile Picture", style: .Destructive, handler: nil)
+      ac.addAction(removePhoto)
+    }
     
     let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
     ac.addAction(cancelAction)
     
-    if selectedProfile.photo!.count > 0 {
-      let addFromPhotoAlbum = UIAlertAction(title: "Choose From Album", style: .Default, handler: nil)
-      ac.addAction(addFromPhotoAlbum)
-    }
+    
+    let addFromPhotoAlbum = UIAlertAction(title: "Choose From Album", style: .Default, handler:{_ in self.choosePhotoFromLibrary()})
+    ac.addAction(addFromPhotoAlbum)
+    
     
     let takePhoto = UIAlertAction(title: "Take Photo", style: .Default, handler: nil)
     ac.addAction(takePhoto)
@@ -88,6 +97,67 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate {
     presentViewController(ac, animated: true, completion: nil)
     
   }
+  var image: UIImage?
+  func saveProfilePhoto() {
+    
+    if let  _ =  image {
+      
+      
+      selectedProfile.profilePicID = Photos.nextPhotoID()
+      
+      if let image = image {
+        if let data = UIImageJPEGRepresentation(image, 0.5) {
+          
+          do {
+            try data.writeToFile(selectedProfile.photoPath, options: .DataWritingAtomic)
+          } catch {
+            print("Error Writing File: \(error)")
+          }
+        }
+        
+        
+        
+        do {
+          try managedObjectContext.save()
+          
+        } catch {
+          fatalError("Failure to save context: \(error)")
+        }
+      }else {
+        print("error enter all info")
+      }
+    }
+  }
+
+  
+  func takePhotoWithCamera() {
+    let imagePicker = UIImagePickerController()
+    imagePicker.sourceType = .Camera
+    imagePicker.delegate = self
+    imagePicker.allowsEditing = true
+    presentViewController(imagePicker, animated: true, completion: nil)
+  }
+  
+  func choosePhotoFromLibrary() {
+    let imagePicker = UIImagePickerController()
+    imagePicker.sourceType = .PhotoLibrary
+    imagePicker.delegate = self
+    imagePicker.allowsEditing = true
+    presentViewController(imagePicker, animated: true, completion: nil)
+  }
+
+  func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+    dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    dismissViewControllerAnimated(true, completion: nil)
+    
+    image = info[UIImagePickerControllerEditedImage] as? UIImage
+    saveProfilePhoto()
+  }
+  
   
   
   

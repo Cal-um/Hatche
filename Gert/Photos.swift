@@ -12,6 +12,7 @@ import CoreData
 
 class Photos: NSManagedObject {
   
+  
   //hasPhoto checks if the object contains a photo
   //var hasPhoto: Bool {
  //   return photoID != nil

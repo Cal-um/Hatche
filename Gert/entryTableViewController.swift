@@ -77,20 +77,24 @@ class entryTableViewController: UITableViewController {
         let age = Time()
         
         let dateOfHatch = profile.dob
-        
+        let photoLocation = profile.photoImage
         
         newCell.nameLabel.text = profile.name
         newCell.speciesLabel.text = profile.species
-        
-        /*func shortDate() -> String {
-          let cat = profile.dob
-          let dateFormatter = NSDateFormatter()
-          dateFormatter.dateFormat = "dd-MM-yyyy"
-          return dateFormatter.stringFromDate(cat!)
-        }*/
         newCell.dohLabel.text = age.difference(dateOfHatch)
         
-      }
+        if let _ = profile.profilePicID{
+        newCell.profilePic.image = photoLocation
+          }
+        
+        newCell.profilePic.layer.borderWidth = 1.0
+        newCell.profilePic.layer.masksToBounds = false
+        newCell.profilePic.layer.borderColor = UIColor.whiteColor().CGColor
+        newCell.profilePic.layer.cornerRadius = 13
+        newCell.profilePic.layer.cornerRadius = newCell.profilePic.frame.size.height/2
+        newCell.profilePic.clipsToBounds = true
+
+        }
 
         return cell
     }

@@ -275,7 +275,7 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     let imagePicker = UIImagePickerController()
     imagePicker.sourceType = .PhotoLibrary
     imagePicker.delegate = self
-    imagePicker.allowsEditing = true
+    imagePicker.allowsEditing = false
     presentViewController(imagePicker, animated: true, completion: nil)
   }
   

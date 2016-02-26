@@ -147,13 +147,5 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
   }
   
   
-  
-  /*func fetchPhotos(into: Profile) -> [Photos] {
-    var convert: [Photos]
-    convert = into.photo!.allObjects as! [Photos]
-    
-    return convert
-  }*/
-
 
 }
