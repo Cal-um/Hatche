@@ -83,7 +83,7 @@ class entryTableViewController: UITableViewController {
         newCell.speciesLabel.text = profile.species
         newCell.dohLabel.text = age.difference(dateOfHatch)
         
-        if profile.profilePicID != nil {
+        if profile.photoImage != nil {
           newCell.profilePic.image = profile.photoImage
         } else {
           newCell.profilePic.image = defaultProfilePic

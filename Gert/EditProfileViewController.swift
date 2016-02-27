@@ -29,6 +29,7 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
       nameTextField.text = profile.name
       speciesTextField.text = profile.species
       datePicker.date = profile.dob
+
     }
   }
   

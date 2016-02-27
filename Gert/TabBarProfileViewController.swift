@@ -18,9 +18,6 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     managedObjectContext = tbvc.managedObjectContext!
     
     setProfilePicCircle()
-   
-
-    
     
   }
   
@@ -43,7 +40,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
   override func viewWillAppear(animated: Bool) {
     
     
-    if selectedProfile.profilePicID != nil {
+    if selectedProfile.photoImage != nil {
       profilePic.image = profilePicLoad
     } else {
       profilePic.image = defaultProfilePic
