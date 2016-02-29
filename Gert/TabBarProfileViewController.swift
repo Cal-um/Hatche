@@ -19,6 +19,9 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     
     setProfilePicCircle()
     
+    let backImage = UIImage(named: "backButton")
+    self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
+    
   }
   
   var selectedProfile: Profile!
@@ -195,5 +198,9 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     }
   }
 
+  func unwindToEntryTable(){
+    self.performSegueWithIdentifier("unwindtoentry", sender: self)
+  }
+  
   
 }

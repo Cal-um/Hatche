@@ -25,6 +25,8 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     
+    navigationItem.title = "Edit Profile"
+    
     if let profile = profile {
       nameTextField.text = profile.name
       speciesTextField.text = profile.species
@@ -150,6 +152,8 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
     }
   }
   
-  
+  func exit(){
+    self.dismissViewControllerAnimated(false, completion: nil)
+  }
 
 }

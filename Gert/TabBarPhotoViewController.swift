@@ -76,7 +76,8 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     collectionView!.pagingEnabled = false
     navigationController?.hidesBarsOnTap = false
 
-    navigationItem.setLeftBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "unwindToEntryTable"), animated: true)
+    let backImage = UIImage(named: "backButton")
+    self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
     navigationItem.setRightBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "addPicture"),animated: true)
     
     
@@ -101,7 +102,8 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     navigationController?.hidesBarsOnTap = true
     
     
-    navigationItem.setLeftBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "fadeBack"), animated: true)
+    let backImage = UIImage(named: "backButton")
+    self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "fadeBack")
     navigationItem.setRightBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: "deletePhoto"),animated: true)
     
     

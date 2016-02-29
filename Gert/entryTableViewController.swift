@@ -39,7 +39,8 @@ class entryTableViewController: UITableViewController {
 
       if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
        managedObjectContext = appDelegate.managedObjectContext
-       
+      
+        
   }
       
     }

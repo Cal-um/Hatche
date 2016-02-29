@@ -72,10 +72,10 @@
             </objects>
             <point key="canvasLocation" x="2068" y="564"/>
         </scene>
-        <!--Weight-->
+        <!--Measurements View Controller-->
         <scene sceneID="XXU-xF-eJ5">
             <objects>
-                <viewController id="VbI-qm-548" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="VbI-qm-548" customClass="MeasurementsViewController" customModule="Gert" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="N35-H5-LNG"/>
                         <viewControllerLayoutGuide type="bottom" id="HMF-9z-Qr9"/>
@@ -83,13 +83,61 @@
                     <view key="view" contentMode="scaleToFill" id="rJq-8Q-YYn">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1hu-a1-tBl" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="240"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ENp-OK-bl9">
+                                <rect key="frame" x="0.0" y="257" width="600" height="230"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" textLabel="d8r-HF-i2y" style="IBUITableViewCellStyleDefault" id="p8y-2Q-Xq9">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p8y-2Q-Xq9" id="fzj-uc-0IJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="553" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="10/02/2016                20 g" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d8r-HF-i2y">
+                                                    <rect key="frame" x="15" y="0.0" width="538" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1hu-a1-tBl" firstAttribute="centerX" secondItem="rJq-8Q-YYn" secondAttribute="centerX" id="7F2-8c-EZP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1hu-a1-tBl" secondAttribute="trailing" id="9kO-0b-Zkp"/>
+                            <constraint firstItem="1hu-a1-tBl" firstAttribute="top" secondItem="N35-H5-LNG" secondAttribute="bottom" id="Bj8-VW-QUO"/>
+                            <constraint firstItem="ENp-OK-bl9" firstAttribute="leading" secondItem="rJq-8Q-YYn" secondAttribute="leadingMargin" id="FMK-2l-q8F"/>
+                            <constraint firstItem="1hu-a1-tBl" firstAttribute="leading" secondItem="rJq-8Q-YYn" secondAttribute="leadingMargin" id="OyO-rJ-fzW"/>
+                            <constraint firstItem="HMF-9z-Qr9" firstAttribute="top" secondItem="ENp-OK-bl9" secondAttribute="bottom" id="SIn-Sy-QLL"/>
+                            <constraint firstItem="ENp-OK-bl9" firstAttribute="top" secondItem="1hu-a1-tBl" secondAttribute="bottom" id="fTM-mW-fRw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ENp-OK-bl9" secondAttribute="trailing" id="pde-On-jNd"/>
+                            <constraint firstItem="ENp-OK-bl9" firstAttribute="centerX" secondItem="rJq-8Q-YYn" secondAttribute="centerX" id="u1f-VJ-ptF"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Weight" id="ZMV-fX-nao"/>
+                    <navigationItem key="navigationItem" id="xFP-fZ-3to">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="J9l-SJ-q98"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="lineChartView" destination="1hu-a1-tBl" id="URp-ZC-cd5"/>
+                        <segue destination="Cub-02-aee" kind="unwind" identifier="unwindToEntryTable" unwindAction="cancelTabView:" id="N2y-14-or7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rb9-q0-gDp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Cub-02-aee" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2916" y="1921"/>
+            <point key="canvasLocation" x="3728" y="1921"/>
         </scene>
         <!--Tab Bar Photo View Controller-->
         <scene sceneID="bWL-q5-Gho">
@@ -191,11 +239,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="M1J-Ot-t99">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="EAr-si-ovE">
-                            <connections>
-                                <segue destination="diq-tT-hqg" kind="unwind" unwindAction="cancelTabView:" id="8cq-Ap-3uJ"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="EAr-si-ovE"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Vie-Fn-HWF">
                             <connections>
                                 <segue destination="Dg9-hH-b8l" kind="show" identifier="editSegue" id="4gd-dx-cyq"/>
@@ -208,6 +252,7 @@
                         <outlet property="name" destination="m7q-QC-XkK" id="646-CH-0gF"/>
                         <outlet property="profilePic" destination="jyV-I5-Gb1" id="8dX-mN-bfe"/>
                         <outlet property="species" destination="uFE-fz-vBJ" id="cnd-TM-Pby"/>
+                        <segue destination="diq-tT-hqg" kind="unwind" identifier="unwindtoentry" unwindAction="cancelTabView:" id="0U0-nV-mpw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3vZ-Ye-PAV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -226,32 +271,13 @@
                     </tabBar>
                     <connections>
                         <segue destination="2ec-GR-ywK" kind="relationship" relationship="viewControllers" id="00G-S7-JJm"/>
-                        <segue destination="VbI-qm-548" kind="relationship" relationship="viewControllers" id="DZE-Lr-emA"/>
+                        <segue destination="mko-3j-Yrm" kind="relationship" relationship="viewControllers" id="DZE-Lr-emA"/>
                         <segue destination="twp-jC-ei4" kind="relationship" relationship="viewControllers" id="spW-NN-UtR"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bko-Kp-BZN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1522" y="1727"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="jzp-2A-9aj">
-            <objects>
-                <viewController id="dnk-ma-Q4v" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="CRw-nV-nXS"/>
-                        <viewControllerLayoutGuide type="bottom" id="ced-P1-v9m"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="rgn-xT-kII">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="lkr-OL-U2e"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lpm-D3-UQG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2032" y="2423"/>
         </scene>
         <!--Add Hatchling-->
         <scene sceneID="wL7-Xm-dna">
@@ -386,7 +412,7 @@
         <scene sceneID="8Uz-Lf-Vsh">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2ec-GR-ywK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" id="adA-g9-u4J"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="Tab-Bar-Profile" selectedImage="Tab-Bar-Profile_Click" id="adA-g9-u4J"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="A1j-Ml-Sa0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -531,9 +557,11 @@
                         <outlet property="nameTextField" destination="fgg-jZ-Ft8" id="W0a-mU-uRq"/>
                         <outlet property="saveButton" destination="VYx-Oc-xuO" id="YjQ-w6-Lqr"/>
                         <outlet property="speciesTextField" destination="j7c-Ib-2f5" id="Kh5-nj-OA4"/>
+                        <segue destination="iIX-o9-Rkm" kind="unwind" unwindAction="cancelTabView:" id="s9C-Eb-uQr"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6iL-Fy-Ltg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="iIX-o9-Rkm" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer id="6c1-5v-1Eh">
                     <connections>
                         <action selector="dissmissWhenTapped:" destination="Dg9-hH-b8l" id="QvA-Bj-TKC"/>
@@ -561,5 +589,30 @@
             </objects>
             <point key="canvasLocation" x="3488" y="2891"/>
         </scene>
+        <!--Weight-->
+        <scene sceneID="vV5-ko-ocK">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mko-3j-Yrm" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Weight" image="Tab-Bar-Weight" selectedImage="Tab-Bar-Weight_Click" id="ZMV-fX-nao"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vHm-eo-jy2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="VbI-qm-548" kind="relationship" relationship="rootViewController" id="o7h-Cm-oLM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Eoc-z6-atL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2916" y="1921"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="Tab-Bar-Profile" width="25" height="25"/>
+        <image name="Tab-Bar-Profile_Click" width="25" height="25"/>
+        <image name="Tab-Bar-Weight" width="25" height="25"/>
+        <image name="Tab-Bar-Weight_Click" width="25" height="25"/>
+    </resources>
 </document>

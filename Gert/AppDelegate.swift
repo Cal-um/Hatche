@@ -45,10 +45,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     saveContext()
     print(applicationDocumentsDirectory)
+    
+    
+    
+    
   }
 
   
   
+
 
 
   func applicationWillResignActive(application: UIApplication) {
