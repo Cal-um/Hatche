@@ -10,7 +10,7 @@ import Charts
 import UIKit
 import CoreData
 
-class MeasurementsViewController: UIViewController, ChartViewDelegate {
+class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableViewDelegate, UITableViewDataSource {
   
   var selectedProfile: Profile! {
     didSet {
@@ -32,12 +32,12 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate {
     
     super.viewDidLoad()
     
-    //self.navigationController?.navigationBar.backIndicatorImage = UIImage(named: "backButton")
-    //self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "backButton")
-    let backImage = UIImage(named: "backButton")
+
+    let backImage = UIImage(named: "entryViewIcon")
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
     
-    //UINavigationBar.appearance().tintColor = UIColor.blueColor()
+    weightTableView.delegate = self
+    weightTableView.dataSource = self
     
     //Load selectedProfile data from TabBarViewController
     let tbvc = self.tabBarController  as! TabBarViewController
@@ -93,6 +93,33 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate {
       lineChartView.data = data
     }
   }
+  
+  
+  //tableView data source
+  
+  
+  @IBOutlet weak var weightTableView: UITableView!
+  
+  
+   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    // #warning Incomplete implementation, return the number of sections
+    return 1
+  }
+  
+   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    // #warning Incomplete implementation, return the number of rows
+    return 1
+  }
+  
+  
+   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell: UITableViewCell
+    
+    
+    cell = tableView.dequeueReusableCellWithIdentifier("weights", forIndexPath: indexPath)
+        return cell
+  }
+  
   
   func unwindToEntryTable(){
     self.performSegueWithIdentifier("unwindToEntryTable", sender: self)

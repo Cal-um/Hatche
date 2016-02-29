@@ -19,7 +19,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     
     setProfilePicCircle()
     
-    let backImage = UIImage(named: "backButton")
+    let backImage = UIImage(named: "entryViewIcon")
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
     
   }

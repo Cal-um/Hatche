@@ -92,14 +92,14 @@
                                 <rect key="frame" x="0.0" y="257" width="600" height="230"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" textLabel="d8r-HF-i2y" style="IBUITableViewCellStyleDefault" id="p8y-2Q-Xq9">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="weights" textLabel="d8r-HF-i2y" style="IBUITableViewCellStyleDefault" id="p8y-2Q-Xq9">
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p8y-2Q-Xq9" id="fzj-uc-0IJ">
                                             <rect key="frame" x="0.0" y="0.0" width="553" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="10/02/2016                20 g" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d8r-HF-i2y">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="10/02/2016 20 g" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d8r-HF-i2y">
                                                     <rect key="frame" x="15" y="0.0" width="538" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
@@ -131,6 +131,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="lineChartView" destination="1hu-a1-tBl" id="URp-ZC-cd5"/>
+                        <outlet property="weightTableView" destination="ENp-OK-bl9" id="lTG-kw-ge4"/>
                         <segue destination="Cub-02-aee" kind="unwind" identifier="unwindToEntryTable" unwindAction="cancelTabView:" id="N2y-14-or7"/>
                     </connections>
                 </viewController>
@@ -412,7 +413,7 @@
         <scene sceneID="8Uz-Lf-Vsh">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2ec-GR-ywK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" image="Tab-Bar-Profile" selectedImage="Tab-Bar-Profile_Click" id="adA-g9-u4J"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="Tab-Bar-Profile_75px" selectedImage="Tab-Bar-Profile_Click_25px" id="adA-g9-u4J"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="A1j-Ml-Sa0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -574,7 +575,7 @@
         <scene sceneID="9So-4n-wTm">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="twp-jC-ei4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Photos" id="On0-GY-KRD"/>
+                    <tabBarItem key="tabBarItem" title="Photos" image="Tab-Bar-Camera_75px" selectedImage="Tab-Bar-Camera_Click" id="On0-GY-KRD"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xR1-qA-mJI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -610,8 +611,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Tab-Bar-Profile" width="25" height="25"/>
-        <image name="Tab-Bar-Profile_Click" width="25" height="25"/>
+        <image name="Tab-Bar-Camera_75px" width="25" height="25"/>
+        <image name="Tab-Bar-Camera_Click" width="25" height="25"/>
+        <image name="Tab-Bar-Profile_75px" width="25" height="25"/>
+        <image name="Tab-Bar-Profile_Click_25px" width="25" height="25"/>
         <image name="Tab-Bar-Weight" width="25" height="25"/>
         <image name="Tab-Bar-Weight_Click" width="25" height="25"/>
     </resources>

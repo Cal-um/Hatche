@@ -76,7 +76,7 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     collectionView!.pagingEnabled = false
     navigationController?.hidesBarsOnTap = false
 
-    let backImage = UIImage(named: "backButton")
+    let backImage = UIImage(named: "entryViewIcon")
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
     navigationItem.setRightBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "addPicture"),animated: true)
     
