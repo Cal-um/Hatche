@@ -144,7 +144,20 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   
   
   override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    
+    let emptyLabel = UILabel(frame: CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height))
+    emptyLabel.text = "No Photos Added :("
+    emptyLabel.textAlignment = NSTextAlignment.Center
+    emptyLabel.textColor = UIColor.lightGrayColor()
+    
+    
+    if sorted.count == 0 {
+      
+      collectionView.backgroundView = emptyLabel
+      return 0
+    } else {
     return sorted.count
+    }
   }
   
   override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

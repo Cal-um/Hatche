@@ -227,7 +227,6 @@
                     <connections>
                         <segue destination="2ec-GR-ywK" kind="relationship" relationship="viewControllers" id="00G-S7-JJm"/>
                         <segue destination="VbI-qm-548" kind="relationship" relationship="viewControllers" id="DZE-Lr-emA"/>
-                        <segue destination="DCW-FN-r4o" kind="relationship" relationship="viewControllers" id="wc0-l5-oEy"/>
                         <segue destination="twp-jC-ei4" kind="relationship" relationship="viewControllers" id="spW-NN-UtR"/>
                     </connections>
                 </tabBarController>
@@ -382,25 +381,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FjO-Uh-3TD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1256" y="564"/>
-        </scene>
-        <!--Notes-->
-        <scene sceneID="9LQ-5X-uM4">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DCW-FN-r4o" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Notes" id="Fl6-YF-C7F"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kzc-q8-LWi">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="dnk-ma-Q4v" kind="relationship" relationship="rootViewController" id="ETh-oS-EPp"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QOf-35-ldg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1220" y="2423"/>
         </scene>
         <!--Profile-->
         <scene sceneID="8Uz-Lf-Vsh">
