@@ -21,7 +21,7 @@ class Profile: NSManagedObject {
   
   var photoPath: String {
     //assert(photoID != nil, "No photo ID set")
-    let filename = "Photo-\(profilePicID!.integerValue).jpeg"
+    let filename = "Photo-\(profilePicID?.integerValue).jpeg"
     return (applicationDocumentsDirectory as NSString).stringByAppendingPathComponent(filename)
   }
   

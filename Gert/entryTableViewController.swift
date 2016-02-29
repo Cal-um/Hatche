@@ -15,6 +15,7 @@ class entryTableViewController: UITableViewController {
   var managedObjectContext: NSManagedObjectContext!
   
   var profiles = [Profile]()
+  let defaultProfilePic = UIImage(named: "egg")
   
   func fetchAllProfiles() {
      
@@ -77,15 +78,16 @@ class entryTableViewController: UITableViewController {
         let age = Time()
         
         let dateOfHatch = profile.dob
-        let photoLocation = profile.photoImage
         
         newCell.nameLabel.text = profile.name
         newCell.speciesLabel.text = profile.species
         newCell.dohLabel.text = age.difference(dateOfHatch)
         
-        if let _ = profile.profilePicID{
-        newCell.profilePic.image = photoLocation
-          }
+        if profile.photoImage != nil {
+          newCell.profilePic.image = profile.photoImage
+        } else {
+          newCell.profilePic.image = defaultProfilePic
+        }
         
         newCell.profilePic.layer.borderWidth = 1.0
         newCell.profilePic.layer.masksToBounds = false

@@ -81,6 +81,7 @@ class AddRepViewController: UITableViewController, UITextFieldDelegate {
         profile?.species = species
           profile?.dob = dob
           profile.photo = nil
+          profile.profilePicID = nil 
   print(profile)
       
       do {

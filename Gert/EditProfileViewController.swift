@@ -29,6 +29,7 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
       nameTextField.text = profile.name
       speciesTextField.text = profile.species
       datePicker.date = profile.dob
+
     }
   }
   
@@ -143,6 +144,9 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
       for i in photosCast {
         i.removePhotoFile()
       }
+    }
+    if let _ = profile.profilePicID {
+      profile.removePhotoFile()
     }
   }
   
