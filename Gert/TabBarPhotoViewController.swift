@@ -104,6 +104,8 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     navigationItem.setLeftBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "fadeBack"), animated: true)
     navigationItem.setRightBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: "deletePhoto"),animated: true)
     
+    
+    
     return layout
   }
   
@@ -128,6 +130,10 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
       self.saveContext()
       self.inputSam()
       self.collectionView!.deleteItemsAtIndexPaths(index)
+      
+      if self.sorted.count == 0 {
+        self.fadeBack()
+      }
     })
     
     ac.addAction(deletePhoto)
@@ -145,17 +151,18 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   
   override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
-    let emptyLabel = UILabel(frame: CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height))
-    emptyLabel.text = "No Photos Added :("
-    emptyLabel.textAlignment = NSTextAlignment.Center
-    emptyLabel.textColor = UIColor.lightGrayColor()
+    
     
     
     if sorted.count == 0 {
-      
+      let emptyLabel = UILabel(frame: CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height))
+      emptyLabel.text = "No Photos Added :("
+      emptyLabel.textAlignment = NSTextAlignment.Center
+      emptyLabel.textColor = UIColor.lightGrayColor()
       collectionView.backgroundView = emptyLabel
       return 0
     } else {
+      collectionView.backgroundView = nil
     return sorted.count
     }
   }
