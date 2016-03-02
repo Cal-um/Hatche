@@ -193,7 +193,11 @@
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="camera" id="aUT-px-hsT"/>
-                            <barButtonItem systemItem="action" id="4XT-aG-7So"/>
+                            <barButtonItem systemItem="action" id="4XT-aG-7So">
+                                <connections>
+                                    <action selector="showShareOptions:" destination="SG1-3D-BzM" id="FxB-Od-2wC"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                 </collectionViewController>
@@ -241,11 +245,18 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="M1J-Ot-t99">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="EAr-si-ovE"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Vie-Fn-HWF">
-                            <connections>
-                                <segue destination="Dg9-hH-b8l" kind="show" identifier="editSegue" id="4gd-dx-cyq"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="edit" id="Vie-Fn-HWF">
+                                <connections>
+                                    <segue destination="Dg9-hH-b8l" kind="show" identifier="editSegue" id="4gd-dx-cyq"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="action" id="E0S-Vb-cAh">
+                                <connections>
+                                    <action selector="showShareOptions:" destination="3WE-PM-XhQ" id="Lbk-Ro-beA"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>

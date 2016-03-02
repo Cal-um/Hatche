@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Tab-Bar-Camera_25px.png",
+      "filename" : "Tab-Bar-Photo_25px.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Tab-Bar-Camera_50px.png",
+      "filename" : "Tab-Bar-Photo_50px.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Tab-Bar-Camera_75px.png",
+      "filename" : "Tab-Bar-Photo_75px.png",
       "scale" : "3x"
     }
   ],

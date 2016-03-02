@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Social
 
 class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
   
@@ -202,5 +203,70 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     self.performSegueWithIdentifier("unwindtoentry", sender: self)
   }
   
+  func screenShotMethod()-> UIImage {
+    
+    UIGraphicsBeginImageContextWithOptions(view.frame.size, false, 0.0)
+    view.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+    let image = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return image
+  }
   
+  
+  
+  func showAlertMessage(message: String!) {
+    let alertController = UIAlertController(title: "Hatche", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+    presentViewController(alertController, animated: true, completion: nil)
+  }
+  
+  
+  
+  
+  @IBAction func showShareOptions(sender: AnyObject) {
+    
+    let ac = UIAlertController(title: "", message: "Share Profile", preferredStyle: UIAlertControllerStyle.ActionSheet)
+  
+    
+    // Configure a new action to share on Facebook.
+    
+    let facebookPostAction = UIAlertAction(title: "Share on Facebook", style: UIAlertActionStyle.Default) { (action) -> Void in
+      
+      if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
+        let facebookComposeVC = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+        
+        facebookComposeVC.setInitialText(self.selectedProfile.name + " via Hatche for iPhone")
+        facebookComposeVC.addImage(self.screenShotMethod())
+        facebookComposeVC.addImage(self.selectedProfile.photoImage)
+
+          self.presentViewController(facebookComposeVC, animated: true, completion: nil)
+      }
+      else {
+         self.showAlertMessage("Device not connected to a Facebook account")
+      }
+    }
+
+  
+    
+    
+    // Configure a new action to show the UIActivityViewController
+    let moreAction = UIAlertAction(title: "More", style: UIAlertActionStyle.Default) { (action) -> Void in
+      
+    }
+    
+    
+    let dismissAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+      
+  }
+  
+    
+    ac.addAction(facebookPostAction)
+    ac.addAction(moreAction)
+    ac.addAction(dismissAction)
+    
+    presentViewController(ac, animated: true, completion: nil)
+  
+    }
+
+
 }
