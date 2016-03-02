@@ -165,6 +165,9 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mvT-br-zx8">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                         </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Tab-Bar-Profile_75px" translatesAutoresizingMaskIntoConstraints="NO" id="CDM-AQ-Gzj">
+                                            <rect key="frame" x="100" y="184" width="40" height="40"/>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -172,11 +175,16 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="mvT-br-zx8" secondAttribute="trailing" id="1j6-Aq-UL7"/>
                                     <constraint firstItem="mvT-br-zx8" firstAttribute="leading" secondItem="VE7-DV-mnG" secondAttribute="leading" id="4a0-DJ-nqD"/>
+                                    <constraint firstItem="CDM-AQ-Gzj" firstAttribute="centerX" secondItem="VE7-DV-mnG" secondAttribute="centerX" id="CnL-oF-aOb"/>
                                     <constraint firstAttribute="bottom" secondItem="mvT-br-zx8" secondAttribute="bottom" id="U78-gU-zyv"/>
                                     <constraint firstItem="mvT-br-zx8" firstAttribute="top" secondItem="VE7-DV-mnG" secondAttribute="top" id="W9h-9j-XmW"/>
+                                    <constraint firstItem="CDM-AQ-Gzj" firstAttribute="centerY" secondItem="VE7-DV-mnG" secondAttribute="centerY" id="jDQ-P5-fMM"/>
+                                    <constraint firstItem="mvT-br-zx8" firstAttribute="centerY" secondItem="VE7-DV-mnG" secondAttribute="centerY" id="la9-of-EIC"/>
+                                    <constraint firstItem="mvT-br-zx8" firstAttribute="centerX" secondItem="VE7-DV-mnG" secondAttribute="centerX" id="qKd-uS-JtT"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="PhotoImageView" destination="mvT-br-zx8" id="cab-Ca-YOD"/>
+                                    <outlet property="selectedImageMark" destination="CDM-AQ-Gzj" id="u4D-3Q-93D"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>

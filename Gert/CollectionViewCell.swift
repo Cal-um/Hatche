@@ -12,7 +12,25 @@ class CollectionViewCell: UICollectionViewCell {
   
   
   @IBOutlet weak var PhotoImageView: UIImageView!
- 
+  @IBOutlet weak var selectedImageMark: UIImageView!
+  
+  
+  
+  
+  var sharing: Bool = false {
+    didSet {
+      selectedImageMark.hidden  = !sharing
+    }
+  }
+  
+  override var selected: Bool {
+    didSet {
+      if sharing {
+        selectedImageMark.image = UIImage(named: selected ? "Tab-Bar-Profile_Click_25px" : "Tab-Bar-Profile_75px")
+      }
+    }
+  }
+  
   
   
   func changeToAspectFill() {

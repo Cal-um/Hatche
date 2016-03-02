@@ -205,7 +205,7 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
       } else {
         cell.PhotoImageView.contentMode = UIViewContentMode.ScaleAspectFit
       }
-   
+    cell.sharing = sharing
     cell.PhotoImageView.image = selectPhoto
     }
     return cell
@@ -396,7 +396,7 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   
   func facebookShare() {
     
-   // sharing = !sharing
+   
     
     if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
       let facebookComposeVC = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
@@ -413,7 +413,7 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
         let photo = returnUIImage(i)
         facebookComposeVC.addImage(photo)
       }
-      
+      setLayoutForFacebookShare()
       self.presentViewController(facebookComposeVC, animated: true, completion: nil)
     }
     else {
@@ -423,6 +423,7 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   
   func setLayoutForFacebookShare() {
    sharing = !sharing
+   self.collectionView!.reloadData()
    collectionViewInitialView()
   }
   
