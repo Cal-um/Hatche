@@ -19,10 +19,10 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
   }
 
   var managedObjectContext: NSManagedObjectContext!
+  var months: [NSDate] = []
+  var weight: [Double] = []
+  var weightClass: [Weight] = []
   
-  
-  var months: [String]!
-  let weight = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0, 4.0, 18.0, 2.0, 4.0, 5.0, 4.0, 8.0, 9.0]
   
   
   
@@ -31,6 +31,7 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
   override func viewDidLoad() {
     
     super.viewDidLoad()
+    
     
 
     let backImage = UIImage(named: "entryViewIcon")
@@ -44,15 +45,15 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     selectedProfile = tbvc.selectedProfile!
     managedObjectContext = tbvc.managedObjectContext!
     
-    
+    weightClass = fetchWeights(selectedProfile)
     //Set chart Data
     
     lineChartView.delegate = self
     lineChartView.descriptionTextColor = UIColor.whiteColor()
     
-    months = ["Jan, 05", "Feb, 05", "Mar 05", "Apr 05", "May 05", "Jun 05", "Jul 05", "Aug 05", "Sep, 05", "Oct, 05", "Nov 05", "Dec 05", "Jan 06", "Feb, 06,"]
     
-    setChart(months, values: weight)
+    
+    //setChart(months, values: weight)
     
     self.lineChartView.setVisibleXRangeMaximum(5.0)
     
@@ -63,6 +64,15 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     //Set starting view for graph
     self.lineChartView.moveViewToX(months.count - 6)
   }
+  
+  func fetchWeights(into: Profile) -> [Weight] {
+    var convert: [Weight]
+    convert = into.profileWeight!.allObjects as! [Weight]
+    
+    return convert
+  }
+  
+  
   
   
   func setChart(dataPoints: [String], values: [Double]) {
@@ -101,6 +111,7 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
   @IBOutlet weak var weightTableView: UITableView!
   
   
+  
    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     // #warning Incomplete implementation, return the number of sections
     return 1
@@ -119,6 +130,12 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     cell = tableView.dequeueReusableCellWithIdentifier("weights", forIndexPath: indexPath)
         return cell
   }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if 
+  }
+  
+  
   
   
   func unwindToEntryTable(){

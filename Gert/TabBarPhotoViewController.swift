@@ -414,6 +414,7 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
         facebookComposeVC.addImage(photo)
       }
       setLayoutForFacebookShare()
+     
       self.presentViewController(facebookComposeVC, animated: true, completion: nil)
     }
     else {
