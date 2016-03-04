@@ -20,6 +20,11 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
 
   var managedObjectContext: NSManagedObjectContext!
   var weightClass: [Weight]!
+  var preSort: [Weight]! {
+    didSet {
+      weightClass = preSort.sort({ $0.wDate.compare($1.wDate) == .OrderedAscending })
+    }
+  }
   var weight: [Double]!
   var months: [String]!
   
@@ -31,8 +36,6 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     
     super.viewDidLoad()
     
-    
-
     let backImage = UIImage(named: "entryViewIcon")
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
     
@@ -43,34 +46,30 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     let tbvc = self.tabBarController  as! TabBarViewController
     selectedProfile = tbvc.selectedProfile!
     managedObjectContext = tbvc.managedObjectContext!
-    
-    
-    //Set chart Data
-    
+
+  }
+  
+  
+  //Set chart Data
+  
+  override func viewDidAppear(animated: Bool) {
     lineChartView.delegate = self
     lineChartView.descriptionTextColor = UIColor.whiteColor()
     self.lineChartView.setVisibleXRangeMaximum(5.0)
-    
-    weightClass = fetchWeights(selectedProfile)
-    months = weighInDateArray(weightClass)
-    weight = setWeightArray(weightClass)
-    print(weight)
-    print(months)
+
     self.lineChartView.moveViewToX(months.count - 6)
-
-    
-
-    print(months.count)
   }
   
-  override func viewDidAppear(animated: Bool) {
-    //Set starting view for graph
-   
+   override func viewWillAppear(animated: Bool) {
     
+    preSort = fetchWeights(selectedProfile)
+    months = weighInDateArray(weightClass)
+    weight = setWeightArray(weightClass)
     setChart(months, values: weight)
-
+    weightTableView.reloadData()
     
   }
+  
   
   func fetchWeights(into: Profile) -> [Weight] {
     var convert: [Weight]
@@ -83,12 +82,19 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
   
   
   func setChart(dataPoints: [String], values: [Double]) {
+   
+    //remove duplicate months
+    let duplicateIndex = recordDuplicates(dataPoints)
+    let monthArray: [String] = deleteDuplicateMonths(dataPoints, toDelete: duplicateIndex)
+    let weightArray: [Double] = deleteDuplicateWeights(values, toDelete: duplicateIndex)
+    
+    //configure graph
     lineChartView.noDataText = "More Data Required"
     lineChartView.noDataTextDescription = "Minimum Two Month Input Required For Chart Population"
     
     var yVals1: [ChartDataEntry] = [ChartDataEntry]()
-    for i in 0..<months.count {
-        yVals1.append(ChartDataEntry(value: weight[i], xIndex: i))
+    for i in 0..<monthArray.count {
+        yVals1.append(ChartDataEntry(value: weightArray[i], xIndex: i))
       
       let set1: LineChartDataSet = LineChartDataSet(yVals: yVals1, label: "grams")
       set1.axisDependency = .Left
@@ -99,12 +105,10 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
       set1.highlightColor = UIColor.blueColor()
       set1.drawCircleHoleEnabled = true
       
-      
-      
       var dataSets: [LineChartDataSet] = [LineChartDataSet]()
       dataSets.append(set1)
       
-      let data: LineChartData = LineChartData(xVals: dataPoints, dataSets: dataSets)
+      let data: LineChartData = LineChartData(xVals: monthArray, dataSets: dataSets)
       data.setValueTextColor(UIColor.whiteColor())
       
       lineChartView.data = data
@@ -112,12 +116,53 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
   }
   
   
+  func recordDuplicates(array: [String]) -> [Int] {
+    var encountered = Set<String>()
+    var toDeleteIndex: [Int] = []
+    var index = 0
+    for value in array {
+      if encountered.contains(value) {
+        toDeleteIndex.append(index)
+        index += 1
+      }
+      else {
+        encountered.insert(value)
+        index += 1
+      }
+    }
+    return toDeleteIndex
+  }
+  
+  func deleteDuplicateMonths(inputArray: [String], toDelete: [Int]) -> [String] {
+    var outputArray = inputArray
+    var r = 0
+    for i in toDelete {
+      outputArray.removeAtIndex((i - r))
+      while r < 2 {
+        r += 1
+      }
+    }
+    return outputArray
+    
+  }
+  
+  func deleteDuplicateWeights(inputArray: [Double], toDelete: [Int]) -> [Double] {
+    var outputArray = inputArray
+    var r = 0
+    for i in toDelete {
+      outputArray.removeAtIndex((i - r))
+      while r < 2 {
+        r += 1
+      }
+    }
+    return outputArray
+    
+  }
+
   //tableView data source
   
   
   @IBOutlet weak var weightTableView: UITableView!
-  
-  
   
    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     // #warning Incomplete implementation, return the number of sections
@@ -183,7 +228,7 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     
       stringHolder.append(weightString + "g" + " : " + dateString)
     }
-  return stringHolder
+  return stringHolder.reverse()
   }
 
   
