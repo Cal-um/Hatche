@@ -61,35 +61,63 @@ class WeightDetailViewController: UITableViewController, UITextFieldDelegate {
   
   @IBAction func tappedDatePicker(sender: AnyObject) {
     weightInput.resignFirstResponder()
+    saveButton.enabled = true
       }
   
   @IBAction func saveWeight(sender: AnyObject) {
     
-    
-    if let wDate: NSDate = weighDate.date, recordedWeight = weightInput.text {
+    if editWeight == true {
       
-      let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-      weight = NSEntityDescription.insertNewObjectForEntityForName("Weight", inManagedObjectContext: appDelegate.managedObjectContext) as! Weight
+      if let wDate: NSDate = weighDate.date, recordedWeight = weightInput.text {
+        
+        let rWeight = Double(recordedWeight)
+        weight.wDate = wDate
+        weight.recodedWeight = rWeight!
+        weight.wOwner = selectedProfile
+        saveContext()
+        navigationController?.popViewControllerAnimated(true)
+        
+      }}
       
-      let rWeight = Double(recordedWeight)
-      weight.wDate = wDate
-      weight.recodedWeight = rWeight!
-      weight.wOwner = selectedProfile
+      if editWeight == false {
+        
+        if let wDate: NSDate = weighDate.date, recordedWeight = weightInput.text {
       
-      do {
-        try managedObjectContext.save()
-      } catch {
-        fatalError("Failure to save context: \(error)")
-      }
-    }else{
-      print("error enter all info")
-    }
-    
+          let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+          weight = NSEntityDescription.insertNewObjectForEntityForName("Weight", inManagedObjectContext: appDelegate.managedObjectContext) as! Weight
+        
+          let rWeight = Double(recordedWeight)
+          weight.wDate = wDate
+          weight.recodedWeight = rWeight!
+          weight.wOwner = selectedProfile
+            }
+            do {
+              try managedObjectContext.save()
+              } catch {
+                fatalError("Failure to save context: \(error)")
+              }
+              } else {
+                print("error enter all info")
+             }
+      
     navigationController?.popViewControllerAnimated(true)
     print(selectedProfile.profileWeight)
-    
-  }
- 
+      }
+      
+
+
+    func saveContext () {
+      if managedObjectContext.hasChanges {
+        do {
+          try managedObjectContext.save()
+        } catch {
+          let nserror = error as NSError
+          NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+          abort()
+        }
+      }
+    }
+
 
   
 }

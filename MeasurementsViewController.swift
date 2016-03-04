@@ -192,6 +192,17 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     return cell
   }
   
+   func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    let indexPaths = [indexPath]
+    let delete = weightClass.reverse()[indexPath.row]
+    managedObjectContext.deleteObject(delete)
+    saveContext()
+    preSort = fetchWeights(selectedProfile)
+    months = weighInDateArray(weightClass)
+    weight = setWeightArray(weightClass)
+    setChart(months, values: weight)
+    weightTableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+  }
   
   
   func setWeightArray(input: [Weight]) -> [Double] {
@@ -232,6 +243,9 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
   }
 
   
+  
+  
+  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if (segue.identifier == "addItem") {
       if let dest = segue.destinationViewController as? WeightDetailViewController {
@@ -245,6 +259,9 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
         dest.managedObjectContext = managedObjectContext
         dest.selectedProfile = selectedProfile
         dest.editWeight = true
+        if let indexPath = weightTableView.indexPathForCell(sender as! UITableViewCell) {
+        dest.weight = weightClass.reverse()[indexPath.row]
+        }
     }
   }
     
@@ -259,7 +276,17 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     self.performSegueWithIdentifier("unwindToEntryTable", sender: self)
   }
   
-  
+  func saveContext () {
+    if managedObjectContext.hasChanges {
+      do {
+        try managedObjectContext.save()
+      } catch {
+        let nserror = error as NSError
+        NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+        abort()
+      }
+    }
+  }
   
   
 }
