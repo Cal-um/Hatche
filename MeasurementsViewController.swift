@@ -19,10 +19,9 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
   }
 
   var managedObjectContext: NSManagedObjectContext!
-  var months: [NSDate] = []
-  var weight: [Double] = []
-  var weightClass: [Weight] = []
-  
+  var weightClass: [Weight]!
+  var weight: [Double]!
+  var months: [String]!
   
   
   
@@ -45,24 +44,32 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     selectedProfile = tbvc.selectedProfile!
     managedObjectContext = tbvc.managedObjectContext!
     
-    weightClass = fetchWeights(selectedProfile)
+    
     //Set chart Data
     
     lineChartView.delegate = self
     lineChartView.descriptionTextColor = UIColor.whiteColor()
-    
-    
-    
-    //setChart(months, values: weight)
-    
     self.lineChartView.setVisibleXRangeMaximum(5.0)
     
+    weightClass = fetchWeights(selectedProfile)
+    months = weighInDateArray(weightClass)
+    weight = setWeightArray(weightClass)
+    print(weight)
+    print(months)
+    self.lineChartView.moveViewToX(months.count - 6)
+
+    
+
     print(months.count)
   }
   
   override func viewDidAppear(animated: Bool) {
     //Set starting view for graph
-    self.lineChartView.moveViewToX(months.count - 6)
+   
+    
+    setChart(months, values: weight)
+
+    
   }
   
   func fetchWeights(into: Profile) -> [Weight] {
@@ -83,7 +90,7 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     for i in 0..<months.count {
         yVals1.append(ChartDataEntry(value: weight[i], xIndex: i))
       
-      let set1: LineChartDataSet = LineChartDataSet(yVals: yVals1, label: "Weight in Grams")
+      let set1: LineChartDataSet = LineChartDataSet(yVals: yVals1, label: "grams")
       set1.axisDependency = .Left
       set1.setColor(UIColor(red: 0, green: 122, blue: 255, alpha: 1))
       set1.setCircleColor(UIColor.blueColor())
@@ -119,24 +126,89 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
   
    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     // #warning Incomplete implementation, return the number of rows
-    return 1
+    return weightClass.count
   }
   
+  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    return "Weight : Date"
+  }
   
    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell: UITableViewCell
     
+    let cell = tableView.dequeueReusableCellWithIdentifier("weights", forIndexPath: indexPath)
     
-    cell = tableView.dequeueReusableCellWithIdentifier("weights", forIndexPath: indexPath)
-        return cell
+    let items = tableViewStrings(weightClass, setWeightArray: weight)
+    
+    let item = items[indexPath.row]
+    print(item)
+    print(weight.count)
+    cell.textLabel!.text = item
+    
+    return cell
   }
+  
+  
+  
+  func setWeightArray(input: [Weight]) -> [Double] {
+    var holder: [Double] = []
+    for i in input {
+      let convWeight = Double(round(100 * Double((i.recodedWeight))) / 100)
+      holder.append(convWeight)
+    }
+    return holder
+  }
+  
+  func weighInDateArray(input: [Weight]) -> [String] {
+    
+    var holder: [String] = []
+    let monthYearFormatter = NSDateFormatter()
+    monthYearFormatter.dateFormat = "MMM, YY"
+    for i in input {
+      let dateString = monthYearFormatter.stringFromDate(i.wDate)
+      holder.append(dateString)
+    }
+    return holder
+  }
+  
+  func tableViewStrings(weightClass: [Weight], setWeightArray: [Double]) -> [String] {
+    var stringHolder: [String] = []
+    let dateToStringFormatter = NSDateFormatter()
+    dateToStringFormatter.dateStyle = .ShortStyle
+    
+    for i in 0..<weightClass.count {
+      let date = weightClass[i]
+      let dateString = dateToStringFormatter.stringFromDate(date.wDate)
+      let weight = setWeightArray[i]
+      let weightString = String(weight)
+    
+      stringHolder.append(weightString + "g" + " : " + dateString)
+    }
+  return stringHolder
+  }
+
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if 
+    if (segue.identifier == "addItem") {
+      if let dest = segue.destinationViewController as? WeightDetailViewController {
+        dest.managedObjectContext = managedObjectContext
+        dest.selectedProfile = selectedProfile
+        dest.editWeight = false
+      }
+    }
+    if (segue.identifier == "editItem") {
+      if let dest = segue.destinationViewController as? WeightDetailViewController {
+        dest.managedObjectContext = managedObjectContext
+        dest.selectedProfile = selectedProfile
+        dest.editWeight = true
+    }
+  }
+    
   }
   
   
-  
+  override func viewWillDisappear(animated: Bool) {
+    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+  }
   
   func unwindToEntryTable(){
     self.performSegueWithIdentifier("unwindToEntryTable", sender: self)
