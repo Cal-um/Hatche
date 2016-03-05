@@ -42,6 +42,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     bob.name = "Gerty"
     bob.species = "Gargoyle Gecko"
     bob.dob = NSDate()
+    bob.currentWeight = nil
+    bob.sex = "Male"
+    
     
     saveContext()
     print(applicationDocumentsDirectory)

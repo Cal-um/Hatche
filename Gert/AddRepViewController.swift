@@ -83,6 +83,8 @@ class AddRepViewController: UITableViewController, UITextFieldDelegate {
             profile.photo = nil
             profile.profilePicID = nil
             profile.profileWeight = nil
+            profile.currentWeight = nil
+            profile.sex = "Unsexed"
       
   print(profile)
       

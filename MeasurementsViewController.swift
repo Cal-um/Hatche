@@ -19,7 +19,11 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
   }
 
   var managedObjectContext: NSManagedObjectContext!
-  var weightClass: [Weight]!
+  var weightClass: [Weight]! {
+    didSet {
+      lastInArray = weightClass.last
+    }
+  }
   var preSort: [Weight]! {
     didSet {
       weightClass = preSort.sort({ $0.wDate.compare($1.wDate) == .OrderedAscending })
@@ -27,7 +31,7 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
   }
   var weight: [Double]!
   var months: [String]!
-  
+  var lastInArray: Weight?
   
   
     @IBOutlet weak var lineChartView: LineChartView!
@@ -58,6 +62,7 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     self.lineChartView.setVisibleXRangeMaximum(5.0)
 
     self.lineChartView.moveViewToX(months.count - 6)
+    saveLatestWeight(lastInArray)
   }
   
    override func viewWillAppear(animated: Bool) {
@@ -69,6 +74,49 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     weightTableView.reloadData()
     
   }
+  
+  override func viewWillDisappear(animated: Bool) {
+    
+    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+    /*
+    if let lastInArray = weightClass.last  {
+    
+    if selectedProfile.currentWeight != lastInArray.recodedWeight {
+      selectedProfile.currentWeight = lastInArray.recodedWeight
+      saveContext()
+      }
+      
+    } else {
+        if selectedProfile.currentWeight != nil {
+        selectedProfile.currentWeight = nil
+        saveContext()
+        }
+      
+    } */
+  }
+  
+  func saveLatestWeight(lastInArray: Weight?) {
+    
+    if let lastInArray = weightClass.last  {
+      
+      if selectedProfile.currentWeight != lastInArray.recodedWeight {
+        selectedProfile.currentWeight = lastInArray.recodedWeight
+        saveContext()
+      }
+      
+    } else {
+      if selectedProfile.currentWeight != nil {
+        selectedProfile.currentWeight = nil
+        saveContext()
+      }
+      
+    }
+  }
+  
+  
+  
+  
+  
   
   
   func fetchWeights(into: Profile) -> [Weight] {
@@ -202,6 +250,7 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     weight = setWeightArray(weightClass)
     setChart(months, values: weight)
     weightTableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+    saveLatestWeight(lastInArray)
   }
   
   
@@ -268,9 +317,7 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
   }
   
   
-  override func viewWillDisappear(animated: Bool) {
-    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
-  }
+
   
   func unwindToEntryTable(){
     self.performSegueWithIdentifier("unwindToEntryTable", sender: self)

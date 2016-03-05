@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import Social
 
-class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -23,6 +23,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     let backImage = UIImage(named: "entryViewIcon")
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
     
+    notes.delegate = self
   }
   
   var selectedProfile: Profile!
@@ -37,6 +38,10 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
   @IBOutlet weak var species: UILabel!
   @IBOutlet weak var age: UILabel!
   @IBOutlet weak var profilePic: UIImageView!
+  @IBOutlet weak var weight: UILabel!
+  @IBOutlet weak var sex: UILabel!
+  @IBOutlet weak var notes: UITextView!
+
  
   let defaultProfilePic = UIImage(named: "egg")
   
@@ -60,12 +65,81 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
       name.text = selectedProfile.name
       species.text = selectedProfile.species
       age.text = ageCalc.difference(ageCalcInput)
+      sex.text = selectedProfile.sex
+      
+      if let savedNotes = selectedProfile.notes {
+        notes.text = savedNotes
+      } else {
+        notes.text = "Notes:"
+      }
+   
+      if let currentWeight = selectedProfile.currentWeight {
+        let weightString = String(currentWeight)
+        weight.text = "\(weightString)g"
+      } else {
+        weight.text = "N/A"
+      }
       
     } else {
       print("error in transfer")
     }
     
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+
+    
   }
+  
+  override func viewWillDisappear(animated: Bool) {
+    super.viewDidDisappear(animated)
+    
+    if notes.text != selectedProfile.notes {
+      if notes.text == "" {
+        selectedProfile.notes = nil
+          
+      } else {
+      selectedProfile.notes = notes.text
+      saveContext()
+      }
+    }
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+  
+  //TextView
+  
+  var kbHeight: CGFloat!
+  
+  @IBAction func textViewShouldReturn(sender: AnyObject) {
+    notes.resignFirstResponder()
+    notes.backgroundColor = UIColor.whiteColor()
+    
+  }
+  
+  func keyboardWillShow(notification: NSNotification) {
+    if let userInfo = notification.userInfo {
+      if let keyboardSize =  (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+        kbHeight = keyboardSize.height
+        self.animateTextView(true)
+        notes.backgroundColor = UIColor.lightGrayColor()
+      }
+    }
+  }
+  
+  func keyboardWillHide(notification: NSNotificationCenter) {
+    self.animateTextView(false)
+    notes.backgroundColor = UIColor.whiteColor()
+  }
+  
+  func animateTextView(up: Bool) {
+    let movement = (up ? -kbHeight : kbHeight)
+    
+    UIView.animateWithDuration(0.3, animations: {
+      self.view.frame = CGRectOffset(self.view.frame, 0, movement)
+    })
+  }
+  
+
+
   
   func setProfilePicCircle() {
     profilePic.layer.borderWidth = 1.0
@@ -267,6 +341,8 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     presentViewController(ac, animated: true, completion: nil)
   
     }
+  
+  
 
 
 }

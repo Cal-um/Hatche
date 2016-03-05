@@ -15,7 +15,9 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
   
   var profile: Profile!
   
- 
+  var genderSelected: String!
+  
+  @IBOutlet weak var gender: UISegmentedControl!
   @IBOutlet weak var nameTextField: UITextField!
   @IBOutlet weak var speciesTextField: UITextField!
   @IBOutlet weak var datePicker: UIDatePicker!
@@ -31,6 +33,7 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
       nameTextField.text = profile.name
       speciesTextField.text = profile.species
       datePicker.date = profile.dob
+      gender.selectedSegmentIndex = setSegmentedControl(profile.sex!)
 
     }
   }
@@ -63,6 +66,35 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
     return true
   }
   
+  @IBAction func segmentedContolSelected(sender: AnyObject) {
+   
+    switch gender.selectedSegmentIndex {
+    case 0:
+      genderSelected = "Unsexed"
+    case 1:
+      genderSelected = "Male"
+    case 2:
+      genderSelected = "Female"
+    default:
+      break
+    }
+     saveButton.enabled = true
+  }
+  
+  func setSegmentedControl(gender: String) -> Int {
+    var holder: Int!
+    switch gender {
+    case "Unsexed":
+      holder = 0
+    case "Male":
+      holder =  1
+    case "Female":
+      holder = 2
+    default:
+      break
+    }
+    return holder
+  }
   
   
   
@@ -95,20 +127,26 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
         profile.name = name
         profile.species = species
         profile.dob = dob
-        print(profile)
+        profile.sex = genderSelected
         
-        do {
-          try managedObjectContext.save()
-        } catch {
-          fatalError("Failure to save context: \(error)")
+        if managedObjectContext.hasChanges {
+          do {
+            try managedObjectContext.save()
+            print("save Successful")
+          } catch {
+            let nserror = error as NSError
+            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+            abort()
+          }
         }
-      }else{
-        print("error enter all info")
       }
-      
-    }
+
     
+    }
   }
+  
+
+    
 
   @IBAction func deleteObject(sender: UIButton) {
     
