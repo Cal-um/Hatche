@@ -19,15 +19,18 @@ class CollectionViewCell: UICollectionViewCell {
   
   var sharing: Bool = false {
     didSet {
-      selectedImageMark.hidden  = !sharing
+     // selectedImageMark.hidden  = !sharing
     }
   }
   
   override var selected: Bool {
     didSet {
       if sharing {
-        selectedImageMark.image = UIImage(named: selected ? "Tab-Bar-Profile_Click_25px" : "Tab-Bar-Profile_75px")
-      }
+        
+          selectedImageMark.hidden = !selected
+        
+          //selectedImageMark.image = UIImage(named: selected ? "Picture-Select" : )
+        }
     }
   }
   

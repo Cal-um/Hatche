@@ -172,26 +172,30 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mvT-br-zx8">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Tab-Bar-Profile_75px" translatesAutoresizingMaskIntoConstraints="NO" id="CDM-AQ-Gzj">
-                                            <rect key="frame" x="100" y="184" width="40" height="40"/>
+                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Picture-Select" translatesAutoresizingMaskIntoConstraints="NO" id="f3u-Nz-L7u">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottomMargin" secondItem="f3u-Nz-L7u" secondAttribute="bottom" constant="-8" id="1Y4-2r-Lbo"/>
                                     <constraint firstAttribute="trailing" secondItem="mvT-br-zx8" secondAttribute="trailing" id="1j6-Aq-UL7"/>
                                     <constraint firstItem="mvT-br-zx8" firstAttribute="leading" secondItem="VE7-DV-mnG" secondAttribute="leading" id="4a0-DJ-nqD"/>
-                                    <constraint firstItem="CDM-AQ-Gzj" firstAttribute="centerX" secondItem="VE7-DV-mnG" secondAttribute="centerX" id="CnL-oF-aOb"/>
+                                    <constraint firstItem="f3u-Nz-L7u" firstAttribute="centerX" secondItem="VE7-DV-mnG" secondAttribute="centerX" id="LTz-SQ-0rQ"/>
                                     <constraint firstAttribute="bottom" secondItem="mvT-br-zx8" secondAttribute="bottom" id="U78-gU-zyv"/>
                                     <constraint firstItem="mvT-br-zx8" firstAttribute="top" secondItem="VE7-DV-mnG" secondAttribute="top" id="W9h-9j-XmW"/>
-                                    <constraint firstItem="CDM-AQ-Gzj" firstAttribute="centerY" secondItem="VE7-DV-mnG" secondAttribute="centerY" id="jDQ-P5-fMM"/>
+                                    <constraint firstItem="f3u-Nz-L7u" firstAttribute="leading" secondItem="VE7-DV-mnG" secondAttribute="leadingMargin" constant="-8" id="Wni-vj-YP6"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="f3u-Nz-L7u" secondAttribute="trailing" constant="-8" id="aKv-u5-UMf"/>
+                                    <constraint firstItem="f3u-Nz-L7u" firstAttribute="centerY" secondItem="VE7-DV-mnG" secondAttribute="centerY" id="boH-bk-3OC"/>
                                     <constraint firstItem="mvT-br-zx8" firstAttribute="centerY" secondItem="VE7-DV-mnG" secondAttribute="centerY" id="la9-of-EIC"/>
+                                    <constraint firstItem="f3u-Nz-L7u" firstAttribute="top" secondItem="VE7-DV-mnG" secondAttribute="topMargin" constant="-8" id="mrn-He-yXA"/>
                                     <constraint firstItem="mvT-br-zx8" firstAttribute="centerX" secondItem="VE7-DV-mnG" secondAttribute="centerX" id="qKd-uS-JtT"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="PhotoImageView" destination="mvT-br-zx8" id="cab-Ca-YOD"/>
-                                    <outlet property="selectedImageMark" destination="CDM-AQ-Gzj" id="u4D-3Q-93D"/>
+                                    <outlet property="selectedImageMark" destination="f3u-Nz-L7u" id="05U-we-b8H"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -735,6 +739,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Picture-Select" width="50" height="50"/>
         <image name="Tab-Bar-Camera_75px" width="25" height="25"/>
         <image name="Tab-Bar-Camera_Click" width="25" height="25"/>
         <image name="Tab-Bar-Profile_75px" width="25" height="25"/>

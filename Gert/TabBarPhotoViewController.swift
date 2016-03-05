@@ -115,8 +115,8 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   
   func collectionViewSingleImageScroll() -> UICollectionViewFlowLayout {
     
-    let width = 320
-    let height = 548
+    let width = CGRectGetWidth(collectionView!.frame)//320
+    let height = CGRectGetHeight(collectionView!.frame)//548
     let layout = collectionViewLayout as! UICollectionViewFlowLayout
     layout.itemSize = CGSize(width: width, height: height)
     layout.scrollDirection = .Horizontal
