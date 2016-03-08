@@ -38,6 +38,11 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
     }
   }
   
+  override func viewWillDisappear(animated: Bool) {
+    nameTextField.resignFirstResponder()
+    speciesTextField.resignFirstResponder()
+  }
+  
   @IBAction func dissmissWhenTapped(sender: AnyObject) {
     nameTextField.resignFirstResponder()
     speciesTextField.resignFirstResponder()

@@ -18,6 +18,7 @@
 		3A88BB911C884D0800E94D80 /* Weight+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A88BB8F1C884D0800E94D80 /* Weight+CoreDataProperties.swift */; };
 		3A88BB941C88653C00E94D80 /* WeightDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A88BB931C88653C00E94D80 /* WeightDetailViewController.swift */; };
 		3A88BB961C8B1A6200E94D80 /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A88BB951C8B1A6200E94D80 /* Profile+CoreDataProperties.swift */; };
+		3A88BB9A1C8EF17500E94D80 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A88BB991C8EF17500E94D80 /* CustomImageView.swift */; };
 		3ABD47F21C6F7AD5001735B8 /* TabBarPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD47F11C6F7AD5001735B8 /* TabBarPhotoViewController.swift */; };
 		3ABD47F41C6FBAF6001735B8 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD47F31C6FBAF6001735B8 /* TabBarViewController.swift */; };
 		3AE72F7B1C593BED00A0D942 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE72F7A1C593BED00A0D942 /* AppDelegate.swift */; };
@@ -46,6 +47,7 @@
 		3A88BB8F1C884D0800E94D80 /* Weight+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Weight+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3A88BB931C88653C00E94D80 /* WeightDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightDetailViewController.swift; sourceTree = "<group>"; };
 		3A88BB951C8B1A6200E94D80 /* Profile+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3A88BB991C8EF17500E94D80 /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		3ABD47F11C6F7AD5001735B8 /* TabBarPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarPhotoViewController.swift; sourceTree = "<group>"; };
 		3ABD47F31C6FBAF6001735B8 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		3AE72F7A1C593BED00A0D942 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 		3A3B9BC71C6F566F00F748F0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3A88BB991C8EF17500E94D80 /* CustomImageView.swift */,
 				3A184CF51C6A678600397A41 /* TimeModel.swift */,
 				3A184CF11C66271300397A41 /* CustomCell.swift */,
 				3AECAFDE1C75246000D481C8 /* CollectionViewCell.swift */,
@@ -238,6 +241,7 @@
 				3A88BB801C846E7500E94D80 /* MeasurementsViewController.swift in Sources */,
 				3AE72F7D1C593BED00A0D942 /* AddRepViewController.swift in Sources */,
 				3A184CF61C6A678600397A41 /* TimeModel.swift in Sources */,
+				3A88BB9A1C8EF17500E94D80 /* CustomImageView.swift in Sources */,
 				3ABD47F21C6F7AD5001735B8 /* TabBarPhotoViewController.swift in Sources */,
 				3AECAFDF1C75246000D481C8 /* CollectionViewCell.swift in Sources */,
 				3A88BB911C884D0800E94D80 /* Weight+CoreDataProperties.swift in Sources */,

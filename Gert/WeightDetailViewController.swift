@@ -61,9 +61,11 @@ class WeightDetailViewController: UITableViewController, UITextFieldDelegate {
   
   @IBAction func tappedDatePicker(sender: AnyObject) {
     weightInput.resignFirstResponder()
+    if Double(weightInput.text!) > 0 {
     saveButton.enabled = true
       }
-  
+  }
+    
   @IBAction func saveWeight(sender: AnyObject) {
     
     if editWeight == true {

@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import Social
 
-class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate {
+class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate,UIGestureRecognizerDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -24,6 +24,10 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
     
     notes.delegate = self
+    
+    super.view.layer.borderWidth = 2
+    super.view.layer.borderColor = UIColor.yellowColor().CGColor
+    
   }
   
   var selectedProfile: Profile!
@@ -93,6 +97,8 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
   override func viewWillDisappear(animated: Bool) {
     super.viewDidDisappear(animated)
     
+    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+    
     if notes.text != selectedProfile.notes {
       if notes.text == "" {
         selectedProfile.notes = nil
@@ -111,7 +117,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
   
   @IBAction func textViewShouldReturn(sender: AnyObject) {
     notes.resignFirstResponder()
-    notes.backgroundColor = UIColor.whiteColor()
+    
     
   }
   
@@ -142,15 +148,10 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
 
   
   func setProfilePicCircle() {
-    profilePic.layer.borderWidth = 1.0
-    profilePic.layer.masksToBounds = false
-    profilePic.layer.borderColor = UIColor.whiteColor().CGColor
-    profilePic.layer.cornerRadius = 13
-    profilePic.layer.cornerRadius = profilePic.frame.size.height/2
-    profilePic.clipsToBounds = true
-    let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("imageTapped"))
-    profilePic.userInteractionEnabled = true
-    profilePic.addGestureRecognizer(tapGestureRecognizer)
+   
+  //  let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("imageTapped"))
+  //  profilePic.userInteractionEnabled = true
+   // profilePic.addGestureRecognizer(tapGestureRecognizer)
   }
   
   func imageTapped() {
@@ -311,7 +312,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
         
         facebookComposeVC.setInitialText(self.selectedProfile.name + " via Hatche for iPhone")
         facebookComposeVC.addImage(self.screenShotMethod())
-        facebookComposeVC.addImage(self.selectedProfile.photoImage)
+        //facebookComposeVC.addImage(self.selectedProfile.photoImage)
 
           self.presentViewController(facebookComposeVC, animated: true, completion: nil)
       }
