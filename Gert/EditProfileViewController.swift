@@ -21,7 +21,7 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
   @IBOutlet weak var nameTextField: UITextField!
   @IBOutlet weak var speciesTextField: UITextField!
   @IBOutlet weak var datePicker: UIDatePicker!
-  @IBOutlet weak var cancelButton :UIButton!
+
   @IBOutlet weak var saveButton: UIBarButtonItem!
   
   override func viewWillAppear(animated: Bool) {
@@ -123,16 +123,20 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
   
   @IBAction func sendToCoreOnSave(segue:UIStoryboardSegue) {
     
-    
+    if nameTextField.text == nil {
+      print("nameNil")
+    }
     navigationController?.popViewControllerAnimated(true)
     
     if profile != nil {
-      if let name = nameTextField.text, species = speciesTextField.text, dob: NSDate = datePicker.date  {
+      if let name = nameTextField.text, species = speciesTextField.text, dob: NSDate = datePicker.date, gender = genderSelected  {
         
         profile.name = name
         profile.species = species
         profile.dob = dob
-        profile.sex = genderSelected
+        profile.sex = gender
+        
+        
         
         if managedObjectContext.hasChanges {
           do {

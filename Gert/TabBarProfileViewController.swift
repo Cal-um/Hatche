@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import Social
 
-class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate,UIGestureRecognizerDelegate {
+class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -18,7 +18,8 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     selectedProfile = tbvc.selectedProfile!
     managedObjectContext = tbvc.managedObjectContext!
     
-    setProfilePicCircle()
+    
+    
     
     let backImage = UIImage(named: "entryViewIcon")
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
@@ -49,6 +50,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
  
   let defaultProfilePic = UIImage(named: "egg")
   
+
   
   override func viewWillAppear(animated: Bool) {
     
@@ -73,8 +75,6 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
       
       if let savedNotes = selectedProfile.notes {
         notes.text = savedNotes
-      } else {
-        notes.text = "Notes:"
       }
    
       if let currentWeight = selectedProfile.currentWeight {
@@ -87,7 +87,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     } else {
       print("error in transfer")
     }
-    
+    setProfilePicCircle()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
 
@@ -126,14 +126,14 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
       if let keyboardSize =  (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
         kbHeight = keyboardSize.height
         self.animateTextView(true)
-        notes.backgroundColor = UIColor.lightGrayColor()
+        
       }
     }
   }
   
   func keyboardWillHide(notification: NSNotificationCenter) {
     self.animateTextView(false)
-    notes.backgroundColor = UIColor.whiteColor()
+    
   }
   
   func animateTextView(up: Bool) {
@@ -141,6 +141,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     
     UIView.animateWithDuration(0.3, animations: {
       self.view.frame = CGRectOffset(self.view.frame, 0, movement)
+     
     })
   }
   
@@ -149,9 +150,11 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
   
   func setProfilePicCircle() {
    
-  //  let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("imageTapped"))
-  //  profilePic.userInteractionEnabled = true
-   // profilePic.addGestureRecognizer(tapGestureRecognizer)
+  
+    let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("imageTapped"))
+    profilePic.userInteractionEnabled = true
+    profilePic.addGestureRecognizer(tapGestureRecognizer)
+   
   }
   
   func imageTapped() {

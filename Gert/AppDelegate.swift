@@ -50,9 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     print(applicationDocumentsDirectory)
     
     
-    
-    
-  }
+    }
 
   
   
