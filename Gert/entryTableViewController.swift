@@ -142,6 +142,7 @@ class entryTableViewController: UITableViewController {
         abort()
       }
     }
+  
   }
 
 

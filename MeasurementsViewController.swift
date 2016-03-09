@@ -138,7 +138,7 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     
     //configure graph
     lineChartView.noDataText = "More Data Required"
-    lineChartView.noDataTextDescription = "Minimum Two Month Input Required For Chart Population"
+   
     
     var yVals1: [ChartDataEntry] = [ChartDataEntry]()
     for i in 0..<monthArray.count {

@@ -129,14 +129,14 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
     navigationController?.popViewControllerAnimated(true)
     
     if profile != nil {
-      if let name = nameTextField.text, species = speciesTextField.text, dob: NSDate = datePicker.date, gender = genderSelected  {
+      if let name = nameTextField.text, species = speciesTextField.text, dob: NSDate = datePicker.date {
         
         profile.name = name
         profile.species = species
         profile.dob = dob
-        profile.sex = gender
-        
-        
+        if genderSelected != nil {
+        profile.sex = genderSelected
+        }
         
         if managedObjectContext.hasChanges {
           do {
@@ -148,10 +148,13 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
             abort()
           }
         }
+      } else {
+        print("Its the damn sex")
+      }
       }
 
     
-    }
+   
   }
   
 
