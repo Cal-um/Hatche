@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class EditProfileViewController: UITableViewController, UITextFieldDelegate {
+class EditProfileViewController: UITableViewController, UITextFieldDelegate,UIGestureRecognizerDelegate  {
   
   var managedObjectContext: NSManagedObjectContext!
   
@@ -205,5 +205,24 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate {
   func exit(){
     self.dismissViewControllerAnimated(false, completion: nil)
   }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    
+    if (segue.identifier == "dam") {
+      let destination = segue.destinationViewController as! LineageTableView
+      destination.managedObjectContext = managedObjectContext
+      destination.selectedProfile = profile
+      destination.damTrueSireFalse = true
+    }
+    
+    if (segue.identifier == "sire") {
+      let destination = segue.destinationViewController as! LineageTableView
+      destination.managedObjectContext = managedObjectContext
+      destination.selectedProfile = profile
+      destination.damTrueSireFalse = false
+    }
+  }
+  
+  
 
 }

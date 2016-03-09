@@ -141,6 +141,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     
     UIView.animateWithDuration(0.3, animations: {
       self.view.frame = CGRectOffset(self.view.frame, 0, movement)
+      
      
     })
   }

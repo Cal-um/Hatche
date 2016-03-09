@@ -12,6 +12,10 @@
         <attribute name="profilePicID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="sex" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="species" attributeType="String" syncable="YES"/>
+        <relationship name="father" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="fatherChild" inverseEntity="Profile" syncable="YES"/>
+        <relationship name="fatherChild" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Profile" inverseName="father" inverseEntity="Profile" syncable="YES"/>
+        <relationship name="mother" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="motherChild" inverseEntity="Profile" syncable="YES"/>
+        <relationship name="motherChild" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Profile" inverseName="mother" inverseEntity="Profile" syncable="YES"/>
         <relationship name="photo" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Photos" inverseName="owner" inverseEntity="Photos" syncable="YES"/>
         <relationship name="profileWeight" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Weight" inverseName="wOwner" inverseEntity="Weight" syncable="YES"/>
     </entity>
@@ -22,7 +26,7 @@
     </entity>
     <elements>
         <element name="Photos" positionX="459" positionY="-198" width="128" height="75"/>
-        <element name="Profile" positionX="457" positionY="-216" width="128" height="180"/>
+        <element name="Profile" positionX="457" positionY="-216" width="128" height="240"/>
         <element name="Weight" positionX="468" positionY="-171" width="128" height="90"/>
     </elements>
 </model>

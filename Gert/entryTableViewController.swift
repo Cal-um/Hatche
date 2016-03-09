@@ -123,6 +123,8 @@ class entryTableViewController: UITableViewController {
       if let selectedIndexPath = tableView.indexPathForSelectedRow {
         let selectedProfile = profiles[selectedIndexPath.row]
         destinationController.selectedProfile = selectedProfile
+        destinationController.allProfiles = profiles
+      
       }
     }
   

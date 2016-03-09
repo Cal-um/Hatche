@@ -13,6 +13,7 @@ class TabBarViewController: UITabBarController {
   
   var selectedProfile: Profile!
   var managedObjectContext: NSManagedObjectContext!
+  var allProfiles: [Profile]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
