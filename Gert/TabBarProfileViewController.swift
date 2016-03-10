@@ -46,6 +46,11 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
   @IBOutlet weak var weight: UILabel!
   @IBOutlet weak var sex: UILabel!
   @IBOutlet weak var notes: UITextView!
+  @IBOutlet weak var sireProfilePhoto: CustomImageView!
+  @IBOutlet weak var damProfilePhoto: CustomImageView!
+  @IBOutlet weak var sireNameLabel: UILabel!
+  @IBOutlet weak var damNameLabel: UILabel!
+
 
  
   let defaultProfilePic = UIImage(named: "egg")
@@ -72,6 +77,22 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
       species.text = selectedProfile.species
       age.text = ageCalc.difference(ageCalcInput)
       sex.text = selectedProfile.sex
+      
+      if let father = selectedProfile.father {
+      sireProfilePhoto.image = father.photoImage
+      sireNameLabel.text = father.name
+      } else {
+        sireProfilePhoto.image = defaultProfilePic
+        sireNameLabel.text = "Unknown"
+      }
+      
+      if let mother = selectedProfile.mother {
+        damProfilePhoto.image = mother.photoImage
+        damNameLabel.text = mother.name
+      } else {
+        damProfilePhoto.image = defaultProfilePic
+        damNameLabel.text = "Unknown"
+      }
       
       if let savedNotes = selectedProfile.notes {
         notes.text = savedNotes

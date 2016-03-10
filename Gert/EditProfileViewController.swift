@@ -17,15 +17,32 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate,UIGe
   
   var genderSelected: String!
   
+
+  
   @IBOutlet weak var gender: UISegmentedControl!
   @IBOutlet weak var nameTextField: UITextField!
   @IBOutlet weak var speciesTextField: UITextField!
   @IBOutlet weak var datePicker: UIDatePicker!
-
   @IBOutlet weak var saveButton: UIBarButtonItem!
+  @IBOutlet weak var damTextLabel: UILabel!
+  @IBOutlet weak var sireTextLabel: UILabel!
+  
+  
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
+    
+    if let mother = profile.mother {
+      damTextLabel.text = mother.name
+    } else {
+      damTextLabel.text = "Unknown"
+    }
+    
+    if let father = profile.father {
+      sireTextLabel.text = father.name
+    } else {
+      sireTextLabel.text = "Unknown"
+    }
     
     navigationItem.title = "Edit Profile"
     
@@ -34,6 +51,7 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate,UIGe
       speciesTextField.text = profile.species
       datePicker.date = profile.dob
       gender.selectedSegmentIndex = setSegmentedControl(profile.sex!)
+      
 
     }
   }
@@ -41,6 +59,7 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate,UIGe
   override func viewWillDisappear(animated: Bool) {
     nameTextField.resignFirstResponder()
     speciesTextField.resignFirstResponder()
+    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Save", style: .Plain, target: nil, action: nil)
   }
   
   @IBAction func dissmissWhenTapped(sender: AnyObject) {

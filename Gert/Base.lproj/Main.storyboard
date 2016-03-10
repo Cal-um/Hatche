@@ -108,7 +108,7 @@
                                                             <rect key="frame" x="15" y="0.0" width="498" height="43"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -311,7 +311,7 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Species:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjz-6y-Deu">
                                                                 <rect key="frame" x="40" y="0.0" width="49" height="17"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
@@ -325,7 +325,7 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kvf-No-Hxk">
                                                                 <rect key="frame" x="42" y="0.0" width="44" height="17"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
@@ -339,7 +339,7 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sex:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Wb-HL-o99">
                                                                 <rect key="frame" x="42" y="0.0" width="25" height="17"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
@@ -353,7 +353,7 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Age:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ru-g2-zjJ">
                                                                 <rect key="frame" x="42" y="0.0" width="26" height="17"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
@@ -372,13 +372,13 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ea-YQ-427">
                                                         <rect key="frame" x="0.0" y="19" width="40" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sex" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="crp-yl-M4k">
                                                         <rect key="frame" x="0.0" y="37" width="21" height="19"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Age" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fyr-50-eKh">
@@ -406,7 +406,7 @@
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dam" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ThE-gg-fN1">
                                                                         <rect key="frame" x="8" y="0.0" width="26" height="15"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="egg" translatesAutoresizingMaskIntoConstraints="NO" id="nDo-Pd-Lbh" customClass="CustomImageView" customModule="Gert" customModuleProvider="target">
@@ -420,7 +420,7 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unknown" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ss-Dp-m95">
                                                                 <rect key="frame" x="54" y="0.0" width="53" height="59"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
@@ -436,7 +436,7 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sire" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90a-v6-U6w">
                                                                 <rect key="frame" x="10" y="0.0" width="22" height="15"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="egg" translatesAutoresizingMaskIntoConstraints="NO" id="DX6-nZ-Oph" customClass="CustomImageView" customModule="Gert" customModuleProvider="target">
@@ -450,7 +450,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unknown" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="irP-iB-4lc">
                                                         <rect key="frame" x="54" y="0.0" width="49" height="59"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -463,12 +463,12 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VdZ-nP-klz">
                                                 <rect key="frame" x="0.0" y="0.0" width="560" height="11"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="9"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="GgG-AJ-AYH">
                                                 <rect key="frame" x="0.0" y="11" width="560" height="96"/>
-                                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                                             </textView>
@@ -523,10 +523,14 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="age" destination="fyr-50-eKh" id="ds2-1W-IlW"/>
+                        <outlet property="damNameLabel" destination="7ss-Dp-m95" id="wZT-O5-sRC"/>
+                        <outlet property="damProfilePhoto" destination="nDo-Pd-Lbh" id="zbE-pD-jb4"/>
                         <outlet property="name" destination="m7q-QC-XkK" id="646-CH-0gF"/>
                         <outlet property="notes" destination="GgG-AJ-AYH" id="dQu-vU-72j"/>
                         <outlet property="profilePic" destination="jyV-I5-Gb1" id="ypn-Dw-zPH"/>
                         <outlet property="sex" destination="crp-yl-M4k" id="86O-vs-h2i"/>
+                        <outlet property="sireNameLabel" destination="irP-iB-4lc" id="gjV-MV-M7j"/>
+                        <outlet property="sireProfilePhoto" destination="DX6-nZ-Oph" id="p7a-GE-ma3"/>
                         <outlet property="species" destination="uFE-fz-vBJ" id="cnd-TM-Pby"/>
                         <outlet property="weight" destination="7ea-YQ-427" id="YbQ-ht-yTy"/>
                         <segue destination="diq-tT-hqg" kind="unwind" identifier="unwindtoentry" unwindAction="cancelTabView:" id="0U0-nV-mpw"/>
@@ -807,13 +811,13 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NV0-Sg-ZxV">
                                                     <rect key="frame" x="67" y="12" width="500" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dam:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xrW-wg-6TZ">
                                                     <rect key="frame" x="13" y="12" width="41" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -832,19 +836,19 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fei-Bt-epN">
                                                     <rect key="frame" x="68" y="12" width="491" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sire:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NyE-uj-8aC">
                                                     <rect key="frame" x="14" y="12" width="35" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DK7-5R-Txn" kind="show" id="JzB-gp-vNy"/>
+                                            <segue destination="DK7-5R-Txn" kind="show" identifier="sire" id="JzB-gp-vNy"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -921,10 +925,12 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="damTextLabel" destination="NV0-Sg-ZxV" id="m6J-8A-PXM"/>
                         <outlet property="datePicker" destination="cYu-Ly-IBl" id="2H7-bL-eM1"/>
                         <outlet property="gender" destination="rAs-Yv-EDZ" id="fxq-Ku-JCY"/>
                         <outlet property="nameTextField" destination="fgg-jZ-Ft8" id="W0a-mU-uRq"/>
                         <outlet property="saveButton" destination="VYx-Oc-xuO" id="YjQ-w6-Lqr"/>
+                        <outlet property="sireTextLabel" destination="fei-Bt-epN" id="65N-HI-5jl"/>
                         <outlet property="speciesTextField" destination="j7c-Ib-2f5" id="Kh5-nj-OA4"/>
                         <segue destination="iIX-o9-Rkm" kind="unwind" unwindAction="cancelTabView:" id="s9C-Eb-uQr"/>
                     </connections>
@@ -1119,7 +1125,7 @@
         <image name="egg" width="120" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Fe8-FQ-Gzl"/>
         <segue reference="roI-Jo-INS"/>
+        <segue reference="JzB-gp-vNy"/>
     </inferredMetricsTieBreakers>
 </document>
