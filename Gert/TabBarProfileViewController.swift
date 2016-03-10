@@ -12,7 +12,7 @@ import Social
 
 class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate {
   
-  
+  //properties
   var selectedProfile: Profile!
   let defaultProfilePic = UIImage(named: "egg")
   var managedObjectContext: NSManagedObjectContext!
