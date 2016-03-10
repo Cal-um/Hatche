@@ -12,14 +12,22 @@ import Social
 
 class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate {
   
+  
+  var selectedProfile: Profile!
+  let defaultProfilePic = UIImage(named: "egg")
+  var managedObjectContext: NSManagedObjectContext!
+  var profilePicLoad: UIImage? {
+    return selectedProfile.photoImage
+  }
+  
+  
+  
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     let tbvc = self.tabBarController  as! TabBarViewController
     selectedProfile = tbvc.selectedProfile!
     managedObjectContext = tbvc.managedObjectContext!
-    
-    
-    
     
     let backImage = UIImage(named: "entryViewIcon")
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
@@ -31,11 +39,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     
   }
   
-  var selectedProfile: Profile!
-  var managedObjectContext: NSManagedObjectContext!
-  var profilePicLoad: UIImage? {
-    return selectedProfile.photoImage
-  }
+  
 
 
   
@@ -53,7 +57,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
 
 
  
-  let defaultProfilePic = UIImage(named: "egg")
+  
   
 
   
@@ -79,7 +83,11 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
       sex.text = selectedProfile.sex
       
       if let father = selectedProfile.father {
-      sireProfilePhoto.image = father.photoImage
+        if father.photoImage != nil {
+          sireProfilePhoto.image = father.photoImage
+        } else {
+          sireProfilePhoto.image = defaultProfilePic
+        }
       sireNameLabel.text = father.name
       } else {
         sireProfilePhoto.image = defaultProfilePic
@@ -87,12 +95,16 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
       }
       
       if let mother = selectedProfile.mother {
-        damProfilePhoto.image = mother.photoImage
+        if mother.photoImage != nil {
+          damProfilePhoto.image = mother.photoImage
+        } else {
+          damProfilePhoto.image = defaultProfilePic
+          }
         damNameLabel.text = mother.name
-      } else {
-        damProfilePhoto.image = defaultProfilePic
-        damNameLabel.text = "Unknown"
-      }
+        } else {
+          damProfilePhoto.image = defaultProfilePic
+          damNameLabel.text = "Unknown"
+        }
       
       if let savedNotes = selectedProfile.notes {
         notes.text = savedNotes

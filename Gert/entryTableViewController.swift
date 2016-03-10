@@ -13,37 +13,36 @@ class entryTableViewController: UITableViewController {
   
   var fetchedResultsController: NSFetchedResultsController!
   var managedObjectContext: NSManagedObjectContext!
-  
-  var profiles = [Profile]()
   let defaultProfilePic = UIImage(named: "egg")
+  var profiles = [Profile]()
+  var preProfilesSortToAlphabetical = [Profile]() {
+    didSet {
+      profiles = preProfilesSortToAlphabetical.sort{$0.name.lowercaseString < $1.name.lowercaseString}
+    }
+  }
+  
+  
   
   func fetchAllProfiles() {
-     
-    
-    
+
     let fetchRequest = NSFetchRequest(entityName: "Profile")
     
     do {
       if let results = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Profile] {
-        profiles = results
+        preProfilesSortToAlphabetical = results
       }
     } catch {
       fatalError("There was an error fetching the list of devices!")
     }
   }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      
-    //  fetchAllProfiles()
+  override func viewDidLoad() {
+      super.viewDidLoad()
 
-      if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-       managedObjectContext = appDelegate.managedObjectContext
-      
-        
-  }
-      
+    if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+      managedObjectContext = appDelegate.managedObjectContext
     }
+      }
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
@@ -53,8 +52,6 @@ class entryTableViewController: UITableViewController {
     saveContext()
     
   }
-
-  
 
     // MARK: - Table view data source
 

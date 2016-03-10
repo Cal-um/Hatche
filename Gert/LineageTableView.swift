@@ -13,31 +13,48 @@ import CoreData
 class LineageTableView: UITableViewController {
 
   var managedObjectContext: NSManagedObjectContext!
-  var selectedProfile: Profile! 
-    
+  var selectedProfile: Profile!
+  var profileSelectedForParent: Profile?
+  var oppositeGender : Profile?
   var damTrueSireFalse: Bool! {
     didSet {
       if damTrueSireFalse == true {
         navigationItem.title = "Choose Dam"
         profileSelectedForParent = selectedProfile.mother
+        oppositeGender = selectedProfile.father
       } else {
         navigationItem.title = "Choose Sire"
         profileSelectedForParent = selectedProfile.father
       }
-      
-      
     }
-  }
+    
+    }
   
+
   var allProfiles: [Profile]!
-  var profileSelectedForParent: Profile?
-  
+  var allProfilesPreSortToRemoveSelf: [Profile]!{
+    didSet {
+      
+      if let oppositeGender = oppositeGender {
+      allProfiles = allProfilesPreSortToRemoveSelf.filter {
+        (i: Profile) -> Bool in
+        return (i != selectedProfile) && (i != oppositeGender)
+        }
+        } else {
+          allProfiles = allProfilesPreSortToRemoveSelf.filter {
+            (i: Profile) -> Bool in
+            return (i != selectedProfile) && (i != oppositeGender)
+            }
+        }
+      }
+    }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
     //fetch all profiles from TabBarController
     let tbvc = self.tabBarController as! TabBarViewController
-    allProfiles = tbvc.allProfiles!
+    allProfilesPreSortToRemoveSelf = tbvc.allProfiles!
     
   }
   
@@ -123,6 +140,5 @@ class LineageTableView: UITableViewController {
       }
     }
   }
-
 
 }
