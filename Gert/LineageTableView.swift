@@ -25,6 +25,7 @@ class LineageTableView: UITableViewController {
       } else {
         navigationItem.title = "Choose Sire"
         profileSelectedForParent = selectedProfile.father
+        oppositeGender = selectedProfile.mother
       }
     }
     
@@ -34,13 +35,12 @@ class LineageTableView: UITableViewController {
   var allProfiles: [Profile]!
   var allProfilesPreSortToRemoveSelf: [Profile]!{
     didSet {
-      
-      if let oppositeGender = oppositeGender {
+      if oppositeGender == nil {
       allProfiles = allProfilesPreSortToRemoveSelf.filter {
         (i: Profile) -> Bool in
-        return (i != selectedProfile) && (i != oppositeGender)
+        return i != selectedProfile
         }
-        } else {
+      } else {
           allProfiles = allProfilesPreSortToRemoveSelf.filter {
             (i: Profile) -> Bool in
             return (i != selectedProfile) && (i != oppositeGender)
