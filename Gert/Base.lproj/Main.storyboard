@@ -778,7 +778,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rAs-Yv-EDZ">
-                                                    <rect key="frame" x="49" y="9" width="502" height="29"/>
+                                                    <rect key="frame" x="8" y="9" width="584" height="29"/>
                                                     <segments>
                                                         <segment title="Unsexed"/>
                                                         <segment title="Male"/>
@@ -790,10 +790,10 @@
                                                 </segmentedControl>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="rAs-Yv-EDZ" firstAttribute="leading" secondItem="EBx-SV-rGG" secondAttribute="leadingMargin" id="4TB-1G-M0G"/>
                                                 <constraint firstItem="rAs-Yv-EDZ" firstAttribute="centerY" secondItem="EBx-SV-rGG" secondAttribute="centerY" id="58t-hZ-0Ik"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="rAs-Yv-EDZ" secondAttribute="trailing" id="LTS-Ha-oSS"/>
                                                 <constraint firstItem="rAs-Yv-EDZ" firstAttribute="centerX" secondItem="EBx-SV-rGG" secondAttribute="centerX" id="RKK-g4-STb"/>
-                                                <constraint firstItem="rAs-Yv-EDZ" firstAttribute="leading" secondItem="EBx-SV-rGG" secondAttribute="leadingMargin" constant="41" id="h2C-gs-0b8"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="rAs-Yv-EDZ" secondAttribute="trailing" constant="41" id="srb-E8-VKl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>

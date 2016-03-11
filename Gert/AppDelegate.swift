@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     do {
       let results = try managedObjectContext.executeFetchRequest(fetchRequest)
       if results.count == 0 {
-        addTestData()
+        //addTestData()
       }
     } catch {
       fatalError("Error fetching data!")
