@@ -26,8 +26,8 @@ class LineageTableView: UITableViewController {
         navigationItem.title = "Choose Sire"
         profileSelectedForParent = selectedProfile.father
         oppositeGender = selectedProfile.mother
+        }
       }
-    }
     
     }
   

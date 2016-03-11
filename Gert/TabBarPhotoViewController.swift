@@ -36,15 +36,9 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
       collectionView?.allowsMultipleSelection = sharing
       collectionView?.selectItemAtIndexPath(nil, animated: true, scrollPosition: .None)
       
-      if sharing == true {
-        navigationItem.title = "Choose Photos"
-      } else {
-        navigationItem.title = selectedProfile.name + "'s Photos"
-      }
+      sharing ? (navigationItem.title = "Choose Photos") : (navigationItem.title = "\(selectedProfile.name)'s Photos")
     }
-    
   }
-  
   
   
   
@@ -99,13 +93,11 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
       navigationItem.setLeftBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "setLayoutForFacebookShare"), animated: true)
       self.navigationItem.setRightBarButtonItems([UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "facebookShare")], animated: true)
     } else {
-    let backImage = UIImage(named: "entryViewIcon")
-    self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
-    self.navigationItem.setRightBarButtonItems([UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "addPicture"), UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "showShareOptions")], animated: true)
+      let backImage = UIImage(named: "entryViewIcon")
+      self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
+      self.navigationItem.setRightBarButtonItems([UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "addPicture"), UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "showShareOptions")], animated: true)
     }
-    
-    
-    
+  
     return layout
   }
 
@@ -118,7 +110,7 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     let width = CGRectGetWidth(collectionView!.frame)//320
     let height = CGRectGetHeight(collectionView!.frame)//548
     let layout = collectionViewLayout as! UICollectionViewFlowLayout
-    layout.itemSize = CGSize(width: width, height: height)
+    layout.itemSize = CGSize(width: width, height: (height + 20))
     layout.scrollDirection = .Horizontal
     collectionView!.pagingEnabled = true
     
@@ -175,9 +167,6 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   
   
   override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    
-    
-    
     
     if sorted.count == 0 {
       let emptyLabel = UILabel(frame: CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height))
