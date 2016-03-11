@@ -181,32 +181,20 @@ class EditProfileViewController: UITableViewController, UITextFieldDelegate,UIGe
 
   @IBAction func deleteObject(sender: UIButton) {
     
-    
-    
     let title = "WARNING"
     let message = "This Action Will Delete Profile Permanently"
-    let ac = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-    
     let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-    ac.addAction(cancelAction)
     
     let deleteProfile = UIAlertAction(title: "Delete", style: .Destructive, handler: { (action) -> Void in
       self.deleteSavedPhotos(self.profile)
       self.managedObjectContext.deleteObject(self.profile)
-      
-    
-      
-    
-    
-    self.dismissViewControllerAnimated(false, completion: nil)
-  
+      self.dismissViewControllerAnimated(false, completion: nil)
     })
-  
-  
+    
+     let ac = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+     ac.addAction(cancelAction)
      ac.addAction(deleteProfile)
      presentViewController(ac, animated: true, completion: nil)
-     
-    
   }
   
   func deleteSavedPhotos(inputProfile: Profile) {

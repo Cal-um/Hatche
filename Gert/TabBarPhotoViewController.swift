@@ -159,6 +159,7 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   
   func fadeBack() {
     collectionView!.setCollectionViewLayout(self.collectionViewInitialView(), animated:true)
+    collectionView?.reloadData()
   }
   
   
@@ -189,13 +190,15 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     let selectPhoto = returnUIImage(indexPath)
     if let selectPhoto = selectPhoto {
       
-      if cell.frame.width == cell.frame.height {
+     if cell.frame.width == cell.frame.height {
         cell.PhotoImageView.contentMode = UIViewContentMode.ScaleAspectFill
       } else {
         cell.PhotoImageView.contentMode = UIViewContentMode.ScaleAspectFit
       }
-    cell.sharing = sharing
-    cell.PhotoImageView.image = selectPhoto
+      
+      cell.sharing = sharing
+      cell.PhotoImageView.image = selectPhoto
+      
     }
     return cell
   }
@@ -204,16 +207,14 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
 
   override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
    
-    if sharing == true {
-    //var selectedPhotoArray = collectionView.indexPathsForSelectedItems()
-    //selectedPhotos.append(returnUIImage(indexPath)!)
-    //print(selectedPhotos)
-    } else  if sharing == false {
+    if sharing != true {
+   
       collectionView.reloadData()
       collectionView.setCollectionViewLayout(collectionViewSingleImageScroll(), animated:true)
       collectionView.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: .CenteredHorizontally)
-      }
+      
     }
+  }
   
   // MARK: - Camera and Saving Photo
   

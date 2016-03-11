@@ -12,16 +12,13 @@ import Social
 
 class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate {
   
-  //properties
+  
   var selectedProfile: Profile!
   let defaultProfilePic = UIImage(named: "egg")
   var managedObjectContext: NSManagedObjectContext!
   var profilePicLoad: UIImage? {
     return selectedProfile.photoImage
   }
-  
-  
-  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -38,9 +35,6 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     super.view.layer.borderColor = UIColor.yellowColor().CGColor
     
   }
-  
-  
-
 
   
   @IBOutlet weak var name: UILabel!
@@ -56,11 +50,6 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
   @IBOutlet weak var damNameLabel: UILabel!
 
 
- 
-  
-  
-
-  
   override func viewWillAppear(animated: Bool) {
     
     
@@ -83,28 +72,20 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
       sex.text = selectedProfile.sex
       
       if let father = selectedProfile.father {
-        if father.photoImage != nil {
-          sireProfilePhoto.image = father.photoImage
-        } else {
-          sireProfilePhoto.image = defaultProfilePic
-        }
-      sireNameLabel.text = father.name
+        sireProfilePhoto.image = father.photoImage ?? defaultProfilePic
+        sireNameLabel.text = father.name
       } else {
         sireProfilePhoto.image = defaultProfilePic
         sireNameLabel.text = "Unknown"
       }
       
       if let mother = selectedProfile.mother {
-        if mother.photoImage != nil {
-          damProfilePhoto.image = mother.photoImage
-        } else {
-          damProfilePhoto.image = defaultProfilePic
-          }
+        damProfilePhoto.image = mother.photoImage ?? defaultProfilePic
         damNameLabel.text = mother.name
         } else {
-          damProfilePhoto.image = defaultProfilePic
-          damNameLabel.text = "Unknown"
-        }
+        damProfilePhoto.image = defaultProfilePic
+        damNameLabel.text = "Unknown"
+      }
       
       if let savedNotes = selectedProfile.notes {
         notes.text = savedNotes
@@ -150,8 +131,6 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
   
   @IBAction func textViewShouldReturn(sender: AnyObject) {
     notes.resignFirstResponder()
-    
-    
   }
   
   func keyboardWillShow(notification: NSNotification) {
@@ -159,14 +138,12 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
       if let keyboardSize =  (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
         kbHeight = keyboardSize.height
         self.animateTextView(true)
-        
       }
     }
   }
   
   func keyboardWillHide(notification: NSNotificationCenter) {
     self.animateTextView(false)
-    
   }
   
   func animateTextView(up: Bool) {
@@ -174,28 +151,19 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     
     UIView.animateWithDuration(0.3, animations: {
       self.view.frame = CGRectOffset(self.view.frame, 0, movement)
-      
-     
     })
   }
-  
 
-
-  
   func setProfilePicCircle() {
-   
-  
+
     let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("imageTapped"))
     profilePic.userInteractionEnabled = true
     profilePic.addGestureRecognizer(tapGestureRecognizer)
-   
   }
   
   func imageTapped() {
     
     let ac = UIAlertController(title: "Change Profile Picture", message: nil, preferredStyle: .ActionSheet)
-    
-    
     
     let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
     ac.addAction(cancelAction)
@@ -217,41 +185,32 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     presentViewController(ac, animated: true, completion: nil)
     
   }
+  
   var image: UIImage?
   
   func saveProfilePhoto() {
     
-    if let  _ =  image {
-      
-      
+    if let image = image {
+  
       selectedProfile.profilePicID = Photos.nextPhotoID()
       
-      if let image = image {
-        if let data = UIImageJPEGRepresentation(image, 0.5) {
-          
+      if let data = UIImageJPEGRepresentation(image, 0.5) {
           do {
             try data.writeToFile(selectedProfile.photoPath, options: .DataWritingAtomic)
           } catch {
             print("Error Writing File: \(error)")
           }
-        
-        
-        
-        
-        do {
-          try managedObjectContext.save()
-          
-        } catch {
-          fatalError("Failure to save context: \(error)")
-        }
-      }else {
-        print("error enter all info")
+            do {
+              try managedObjectContext.save()
+            } catch {
+              fatalError("Failure to save context: \(error)")
+            }
+              } else {
+                print("error enter all info")
+              }
+          }
       }
-    }
-  }
-  }
 
-  
   func takePhotoWithCamera() {
     let imagePicker = UIImagePickerController()
     imagePicker.sourceType = .Camera
@@ -272,7 +231,6 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     dismissViewControllerAnimated(true, completion: nil)
   }
   
-  
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
     dismissViewControllerAnimated(true, completion: nil)
     
@@ -286,10 +244,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
       profilePic.image = defaultProfilePic
       selectedProfile.profilePicID = nil
       saveContext()
-      
   }
-  
-  
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if let dest = segue.destinationViewController as? EditProfileViewController {
@@ -304,11 +259,11 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
         try managedObjectContext.save()
         print("save Successful")
       } catch {
-        let nserror = error as NSError
-        NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
-        abort()
+          let nserror = error as NSError
+          NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+          abort()
+        }
       }
-    }
   }
 
   func unwindToEntryTable(){
@@ -332,55 +287,31 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     presentViewController(alertController, animated: true, completion: nil)
   }
   
-  
-  
-  
   @IBAction func showShareOptions(sender: AnyObject) {
     
     let ac = UIAlertController(title: "", message: "Share Profile", preferredStyle: UIAlertControllerStyle.ActionSheet)
-  
-    
-    // Configure a new action to share on Facebook.
-    
+
     let facebookPostAction = UIAlertAction(title: "Share on Facebook", style: UIAlertActionStyle.Default) { (action) -> Void in
       
       if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
         let facebookComposeVC = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
-        
         facebookComposeVC.setInitialText(self.selectedProfile.name + " via Hatche for iPhone")
         facebookComposeVC.addImage(self.screenShotMethod())
-        //facebookComposeVC.addImage(self.selectedProfile.photoImage)
-
-          self.presentViewController(facebookComposeVC, animated: true, completion: nil)
+        self.presentViewController(facebookComposeVC, animated: true, completion: nil)
+        } else {
+            self.showAlertMessage("Device not connected to a Facebook account")
+          }
       }
-      else {
-         self.showAlertMessage("Device not connected to a Facebook account")
-      }
-    }
-
-  
-    
-    
-    // Configure a new action to show the UIActivityViewController
-    let moreAction = UIAlertAction(title: "More", style: UIAlertActionStyle.Default) { (action) -> Void in
-      
-    }
-    
     
     let dismissAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel) { (action) -> Void in
-      
-  }
+    }
   
-    
     ac.addAction(facebookPostAction)
-    ac.addAction(moreAction)
     ac.addAction(dismissAction)
-    
     presentViewController(ac, animated: true, completion: nil)
-  
     }
   
   
-
-
+  
+  
 }
