@@ -12,7 +12,14 @@
 		3A184CF41C68CDB500397A41 /* TabBarProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A184CF31C68CDB500397A41 /* TabBarProfileViewController.swift */; };
 		3A184CF61C6A678600397A41 /* TimeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A184CF51C6A678600397A41 /* TimeModel.swift */; };
 		3A88BB781C7F8CBB00E94D80 /* Photos+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A88BB761C7F8CBB00E94D80 /* Photos+CoreDataProperties.swift */; };
-		3A88BB791C7F8CBB00E94D80 /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A88BB771C7F8CBB00E94D80 /* Profile+CoreDataProperties.swift */; };
+		3A88BB7B1C8466A400E94D80 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A88BB7A1C8466A400E94D80 /* Charts.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		3A88BB801C846E7500E94D80 /* MeasurementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A88BB7F1C846E7500E94D80 /* MeasurementsViewController.swift */; };
+		3A88BB891C87AE4300E94D80 /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A88BB861C87AE4300E94D80 /* Weight.swift */; };
+		3A88BB911C884D0800E94D80 /* Weight+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A88BB8F1C884D0800E94D80 /* Weight+CoreDataProperties.swift */; };
+		3A88BB941C88653C00E94D80 /* WeightDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A88BB931C88653C00E94D80 /* WeightDetailViewController.swift */; };
+		3A88BB9A1C8EF17500E94D80 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A88BB991C8EF17500E94D80 /* CustomImageView.swift */; };
+		3A88BB9C1C90788000E94D80 /* Profile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A88BB9B1C90788000E94D80 /* Profile+CoreDataProperties.swift */; };
+		3A88BB9E1C907FBA00E94D80 /* LineageTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A88BB9D1C907FBA00E94D80 /* LineageTableView.swift */; };
 		3ABD47F21C6F7AD5001735B8 /* TabBarPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD47F11C6F7AD5001735B8 /* TabBarPhotoViewController.swift */; };
 		3ABD47F41C6FBAF6001735B8 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD47F31C6FBAF6001735B8 /* TabBarViewController.swift */; };
 		3AE72F7B1C593BED00A0D942 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE72F7A1C593BED00A0D942 /* AppDelegate.swift */; };
@@ -35,7 +42,14 @@
 		3A184CF31C68CDB500397A41 /* TabBarProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarProfileViewController.swift; sourceTree = "<group>"; };
 		3A184CF51C6A678600397A41 /* TimeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeModel.swift; sourceTree = "<group>"; };
 		3A88BB761C7F8CBB00E94D80 /* Photos+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Photos+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		3A88BB771C7F8CBB00E94D80 /* Profile+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3A88BB7A1C8466A400E94D80 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = Carthage/Build/iOS/Charts.framework; sourceTree = "<group>"; };
+		3A88BB7F1C846E7500E94D80 /* MeasurementsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementsViewController.swift; sourceTree = "<group>"; };
+		3A88BB861C87AE4300E94D80 /* Weight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
+		3A88BB8F1C884D0800E94D80 /* Weight+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Weight+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3A88BB931C88653C00E94D80 /* WeightDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightDetailViewController.swift; sourceTree = "<group>"; };
+		3A88BB991C8EF17500E94D80 /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
+		3A88BB9B1C90788000E94D80 /* Profile+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3A88BB9D1C907FBA00E94D80 /* LineageTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineageTableView.swift; sourceTree = "<group>"; };
 		3ABD47F11C6F7AD5001735B8 /* TabBarPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarPhotoViewController.swift; sourceTree = "<group>"; };
 		3ABD47F31C6FBAF6001735B8 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		3AE72F7A1C593BED00A0D942 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A88BB7B1C8466A400E94D80 /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,12 +81,15 @@
 		3A3B9BC61C6F564800F748F0 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3A88BB9D1C907FBA00E94D80 /* LineageTableView.swift */,
 				3AE72F7C1C593BED00A0D942 /* AddRepViewController.swift */,
 				3AE72FB01C6347BD00A0D942 /* entryTableViewController.swift */,
 				3ABD47F31C6FBAF6001735B8 /* TabBarViewController.swift */,
 				3A0D2E2B1C6D42D700093814 /* EditProfileViewController.swift */,
 				3A184CF31C68CDB500397A41 /* TabBarProfileViewController.swift */,
 				3ABD47F11C6F7AD5001735B8 /* TabBarPhotoViewController.swift */,
+				3A88BB7F1C846E7500E94D80 /* MeasurementsViewController.swift */,
+				3A88BB931C88653C00E94D80 /* WeightDetailViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -79,6 +97,7 @@
 		3A3B9BC71C6F566F00F748F0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3A88BB991C8EF17500E94D80 /* CustomImageView.swift */,
 				3A184CF51C6A678600397A41 /* TimeModel.swift */,
 				3A184CF11C66271300397A41 /* CustomCell.swift */,
 				3AECAFDE1C75246000D481C8 /* CollectionViewCell.swift */,
@@ -89,6 +108,7 @@
 		3AE72F6E1C593BED00A0D942 = {
 			isa = PBXGroup;
 			children = (
+				3A88BB7A1C8466A400E94D80 /* Charts.framework */,
 				3AE72F791C593BED00A0D942 /* Gert */,
 				3A184CEE1C66170400397A41 /* Gert.app */,
 			);
@@ -113,8 +133,10 @@
 		3AE72FA31C593D6200A0D942 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				3A88BB9B1C90788000E94D80 /* Profile+CoreDataProperties.swift */,
+				3A88BB8F1C884D0800E94D80 /* Weight+CoreDataProperties.swift */,
+				3A88BB861C87AE4300E94D80 /* Weight.swift */,
 				3A88BB761C7F8CBB00E94D80 /* Photos+CoreDataProperties.swift */,
-				3A88BB771C7F8CBB00E94D80 /* Profile+CoreDataProperties.swift */,
 				3AECAFD11C73D86E00D481C8 /* Profile.swift */,
 				3AECAFD31C73D86E00D481C8 /* Photos.swift */,
 				3AECAFCE1C73184E00D481C8 /* Function.swift */,
@@ -132,6 +154,7 @@
 				3AE72F731C593BED00A0D942 /* Sources */,
 				3AE72F741C593BED00A0D942 /* Frameworks */,
 				3AE72F751C593BED00A0D942 /* Resources */,
+				3A88BB7C1C84674200E94D80 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -189,6 +212,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3A88BB7C1C84674200E94D80 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Charts.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3AE72F731C593BED00A0D942 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -200,16 +240,22 @@
 				3AE72F831C593BED00A0D942 /* Gert.xcdatamodeld in Sources */,
 				3AECAFD51C73D86E00D481C8 /* Profile.swift in Sources */,
 				3ABD47F41C6FBAF6001735B8 /* TabBarViewController.swift in Sources */,
+				3A88BB801C846E7500E94D80 /* MeasurementsViewController.swift in Sources */,
 				3AE72F7D1C593BED00A0D942 /* AddRepViewController.swift in Sources */,
 				3A184CF61C6A678600397A41 /* TimeModel.swift in Sources */,
+				3A88BB9E1C907FBA00E94D80 /* LineageTableView.swift in Sources */,
+				3A88BB9A1C8EF17500E94D80 /* CustomImageView.swift in Sources */,
 				3ABD47F21C6F7AD5001735B8 /* TabBarPhotoViewController.swift in Sources */,
 				3AECAFDF1C75246000D481C8 /* CollectionViewCell.swift in Sources */,
+				3A88BB911C884D0800E94D80 /* Weight+CoreDataProperties.swift in Sources */,
 				3AECAFCF1C73184E00D481C8 /* Function.swift in Sources */,
 				3A88BB781C7F8CBB00E94D80 /* Photos+CoreDataProperties.swift in Sources */,
+				3A88BB941C88653C00E94D80 /* WeightDetailViewController.swift in Sources */,
 				3A184CF21C66271300397A41 /* CustomCell.swift in Sources */,
 				3A0D2E2C1C6D42D700093814 /* EditProfileViewController.swift in Sources */,
-				3A88BB791C7F8CBB00E94D80 /* Profile+CoreDataProperties.swift in Sources */,
 				3AE72F7B1C593BED00A0D942 /* AppDelegate.swift in Sources */,
+				3A88BB9C1C90788000E94D80 /* Profile+CoreDataProperties.swift in Sources */,
+				3A88BB891C87AE4300E94D80 /* Weight.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +368,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Gert/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = .com.renaldomoon.hatch;
@@ -337,6 +387,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Calum Harris (B3H446T9U7)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Calum Harris (B3H446T9U7)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Gert/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = .com.renaldomoon.hatch;

@@ -13,36 +13,35 @@ class entryTableViewController: UITableViewController {
   
   var fetchedResultsController: NSFetchedResultsController!
   var managedObjectContext: NSManagedObjectContext!
-  
-  var profiles = [Profile]()
   let defaultProfilePic = UIImage(named: "egg")
+  var profiles = [Profile]()
+  
+  var preProfilesSortToAlphabetical = [Profile]() {
+    didSet {
+      profiles = preProfilesSortToAlphabetical.sort{$0.name.lowercaseString < $1.name.lowercaseString}
+    }
+  }
   
   func fetchAllProfiles() {
-     
-    
-    
+
     let fetchRequest = NSFetchRequest(entityName: "Profile")
     
     do {
       if let results = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Profile] {
-        profiles = results
+        preProfilesSortToAlphabetical = results
       }
     } catch {
       fatalError("There was an error fetching the list of devices!")
     }
   }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      
-    //  fetchAllProfiles()
+  override func viewDidLoad() {
+      super.viewDidLoad()
 
-      if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-       managedObjectContext = appDelegate.managedObjectContext
-       
-  }
-      
+    if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+      managedObjectContext = appDelegate.managedObjectContext
     }
+      }
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
@@ -52,8 +51,6 @@ class entryTableViewController: UITableViewController {
     saveContext()
     
   }
-
-  
 
     // MARK: - Table view data source
 
@@ -88,14 +85,14 @@ class entryTableViewController: UITableViewController {
         } else {
           newCell.profilePic.image = defaultProfilePic
         }
-        
+        /*
         newCell.profilePic.layer.borderWidth = 1.0
         newCell.profilePic.layer.masksToBounds = false
         newCell.profilePic.layer.borderColor = UIColor.whiteColor().CGColor
         newCell.profilePic.layer.cornerRadius = 13
         newCell.profilePic.layer.cornerRadius = newCell.profilePic.frame.size.height/2
         newCell.profilePic.clipsToBounds = true
-
+        */
         }
 
         return cell
@@ -116,15 +113,14 @@ class entryTableViewController: UITableViewController {
     if segue.identifier == "ProfileTab" {
       let tabBarController = segue.destinationViewController as! UITabBarController
       let destinationController = tabBarController as! TabBarViewController
-      
       destinationController.managedObjectContext = managedObjectContext
       
       if let selectedIndexPath = tableView.indexPathForSelectedRow {
         let selectedProfile = profiles[selectedIndexPath.row]
         destinationController.selectedProfile = selectedProfile
+        destinationController.allProfiles = profiles
       }
     }
-  
   }
   
   @IBAction func cancelTabView(segue:UIStoryboardSegue) {
@@ -141,6 +137,7 @@ class entryTableViewController: UITableViewController {
         abort()
       }
     }
+  
   }
 
 

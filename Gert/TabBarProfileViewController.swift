@@ -8,8 +8,17 @@
 
 import UIKit
 import CoreData
+import Social
 
-class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate {
+  
+  
+  var selectedProfile: Profile!
+  let defaultProfilePic = UIImage(named: "egg")
+  var managedObjectContext: NSManagedObjectContext!
+  var profilePicLoad: UIImage? {
+    return selectedProfile.photoImage
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -17,26 +26,30 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     selectedProfile = tbvc.selectedProfile!
     managedObjectContext = tbvc.managedObjectContext!
     
-    setProfilePicCircle()
+    let backImage = UIImage(named: "entryViewIcon")
+    self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
+    
+    notes.delegate = self
+    
+    super.view.layer.borderWidth = 2
+    super.view.layer.borderColor = UIColor.yellowColor().CGColor
     
   }
-  
-  var selectedProfile: Profile!
-  var managedObjectContext: NSManagedObjectContext!
-  var profilePicLoad: UIImage? {
-    return selectedProfile.photoImage
-  }
-
 
   
   @IBOutlet weak var name: UILabel!
   @IBOutlet weak var species: UILabel!
   @IBOutlet weak var age: UILabel!
   @IBOutlet weak var profilePic: UIImageView!
- 
-  let defaultProfilePic = UIImage(named: "egg")
-  
-  
+  @IBOutlet weak var weight: UILabel!
+  @IBOutlet weak var sex: UILabel!
+  @IBOutlet weak var notes: UITextView!
+  @IBOutlet weak var sireProfilePhoto: CustomImageView!
+  @IBOutlet weak var damProfilePhoto: CustomImageView!
+  @IBOutlet weak var sireNameLabel: UILabel!
+  @IBOutlet weak var damNameLabel: UILabel!
+
+
   override func viewWillAppear(animated: Bool) {
     
     
@@ -56,20 +69,93 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
       name.text = selectedProfile.name
       species.text = selectedProfile.species
       age.text = ageCalc.difference(ageCalcInput)
+      sex.text = selectedProfile.sex
+      
+      if let father = selectedProfile.father {
+        sireProfilePhoto.image = father.photoImage ?? defaultProfilePic
+        sireNameLabel.text = father.name
+      } else {
+        sireProfilePhoto.image = defaultProfilePic
+        sireNameLabel.text = "Unknown"
+      }
+      
+      if let mother = selectedProfile.mother {
+        damProfilePhoto.image = mother.photoImage ?? defaultProfilePic
+        damNameLabel.text = mother.name
+        } else {
+        damProfilePhoto.image = defaultProfilePic
+        damNameLabel.text = "Unknown"
+      }
+      
+      if let savedNotes = selectedProfile.notes {
+        notes.text = savedNotes
+      }
+   
+      if let currentWeight = selectedProfile.currentWeight {
+        let weightString = String(currentWeight)
+        weight.text = "\(weightString)g"
+      } else {
+        weight.text = "N/A"
+      }
       
     } else {
       print("error in transfer")
     }
+    setProfilePicCircle()
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+
     
   }
   
+  override func viewWillDisappear(animated: Bool) {
+    super.viewDidDisappear(animated)
+    
+    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+    
+    if notes.text != selectedProfile.notes {
+      if notes.text == "" {
+        selectedProfile.notes = nil
+          
+      } else {
+      selectedProfile.notes = notes.text
+      saveContext()
+      }
+    }
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+  
+  //TextView
+  
+  var kbHeight: CGFloat!
+  
+  @IBAction func textViewShouldReturn(sender: AnyObject) {
+    notes.resignFirstResponder()
+  }
+  
+  func keyboardWillShow(notification: NSNotification) {
+    if let userInfo = notification.userInfo {
+      if let keyboardSize =  (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+        kbHeight = keyboardSize.height
+        self.animateTextView(true)
+      }
+    }
+  }
+  
+  func keyboardWillHide(notification: NSNotificationCenter) {
+    self.animateTextView(false)
+  }
+  
+  func animateTextView(up: Bool) {
+    let movement = (up ? -kbHeight : kbHeight)
+    
+    UIView.animateWithDuration(0.3, animations: {
+      self.view.frame = CGRectOffset(self.view.frame, 0, movement)
+    })
+  }
+
   func setProfilePicCircle() {
-    profilePic.layer.borderWidth = 1.0
-    profilePic.layer.masksToBounds = false
-    profilePic.layer.borderColor = UIColor.whiteColor().CGColor
-    profilePic.layer.cornerRadius = 13
-    profilePic.layer.cornerRadius = profilePic.frame.size.height/2
-    profilePic.clipsToBounds = true
+
     let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("imageTapped"))
     profilePic.userInteractionEnabled = true
     profilePic.addGestureRecognizer(tapGestureRecognizer)
@@ -78,8 +164,6 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
   func imageTapped() {
     
     let ac = UIAlertController(title: "Change Profile Picture", message: nil, preferredStyle: .ActionSheet)
-    
-    
     
     let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
     ac.addAction(cancelAction)
@@ -101,41 +185,32 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     presentViewController(ac, animated: true, completion: nil)
     
   }
+  
   var image: UIImage?
   
   func saveProfilePhoto() {
     
-    if let  _ =  image {
-      
-      
+    if let image = image {
+  
       selectedProfile.profilePicID = Photos.nextPhotoID()
       
-      if let image = image {
-        if let data = UIImageJPEGRepresentation(image, 0.5) {
-          
+      if let data = UIImageJPEGRepresentation(image, 0.5) {
           do {
             try data.writeToFile(selectedProfile.photoPath, options: .DataWritingAtomic)
           } catch {
             print("Error Writing File: \(error)")
           }
-        
-        
-        
-        
-        do {
-          try managedObjectContext.save()
-          
-        } catch {
-          fatalError("Failure to save context: \(error)")
-        }
-      }else {
-        print("error enter all info")
+            do {
+              try managedObjectContext.save()
+            } catch {
+              fatalError("Failure to save context: \(error)")
+            }
+              } else {
+                print("error enter all info")
+              }
+          }
       }
-    }
-  }
-  }
 
-  
   func takePhotoWithCamera() {
     let imagePicker = UIImagePickerController()
     imagePicker.sourceType = .Camera
@@ -156,7 +231,6 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     dismissViewControllerAnimated(true, completion: nil)
   }
   
-  
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
     dismissViewControllerAnimated(true, completion: nil)
     
@@ -170,10 +244,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
       profilePic.image = defaultProfilePic
       selectedProfile.profilePicID = nil
       saveContext()
-      
   }
-  
-  
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if let dest = segue.destinationViewController as? EditProfileViewController {
@@ -188,12 +259,59 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
         try managedObjectContext.save()
         print("save Successful")
       } catch {
-        let nserror = error as NSError
-        NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
-        abort()
+          let nserror = error as NSError
+          NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+          abort()
+        }
       }
-    }
   }
 
+  func unwindToEntryTable(){
+    self.performSegueWithIdentifier("unwindtoentry", sender: self)
+  }
+  
+  func screenShotMethod()-> UIImage {
+    
+    UIGraphicsBeginImageContextWithOptions(view.frame.size, false, 0.0)
+    view.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+    let image = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return image
+  }
+  
+  
+  
+  func showAlertMessage(message: String!) {
+    let alertController = UIAlertController(title: "Hatche", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+    presentViewController(alertController, animated: true, completion: nil)
+  }
+  
+  @IBAction func showShareOptions(sender: AnyObject) {
+    
+    let ac = UIAlertController(title: "", message: "Share Profile", preferredStyle: UIAlertControllerStyle.ActionSheet)
+
+    let facebookPostAction = UIAlertAction(title: "Share on Facebook", style: UIAlertActionStyle.Default) { (action) -> Void in
+      
+      if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
+        let facebookComposeVC = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+        facebookComposeVC.setInitialText(self.selectedProfile.name + " via Hatche for iPhone")
+        facebookComposeVC.addImage(self.screenShotMethod())
+        self.presentViewController(facebookComposeVC, animated: true, completion: nil)
+        } else {
+            self.showAlertMessage("Device not connected to a Facebook account")
+          }
+      }
+    
+    let dismissAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+    }
+  
+    ac.addAction(facebookPostAction)
+    ac.addAction(dismissAction)
+    presentViewController(ac, animated: true, completion: nil)
+    }
+  
+  
+  
   
 }

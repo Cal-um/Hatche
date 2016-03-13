@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Social
 
 class TabBarPhotoViewController: UICollectionViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
   
@@ -16,7 +17,7 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
 
   var selectedProfile: Profile! {
     didSet {
-      navigationItem.title = selectedProfile.name + "'s photos"
+     navigationItem.title = selectedProfile.name + "'s photos"
     }
   }
   
@@ -28,6 +29,18 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
       sorted = sam.sort({ Int($0.photoID) > Int($1.photoID) })
     }
   }
+  
+  
+  var sharing: Bool = false {
+    didSet {
+      collectionView?.allowsMultipleSelection = sharing
+      collectionView?.selectItemAtIndexPath(nil, animated: true, scrollPosition: .None)
+      
+      sharing ? (navigationItem.title = "Choose Photos") : (navigationItem.title = "\(selectedProfile.name)'s Photos")
+    }
+  }
+  
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -75,13 +88,16 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     layout.scrollDirection = .Vertical
     collectionView!.pagingEnabled = false
     navigationController?.hidesBarsOnTap = false
-
-    navigationItem.setLeftBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "unwindToEntryTable"), animated: true)
-    navigationItem.setRightBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "addPicture"),animated: true)
     
-    
-    
-    
+    if sharing == true {
+      navigationItem.setLeftBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "setLayoutForFacebookShare"), animated: true)
+      self.navigationItem.setRightBarButtonItems([UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "facebookShare")], animated: true)
+    } else {
+      let backImage = UIImage(named: "entryViewIcon")
+      self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
+      self.navigationItem.setRightBarButtonItems([UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "addPicture"), UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "showShareOptions")], animated: true)
+    }
+  
     return layout
   }
 
@@ -91,18 +107,19 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   
   func collectionViewSingleImageScroll() -> UICollectionViewFlowLayout {
     
-    let width = 320
-    let height = 548
+    let width = CGRectGetWidth(collectionView!.frame)//320
+    let height = CGRectGetHeight(collectionView!.frame)//548
     let layout = collectionViewLayout as! UICollectionViewFlowLayout
-    layout.itemSize = CGSize(width: width, height: height)
+    layout.itemSize = CGSize(width: width, height: (height + 20))
     layout.scrollDirection = .Horizontal
     collectionView!.pagingEnabled = true
     
     navigationController?.hidesBarsOnTap = true
     
     
-    navigationItem.setLeftBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "fadeBack"), animated: true)
-    navigationItem.setRightBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: "deletePhoto"),animated: true)
+    let backImage = UIImage(named: "backButton")
+    self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "fadeBack")
+    navigationItem.setRightBarButtonItems([UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: "deletePhoto")],animated: true)
     
     
     
@@ -142,6 +159,7 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   
   func fadeBack() {
     collectionView!.setCollectionViewLayout(self.collectionViewInitialView(), animated:true)
+    collectionView?.reloadData()
   }
   
   
@@ -150,9 +168,6 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   
   
   override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    
-    
-    
     
     if sorted.count == 0 {
       let emptyLabel = UILabel(frame: CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height))
@@ -169,18 +184,21 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
   
   override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     
+    
     let identifier = "picture"
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! CollectionViewCell
     let selectPhoto = returnUIImage(indexPath)
     if let selectPhoto = selectPhoto {
       
-      if cell.frame.width == cell.frame.height {
+     if cell.frame.width == cell.frame.height {
         cell.PhotoImageView.contentMode = UIViewContentMode.ScaleAspectFill
       } else {
         cell.PhotoImageView.contentMode = UIViewContentMode.ScaleAspectFit
       }
-   
-    cell.PhotoImageView.image = selectPhoto
+      
+      cell.sharing = sharing
+      cell.PhotoImageView.image = selectPhoto
+      
     }
     return cell
   }
@@ -189,14 +207,15 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
 
   override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
    
-    
-    collectionView.reloadData()
-    
-    collectionView.setCollectionViewLayout(collectionViewSingleImageScroll(), animated:true)     
-    collectionView.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: .CenteredHorizontally)
+    if sharing != true {
    
+      collectionView.reloadData()
+      collectionView.setCollectionViewLayout(collectionViewSingleImageScroll(), animated:true)
+      collectionView.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: .CenteredHorizontally)
+      
     }
-
+  }
+  
   // MARK: - Camera and Saving Photo
   
   func saveContext () {
@@ -324,6 +343,82 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     
     pickPhoto()
   }
+  
+  
+  
+  //Share Images on Social
+  
+  func showAlertMessage(message: String!) {
+    let alertController = UIAlertController(title: "Hatche", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+    presentViewController(alertController, animated: true, completion: nil)
+  }
+  
+  
+  
+  
+  
+   func showShareOptions() {
+    
+    let ac = UIAlertController(title: "", message: "Share Photos", preferredStyle: UIAlertControllerStyle.ActionSheet)
+    
+    
+    // Configure a new action to share on Facebook.
+    
+    let facebookPostAction = UIAlertAction(title: "Share on Facebook", style: UIAlertActionStyle.Default) { (action) -> Void in
+      
+      self.setLayoutForFacebookShare()
+      
+    }
+    
+    
+    let dismissAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+      
+    }
+    
+    
+    ac.addAction(facebookPostAction)
+    ac.addAction(dismissAction)
+    
+    presentViewController(ac, animated: true, completion: nil)
+    
+  }
+  
+  func facebookShare() {
+    
+   
+    
+    if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
+      let facebookComposeVC = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+      
+      facebookComposeVC.setInitialText(self.selectedProfile.name + " via Hatche for iPhone")
+      
+ 
+
+      
+      let arrayPhotos = collectionView!.indexPathsForSelectedItems()! as [NSIndexPath]
+      
+      
+      for i in arrayPhotos {
+        let photo = returnUIImage(i)
+        facebookComposeVC.addImage(photo)
+      }
+      setLayoutForFacebookShare()
+     
+      self.presentViewController(facebookComposeVC, animated: true, completion: nil)
+    }
+    else {
+      self.showAlertMessage("Device not connected to a Facebook account")
+    }
+  }
+  
+  func setLayoutForFacebookShare() {
+   sharing = !sharing
+   self.collectionView!.reloadData()
+   collectionViewInitialView()
+  }
+  
+  
 
 }
   

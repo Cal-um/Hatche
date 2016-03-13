@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     do {
       let results = try managedObjectContext.executeFetchRequest(fetchRequest)
       if results.count == 0 {
-        addTestData()
+        //addTestData()
       }
     } catch {
       fatalError("Error fetching data!")
@@ -42,13 +42,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     bob.name = "Gerty"
     bob.species = "Gargoyle Gecko"
     bob.dob = NSDate()
+    bob.currentWeight = nil
+    bob.sex = "Male"
+    
     
     saveContext()
     print(applicationDocumentsDirectory)
-  }
+    
+    
+    }
 
   
   
+
 
 
   func applicationWillResignActive(application: UIApplication) {

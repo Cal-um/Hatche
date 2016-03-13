@@ -77,11 +77,15 @@ class AddRepViewController: UITableViewController, UITextFieldDelegate {
       
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         profile = NSEntityDescription.insertNewObjectForEntityForName("Profile", inManagedObjectContext: appDelegate.managedObjectContext) as! Profile
-        profile?.name = name
-        profile?.species = species
-          profile?.dob = dob
-          profile.photo = nil
-          profile.profilePicID = nil 
+            profile?.name = name
+            profile?.species = species
+            profile?.dob = dob
+            profile.photo = nil
+            profile.profilePicID = nil
+            profile.profileWeight = nil
+            profile.currentWeight = nil
+            profile.sex = "Unsexed"
+      
   print(profile)
       
       do {
