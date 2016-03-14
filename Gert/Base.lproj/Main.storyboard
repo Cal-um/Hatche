@@ -568,7 +568,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="129" height="56"/>
                                                             </imageView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="EmO-8r-ORU">
-                                                                <rect key="frame" x="4" y="8" width="97" height="40"/>
+                                                                <rect key="frame" x="4" y="8" width="125" height="40"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default_picture_Square" translatesAutoresizingMaskIntoConstraints="NO" id="nDo-Pd-Lbh" customClass="CustomImageView" customModule="Gert" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -578,7 +578,7 @@
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unknown" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ss-Dp-m95">
-                                                                        <rect key="frame" x="44" y="0.0" width="53" height="40"/>
+                                                                        <rect key="frame" x="44" y="0.0" width="81" height="40"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
@@ -588,6 +588,7 @@
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="EmO-8r-ORU" secondAttribute="trailing" id="9hH-XO-nww"/>
                                                             <constraint firstAttribute="bottom" secondItem="EmO-8r-ORU" secondAttribute="bottom" constant="8" id="C7A-ZW-fyG"/>
                                                             <constraint firstItem="EmO-8r-ORU" firstAttribute="leading" secondItem="FOW-xs-wvA" secondAttribute="leading" constant="4" id="EBe-Um-Tc9"/>
                                                             <constraint firstAttribute="trailing" secondItem="H2K-MO-iBm" secondAttribute="trailing" id="IAw-TN-jN9"/>
@@ -651,7 +652,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="129" height="56"/>
                                                             </imageView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="aNI-ZM-SdW">
-                                                                <rect key="frame" x="4" y="8" width="97" height="40"/>
+                                                                <rect key="frame" x="4" y="8" width="125" height="40"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default_picture_Square" translatesAutoresizingMaskIntoConstraints="NO" id="DX6-nZ-Oph" customClass="CustomImageView" customModule="Gert" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -661,7 +662,7 @@
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unknown" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="irP-iB-4lc">
-                                                                        <rect key="frame" x="44" y="0.0" width="53" height="40"/>
+                                                                        <rect key="frame" x="44" y="0.0" width="81" height="40"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
@@ -673,6 +674,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="BgA-HB-7Oy" secondAttribute="trailing" id="9Iz-Ih-Yko"/>
                                                             <constraint firstItem="BgA-HB-7Oy" firstAttribute="leading" secondItem="Alt-cq-HNc" secondAttribute="leading" id="H4g-3I-OL9"/>
+                                                            <constraint firstAttribute="trailing" secondItem="aNI-ZM-SdW" secondAttribute="trailing" id="KRk-1H-bjl"/>
                                                             <constraint firstAttribute="bottom" secondItem="aNI-ZM-SdW" secondAttribute="bottom" constant="8" id="PR4-C6-oSU"/>
                                                             <constraint firstItem="aNI-ZM-SdW" firstAttribute="top" secondItem="Alt-cq-HNc" secondAttribute="top" constant="8" id="T3Z-3J-CNx"/>
                                                             <constraint firstAttribute="bottom" secondItem="BgA-HB-7Oy" secondAttribute="bottom" id="lWm-Gp-CWh"/>
@@ -783,6 +785,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="age" destination="fyr-50-eKh" id="ds2-1W-IlW"/>
+                        <outlet property="backgroundPhoto" destination="L8L-jb-Fki" id="5Bf-Fy-ZB5"/>
                         <outlet property="damNameLabel" destination="7ss-Dp-m95" id="wZT-O5-sRC"/>
                         <outlet property="damProfilePhoto" destination="nDo-Pd-Lbh" id="zbE-pD-jb4"/>
                         <outlet property="name" destination="m7q-QC-XkK" id="646-CH-0gF"/>

@@ -47,8 +47,12 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
   @IBOutlet weak var sireNameLabel: UILabel!
   @IBOutlet weak var damNameLabel: UILabel!
 
+  @IBOutlet weak var backgroundPhoto: UIImageView!
 
   override func viewWillAppear(animated: Bool) {
+    
+    backgroundPhoto.layer.borderWidth = 1
+    backgroundPhoto.layer.borderColor = UIColor.orangeColor().CGColor
     
     
     if selectedProfile.photoImage != nil {
@@ -73,7 +77,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
         sireProfilePhoto.image = father.photoImage ?? parentDefaultPic
         sireNameLabel.text = father.name
       } else {
-        sireProfilePhoto.image = defaultProfilePic
+        sireProfilePhoto.image = parentDefaultPic
         sireNameLabel.text = "Unknown"
       }
       
@@ -81,7 +85,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
         damProfilePhoto.image = mother.photoImage ?? parentDefaultPic
         damNameLabel.text = mother.name
         } else {
-        damProfilePhoto.image = defaultProfilePic
+        damProfilePhoto.image = parentDefaultPic
         damNameLabel.text = "Unknown"
       }
       
