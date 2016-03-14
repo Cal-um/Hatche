@@ -43,6 +43,7 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     let backImage = UIImage(named: "entryViewIcon")
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
     
+    
     weightTableView.delegate = self
     weightTableView.dataSource = self
     
@@ -58,9 +59,11 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
   
   override func viewDidAppear(animated: Bool) {
     lineChartView.delegate = self
-    lineChartView.descriptionTextColor = UIColor.whiteColor()
+    lineChartView.backgroundColor = UIColor(red: 0xE2/255, green: 0xF1/255, blue: 0xF0/255, alpha: 1)
+    self.lineChartView.gridBackgroundColor = UIColor.redColor()
+    lineChartView.descriptionTextColor = UIColor(red: 0xE2/255, green: 0xF1/255, blue: 0xF0/255, alpha: 1)
     self.lineChartView.setVisibleXRangeMaximum(5.0)
-
+    
     self.lineChartView.moveViewToX(months.count - 6)
     saveLatestWeight(lastInArray)
   }
@@ -113,12 +116,7 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     }
   }
   
-  
-  
-  
-  
-  
-  
+
   func fetchWeights(into: Profile) -> [Weight] {
     var convert: [Weight]
     convert = into.profileWeight!.allObjects as! [Weight]
@@ -146,18 +144,20 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
       
       let set1: LineChartDataSet = LineChartDataSet(yVals: yVals1, label: "grams")
       set1.axisDependency = .Left
-      set1.setColor(UIColor(red: 0, green: 122, blue: 255, alpha: 1))
-      set1.setCircleColor(UIColor.blueColor())
+      set1.setColor(UIColor(red: 0xF8/255, green: 0x62/255, blue: 0x03/255, alpha: 1))
+      set1.setCircleColor(UIColor(red: 0xEA/255, green: 0x62/255, blue: 0x03/255, alpha: 1))
       set1.fillAlpha = 65/255.0
-      set1.fillColor = UIColor.blueColor()
-      set1.highlightColor = UIColor.blueColor()
-      set1.drawCircleHoleEnabled = true
+      set1.fillColor = UIColor(red: 0xEA/255, green: 0x62/255, blue: 0x03/255, alpha: 1)
+      set1.highlightColor = UIColor.whiteColor()
+      set1.drawCircleHoleEnabled = false
+      set1.circleRadius = 4.0
+      
       
       var dataSets: [LineChartDataSet] = [LineChartDataSet]()
       dataSets.append(set1)
       
       let data: LineChartData = LineChartData(xVals: monthArray, dataSets: dataSets)
-      data.setValueTextColor(UIColor.whiteColor())
+      data.setValueTextColor(UIColor(red: 0xE2/255, green: 0xF1/255, blue: 0xF0/255, alpha: 1))
       
       lineChartView.data = data
     }

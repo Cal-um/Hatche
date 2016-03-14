@@ -51,9 +51,6 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
 
   override func viewWillAppear(animated: Bool) {
     
-    backgroundPhoto.layer.borderWidth = 1
-    backgroundPhoto.layer.borderColor = UIColor.orangeColor().CGColor
-    
     
     if selectedProfile.photoImage != nil {
       profilePic.image = profilePicLoad
