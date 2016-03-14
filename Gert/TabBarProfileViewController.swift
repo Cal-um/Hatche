@@ -14,7 +14,8 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
   
   
   var selectedProfile: Profile!
-  let defaultProfilePic = UIImage(named: "egg")
+  let defaultProfilePic = UIImage(named: "DefaultProfilePic")
+  let parentDefaultPic = UIImage(named: "Default_picture_Square")
   var managedObjectContext: NSManagedObjectContext!
   var profilePicLoad: UIImage? {
     return selectedProfile.photoImage
@@ -30,9 +31,6 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
     
     notes.delegate = self
-    
-    super.view.layer.borderWidth = 2
-    super.view.layer.borderColor = UIColor.yellowColor().CGColor
     
   }
 
@@ -72,7 +70,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
       sex.text = selectedProfile.sex
       
       if let father = selectedProfile.father {
-        sireProfilePhoto.image = father.photoImage ?? defaultProfilePic
+        sireProfilePhoto.image = father.photoImage ?? parentDefaultPic
         sireNameLabel.text = father.name
       } else {
         sireProfilePhoto.image = defaultProfilePic
@@ -80,7 +78,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
       }
       
       if let mother = selectedProfile.mother {
-        damProfilePhoto.image = mother.photoImage ?? defaultProfilePic
+        damProfilePhoto.image = mother.photoImage ?? parentDefaultPic
         damNameLabel.text = mother.name
         } else {
         damProfilePhoto.image = defaultProfilePic
