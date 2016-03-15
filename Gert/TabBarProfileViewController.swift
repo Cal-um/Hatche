@@ -214,7 +214,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     let imagePicker = UIImagePickerController()
     imagePicker.sourceType = .Camera
     imagePicker.delegate = self
-    imagePicker.allowsEditing = true
+    imagePicker.allowsEditing = false
     presentViewController(imagePicker, animated: true, completion: nil)
   }
   
@@ -222,7 +222,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     let imagePicker = UIImagePickerController()
     imagePicker.sourceType = .PhotoLibrary
     imagePicker.delegate = self
-    imagePicker.allowsEditing = true
+    imagePicker.allowsEditing = false
     presentViewController(imagePicker, animated: true, completion: nil)
   }
 
@@ -233,7 +233,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
     dismissViewControllerAnimated(true, completion: nil)
     
-    image = info[UIImagePickerControllerEditedImage] as? UIImage
+    image = info[UIImagePickerControllerOriginalImage] as? UIImage
     saveProfilePhoto()
   }
   
