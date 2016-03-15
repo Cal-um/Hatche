@@ -32,6 +32,8 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     
     notes.delegate = self
     
+    listenForBackgroundNotification()
+    
   }
 
   
@@ -310,7 +312,23 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     presentViewController(ac, animated: true, completion: nil)
     }
   
+  var observer: AnyObject!
   
-  
+  func listenForBackgroundNotification() {
+    observer = NSNotificationCenter.defaultCenter().addObserverForName(
+    UIApplicationDidEnterBackgroundNotification, object: nil,
+    queue: NSOperationQueue.mainQueue()) { [weak self] _ in
+    if let strongSelf = self {
+      if strongSelf.presentedViewController != nil {
+      strongSelf.dismissViewControllerAnimated(false, completion: nil)
+      }
+      strongSelf.notes.resignFirstResponder()
+      }
+    }
+  }
+  deinit {
+      print("*** deinit \(self)")
+      NSNotificationCenter.defaultCenter().removeObserver(observer)
+  }
   
 }

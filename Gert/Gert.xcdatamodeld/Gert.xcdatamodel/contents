@@ -17,7 +17,7 @@
         <relationship name="mother" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="motherChild" inverseEntity="Profile" syncable="YES"/>
         <relationship name="motherChild" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Profile" inverseName="mother" inverseEntity="Profile" syncable="YES"/>
         <relationship name="photo" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Photos" inverseName="owner" inverseEntity="Photos" syncable="YES"/>
-        <relationship name="profileWeight" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Weight" inverseName="wOwner" inverseEntity="Weight" syncable="YES"/>
+        <relationship name="profileWeight" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Weight" inverseName="wOwner" inverseEntity="Weight" syncable="YES"/>
     </entity>
     <entity name="Weight" representedClassName=".Weight" syncable="YES">
         <attribute name="recodedWeight" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
