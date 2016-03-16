@@ -87,6 +87,7 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     
     layout.scrollDirection = .Vertical
     collectionView!.pagingEnabled = false
+    navigationController!.navigationBarHidden = false
     navigationController?.hidesBarsOnTap = false
     
     if sharing == true {
