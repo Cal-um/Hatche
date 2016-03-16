@@ -14,7 +14,8 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
   
   
   var selectedProfile: Profile!
-  let defaultProfilePic = UIImage(named: "egg")
+  let defaultProfilePic = UIImage(named: "DefaultProfilePic")
+  let parentDefaultPic = UIImage(named: "Default_picture_Square")
   var managedObjectContext: NSManagedObjectContext!
   var profilePicLoad: UIImage? {
     return selectedProfile.photoImage
@@ -31,8 +32,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     
     notes.delegate = self
     
-    super.view.layer.borderWidth = 2
-    super.view.layer.borderColor = UIColor.yellowColor().CGColor
+    listenForBackgroundNotification()
     
   }
 
@@ -49,6 +49,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
   @IBOutlet weak var sireNameLabel: UILabel!
   @IBOutlet weak var damNameLabel: UILabel!
 
+  @IBOutlet weak var backgroundPhoto: UIImageView!
 
   override func viewWillAppear(animated: Bool) {
     
@@ -72,18 +73,18 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
       sex.text = selectedProfile.sex
       
       if let father = selectedProfile.father {
-        sireProfilePhoto.image = father.photoImage ?? defaultProfilePic
+        sireProfilePhoto.image = father.photoImage ?? parentDefaultPic
         sireNameLabel.text = father.name
       } else {
-        sireProfilePhoto.image = defaultProfilePic
+        sireProfilePhoto.image = parentDefaultPic
         sireNameLabel.text = "Unknown"
       }
       
       if let mother = selectedProfile.mother {
-        damProfilePhoto.image = mother.photoImage ?? defaultProfilePic
+        damProfilePhoto.image = mother.photoImage ?? parentDefaultPic
         damNameLabel.text = mother.name
         } else {
-        damProfilePhoto.image = defaultProfilePic
+        damProfilePhoto.image = parentDefaultPic
         damNameLabel.text = "Unknown"
       }
       
@@ -215,7 +216,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     let imagePicker = UIImagePickerController()
     imagePicker.sourceType = .Camera
     imagePicker.delegate = self
-    imagePicker.allowsEditing = true
+    imagePicker.allowsEditing = false
     presentViewController(imagePicker, animated: true, completion: nil)
   }
   
@@ -223,7 +224,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     let imagePicker = UIImagePickerController()
     imagePicker.sourceType = .PhotoLibrary
     imagePicker.delegate = self
-    imagePicker.allowsEditing = true
+    imagePicker.allowsEditing = false
     presentViewController(imagePicker, animated: true, completion: nil)
   }
 
@@ -234,7 +235,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
     dismissViewControllerAnimated(true, completion: nil)
     
-    image = info[UIImagePickerControllerEditedImage] as? UIImage
+    image = info[UIImagePickerControllerOriginalImage] as? UIImage
     saveProfilePhoto()
   }
   
@@ -311,7 +312,23 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     presentViewController(ac, animated: true, completion: nil)
     }
   
+  var observer: AnyObject!
   
-  
+  func listenForBackgroundNotification() {
+    observer = NSNotificationCenter.defaultCenter().addObserverForName(
+    UIApplicationDidEnterBackgroundNotification, object: nil,
+    queue: NSOperationQueue.mainQueue()) { [weak self] _ in
+    if let strongSelf = self {
+      if strongSelf.presentedViewController != nil {
+      strongSelf.dismissViewControllerAnimated(false, completion: nil)
+      }
+      strongSelf.notes.resignFirstResponder()
+      }
+    }
+  }
+  deinit {
+      print("*** deinit \(self)")
+      NSNotificationCenter.defaultCenter().removeObserver(observer)
+  }
   
 }

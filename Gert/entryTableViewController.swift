@@ -72,13 +72,12 @@ class entryTableViewController: UITableViewController {
       cell = tableView.dequeueReusableCellWithIdentifier("lizardList", forIndexPath: indexPath)
       if let newCell  = cell as? CustomCell {
         let profile = profiles[indexPath.row]
-        let age = Time()
         
-        let dateOfHatch = profile.dob
+        
+        
         
         newCell.nameLabel.text = profile.name
         newCell.speciesLabel.text = profile.species
-        newCell.dohLabel.text = age.difference(dateOfHatch)
         
         if profile.photoImage != nil {
           newCell.profilePic.image = profile.photoImage
