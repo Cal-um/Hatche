@@ -91,12 +91,12 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     navigationController?.hidesBarsOnTap = false
     
     if sharing == true {
-      navigationItem.setLeftBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "setLayoutForFacebookShare"), animated: true)
-      self.navigationItem.setRightBarButtonItems([UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "facebookShare")], animated: true)
+      navigationItem.setLeftBarButtonItem(UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(TabBarPhotoViewController.setLayoutForFacebookShare)), animated: true)
+      self.navigationItem.setRightBarButtonItems([UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(TabBarPhotoViewController.facebookShare))], animated: true)
     } else {
       let backImage = UIImage(named: "entryViewIcon")
-      self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
-      self.navigationItem.setRightBarButtonItems([UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "addPicture"), UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "showShareOptions")], animated: true)
+      self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: #selector(TabBarPhotoViewController.unwindToEntryTable))
+      self.navigationItem.setRightBarButtonItems([UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: #selector(TabBarPhotoViewController.addPicture)), UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "showShareOptions")], animated: true)
     }
   
     return layout
@@ -119,8 +119,8 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     
     
     let backImage = UIImage(named: "backButton")
-    self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "fadeBack")
-    navigationItem.setRightBarButtonItems([UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: "deletePhoto")],animated: true)
+    self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: #selector(TabBarPhotoViewController.fadeBack))
+    navigationItem.setRightBarButtonItems([UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: #selector(TabBarPhotoViewController.deletePhoto))],animated: true)
     
     
     

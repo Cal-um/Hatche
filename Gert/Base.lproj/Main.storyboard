@@ -396,11 +396,11 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Gh-S4-Qj9">
                                                 <rect key="frame" x="0.0" y="26" width="268" height="26"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="DescriptionGradient_2" translatesAutoresizingMaskIntoConstraints="NO" id="so6-pr-bHN">
-                                                        <rect key="frame" x="0.0" y="1" width="268" height="26"/>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DescriptionGradient_2" translatesAutoresizingMaskIntoConstraints="NO" id="so6-pr-bHN">
+                                                        <rect key="frame" x="0.0" y="0.0" width="268" height="26"/>
                                                     </imageView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QpR-qb-My5">
-                                                        <rect key="frame" x="2" y="3" width="136" height="22"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QpR-qb-My5">
+                                                        <rect key="frame" x="2" y="2" width="136" height="22"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="X5J-k1-JEz">
                                                                 <rect key="frame" x="0.0" y="0.0" width="76" height="22"/>
@@ -458,14 +458,14 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ygE-1m-5w7">
                                                 <rect key="frame" x="0.0" y="52" width="268" height="26"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="DescriptionGradient_1" translatesAutoresizingMaskIntoConstraints="NO" id="wPr-qs-U5c">
-                                                        <rect key="frame" x="0.0" y="1" width="268" height="26"/>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DescriptionGradient_1" translatesAutoresizingMaskIntoConstraints="NO" id="wPr-qs-U5c">
+                                                        <rect key="frame" x="0.0" y="0.0" width="268" height="26"/>
                                                         <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                                             <rect key="frame" x="0.0" y="1" width="378" height="35"/>
                                                         </variation>
                                                     </imageView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="39" translatesAutoresizingMaskIntoConstraints="NO" id="rdr-46-iz0">
-                                                        <rect key="frame" x="2" y="3" width="117" height="22"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="39" translatesAutoresizingMaskIntoConstraints="NO" id="rdr-46-iz0">
+                                                        <rect key="frame" x="2" y="2" width="117" height="22"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0GX-Vm-fNB">
                                                                 <rect key="frame" x="0.0" y="0.0" width="57" height="22"/>
@@ -522,14 +522,14 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NEX-J4-pSz">
                                                 <rect key="frame" x="0.0" y="78" width="268" height="26"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="DescriptionGradient_2" translatesAutoresizingMaskIntoConstraints="NO" id="y69-s3-gg6">
-                                                        <rect key="frame" x="0.0" y="1" width="268" height="26"/>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DescriptionGradient_2" translatesAutoresizingMaskIntoConstraints="NO" id="y69-s3-gg6">
+                                                        <rect key="frame" x="0.0" y="0.0" width="268" height="26"/>
                                                         <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                                             <rect key="frame" x="0.0" y="1" width="378" height="35"/>
                                                         </variation>
                                                     </imageView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="38" translatesAutoresizingMaskIntoConstraints="NO" id="wmU-ks-Ffm">
-                                                        <rect key="frame" x="2" y="3" width="118" height="22"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="38" translatesAutoresizingMaskIntoConstraints="NO" id="wmU-ks-Ffm">
+                                                        <rect key="frame" x="2" y="2" width="118" height="22"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="z56-5y-M1M">
                                                                 <rect key="frame" x="0.0" y="0.0" width="58" height="22"/>

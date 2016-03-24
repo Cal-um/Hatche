@@ -28,7 +28,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
     managedObjectContext = tbvc.managedObjectContext!
     
     let backImage = UIImage(named: "entryViewIcon")
-    self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
+    self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: #selector(TabBarProfileViewController.unwindToEntryTable))
     
     notes.delegate = self
     
@@ -103,8 +103,8 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
       print("error in transfer")
     }
     setProfilePicCircle()
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TabBarProfileViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TabBarProfileViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
 
     
   }
@@ -157,7 +157,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
 
   func setProfilePicCircle() {
 
-    let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("imageTapped"))
+    let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(TabBarProfileViewController.imageTapped))
     profilePic.userInteractionEnabled = true
     profilePic.addGestureRecognizer(tapGestureRecognizer)
   }
