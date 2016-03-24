@@ -13,8 +13,6 @@ class WeightDetailViewController: UITableViewController, UITextFieldDelegate {
   
   var managedObjectContext: NSManagedObjectContext!
   
-
-  
   var selectedProfile: Profile!
   
   var weight: Weight!
@@ -38,9 +36,6 @@ class WeightDetailViewController: UITableViewController, UITextFieldDelegate {
       weighDate.date = weight.wDate
       navigationItem.title = "Edit Weight Record"
     }
-    
-    
-    
   }
   
 

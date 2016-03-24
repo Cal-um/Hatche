@@ -34,14 +34,14 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
   var lastInArray: Weight?
   
   
-    @IBOutlet weak var lineChartView: LineChartView!
+  @IBOutlet weak var lineChartView: LineChartView!
     
   override func viewDidLoad() {
     
     super.viewDidLoad()
     
     let backImage = UIImage(named: "entryViewIcon")
-    self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: "unwindToEntryTable")
+    self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: #selector(MeasurementsViewController.unwindToEntryTable))
     
     
     weightTableView.delegate = self
@@ -186,9 +186,7 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     var r = 0
     for i in toDelete {
       outputArray.removeAtIndex((i - r))
-      while r < 2 {
         r += 1
-      }
     }
     return outputArray
     
@@ -199,9 +197,7 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     var r = 0
     for i in toDelete {
       outputArray.removeAtIndex((i - r))
-      while r < 2 {
         r += 1
-      }
     }
     return outputArray
     
@@ -293,8 +289,6 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
 
   
   
-  
-  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if (segue.identifier == "addItem") {
       if let dest = segue.destinationViewController as? WeightDetailViewController {
@@ -315,9 +309,6 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
   }
     
   }
-  
-  
-
   
   func unwindToEntryTable(){
     self.performSegueWithIdentifier("unwindToEntryTable", sender: self)
