@@ -64,7 +64,7 @@ class MeasurementsViewController: UIViewController, ChartViewDelegate, UITableVi
     lineChartView.descriptionTextColor = UIColor(red: 0xE2/255, green: 0xF1/255, blue: 0xF0/255, alpha: 1)
     self.lineChartView.setVisibleXRangeMaximum(5.0)
     
-    self.lineChartView.moveViewToX(months.count - 6)
+    self.lineChartView.moveViewToX(CGFloat(months.count) - 6.0)
     saveLatestWeight(lastInArray)
   }
   

@@ -96,7 +96,7 @@ class TabBarPhotoViewController: UICollectionViewController, UINavigationControl
     } else {
       let backImage = UIImage(named: "entryViewIcon")
       self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style:  UIBarButtonItemStyle.Plain, target: self, action: #selector(TabBarPhotoViewController.unwindToEntryTable))
-      self.navigationItem.setRightBarButtonItems([UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: #selector(TabBarPhotoViewController.addPicture)), UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "showShareOptions")], animated: true)
+      self.navigationItem.setRightBarButtonItems([UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: #selector(TabBarPhotoViewController.addPicture)), UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(TabBarPhotoViewController.showShareOptions))], animated: true)
     }
   
     return layout
