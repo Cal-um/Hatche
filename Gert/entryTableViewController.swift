@@ -13,17 +13,44 @@ class entryTableViewController: UITableViewController {
   
   var fetchedResultsController: NSFetchedResultsController!
   var managedObjectContext: NSManagedObjectContext!
+  let searchController = UISearchController(searchResultsController: nil)
   let defaultProfilePic = UIImage(named: "egg")
   var profiles = [Profile]()
-  
   var preProfilesSortToAlphabetical = [Profile]() {
     didSet {
       profiles = preProfilesSortToAlphabetical.sort{$0.name.lowercaseString < $1.name.lowercaseString}
     }
   }
+  var filteredProfiles = [Profile]()
+  
+ 
+  
+
+  override func viewDidLoad() {
+      super.viewDidLoad()
+
+    if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+      managedObjectContext = appDelegate.managedObjectContext
+    }
+    
+    //configure search bar
+    searchController.searchResultsUpdater = self
+    searchController.dimsBackgroundDuringPresentation = false
+    definesPresentationContext = true
+    tableView.tableHeaderView = searchController.searchBar
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    fetchAllProfiles()
+    tableView.reloadData()
+    saveContext()
+    
+  }
   
   func fetchAllProfiles() {
-
+    
     let fetchRequest = NSFetchRequest(entityName: "Profile")
     
     do {
@@ -34,22 +61,10 @@ class entryTableViewController: UITableViewController {
       fatalError("There was an error fetching the list of devices!")
     }
   }
-
-  override func viewDidLoad() {
-      super.viewDidLoad()
-
-    if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-      managedObjectContext = appDelegate.managedObjectContext
-    }
-      }
   
-  override func viewWillAppear(animated: Bool) {
-    super.viewWillAppear(animated)
-    
-    fetchAllProfiles()
+  func filterContentForSearch(searchText: String) {
+    filteredProfiles = profiles.filter { profile in profile.name.lowercaseString.containsString(searchText.lowercaseString) || profile.species.lowercaseString.containsString(searchText.lowercaseString)}
     tableView.reloadData()
-    saveContext()
-    
   }
 
     // MARK: - Table view data source
@@ -60,7 +75,9 @@ class entryTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+      if searchController.active && searchController.searchBar.text != "" {
+        return filteredProfiles.count
+      }
         return profiles.count
     }
 
@@ -68,13 +85,16 @@ class entryTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
       let cell: UITableViewCell
       
-      
       cell = tableView.dequeueReusableCellWithIdentifier("lizardList", forIndexPath: indexPath)
+      
       if let newCell  = cell as? CustomCell {
-        let profile = profiles[indexPath.row]
-        
-        
-        
+        let profile: Profile
+          
+        if searchController.active && searchController.searchBar.text != "" {
+          profile = filteredProfiles[indexPath.row]
+        } else {
+         profile = profiles[indexPath.row]
+        }
         
         newCell.nameLabel.text = profile.name
         newCell.speciesLabel.text = profile.species
@@ -84,16 +104,8 @@ class entryTableViewController: UITableViewController {
         } else {
           newCell.profilePic.image = defaultProfilePic
         }
-        /*
-        newCell.profilePic.layer.borderWidth = 1.0
-        newCell.profilePic.layer.masksToBounds = false
-        newCell.profilePic.layer.borderColor = UIColor.whiteColor().CGColor
-        newCell.profilePic.layer.cornerRadius = 13
-        newCell.profilePic.layer.cornerRadius = newCell.profilePic.frame.size.height/2
-        newCell.profilePic.clipsToBounds = true
-        */
-        }
-
+   
+      }
         return cell
     }
 
@@ -115,7 +127,12 @@ class entryTableViewController: UITableViewController {
       destinationController.managedObjectContext = managedObjectContext
       
       if let selectedIndexPath = tableView.indexPathForSelectedRow {
-        let selectedProfile = profiles[selectedIndexPath.row]
+        let selectedProfile: Profile
+        if searchController.active && searchController.searchBar.text != "" {
+          selectedProfile = filteredProfiles[selectedIndexPath.row]
+        } else {
+          selectedProfile = profiles[selectedIndexPath.row]
+        }
         destinationController.selectedProfile = selectedProfile
         destinationController.allProfiles = profiles
       }
@@ -138,6 +155,10 @@ class entryTableViewController: UITableViewController {
     }
   
   }
+}
 
-
+extension entryTableViewController: UISearchResultsUpdating {
+  func updateSearchResultsForSearchController(searchController: UISearchController) {
+    filterContentForSearch(searchController.searchBar.text!)
+  }
 }
