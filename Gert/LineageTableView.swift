@@ -11,6 +11,8 @@ import CoreData
 
 
 class LineageTableView: UITableViewController {
+  
+  // Load properties and sort profiles.
 
   var managedObjectContext: NSManagedObjectContext!
   var selectedProfile: Profile!
@@ -19,32 +21,30 @@ class LineageTableView: UITableViewController {
   var damTrueSireFalse: Bool! {
     didSet {
       if damTrueSireFalse == true {
-        navigationItem.title = "Choose Dam"
-        profileSelectedForParent = selectedProfile.mother
-        oppositeGender = selectedProfile.father
+          navigationItem.title = "Choose Dam"
+          profileSelectedForParent = selectedProfile.mother
+          oppositeGender = selectedProfile.father
       } else {
-        navigationItem.title = "Choose Sire"
-        profileSelectedForParent = selectedProfile.father
-        oppositeGender = selectedProfile.mother
+          navigationItem.title = "Choose Sire"
+          profileSelectedForParent = selectedProfile.father
+          oppositeGender = selectedProfile.mother
         }
       }
     
     }
   
-
   var allProfiles: [Profile]!
+  
   var allProfilesPreSortToRemoveSelf: [Profile]!{
     didSet {
       if oppositeGender == nil {
-      allProfiles = allProfilesPreSortToRemoveSelf.filter {
-        (i: Profile) -> Bool in
-        return i != selectedProfile
+          allProfiles = allProfilesPreSortToRemoveSelf.filter {
+            i in i != selectedProfile
         }
       } else {
           allProfiles = allProfilesPreSortToRemoveSelf.filter {
-            (i: Profile) -> Bool in
-            return (i != selectedProfile) && (i != oppositeGender)
-            }
+            i in (i != selectedProfile) && (i != oppositeGender)
+          }
         }
       }
     }
@@ -57,73 +57,80 @@ class LineageTableView: UITableViewController {
     allProfilesPreSortToRemoveSelf = tbvc.allProfiles!
     
   }
+
+}
+
+
+
+
+extension LineageTableView {
   
-  override func viewWillAppear(animated: Bool) {
-    print(selectedProfile)
-  }
-  
-  
-  
-  
-  //tableView Data Source
-  
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return 1
-  }
+  // tableView Data Source
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return allProfiles.count
   }
+    
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    
     let cell: UITableViewCell
     cell = tableView.dequeueReusableCellWithIdentifier("liniageCell", forIndexPath: indexPath)
     
-     let profile = allProfiles[indexPath.row]
-     let profileName = profile.name
+    let profile = allProfiles[indexPath.row]
+    let profileName = profile.name
     
     if let _ = profileSelectedForParent where profileSelectedForParent == profile {
-      
-      cell.accessoryType = .Checkmark
+        cell.accessoryType = .Checkmark
     } else {
-      cell.accessoryType = .None
+        cell.accessoryType = .None
     }
     
-     cell.textLabel?.text = profileName
+    cell.textLabel?.text = profileName
     
     return cell
   }
+    
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     
     let profile = allProfiles[indexPath.row]
+    
     if let _ = profileSelectedForParent where profileSelectedForParent == profile {
-     profileSelectedForParent = nil
+        profileSelectedForParent = nil
     } else {
-       profileSelectedForParent = profile
-    }
+        profileSelectedForParent = profile
+      }
    
     tableView.reloadData()
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
     
+    }
     
-  }
+}
+
+
+
+extension LineageTableView {
+  
+  // Prepare and save
   
   override func viewWillDisappear(animated: Bool) {
     
     if let _ = profileSelectedForParent {
       if damTrueSireFalse == true {
-        selectedProfile.mother = profileSelectedForParent
+          selectedProfile.mother = profileSelectedForParent
       } else {
-        selectedProfile.father = profileSelectedForParent
-      }
+          selectedProfile.father = profileSelectedForParent
+        }
     } else {
-      if damTrueSireFalse == true {
-        selectedProfile.mother = nil
+        if damTrueSireFalse == true {
+          selectedProfile.mother = nil
       } else {
-        selectedProfile.father = nil
-      }
+          selectedProfile.father = nil
+        }
     }
+    
     saveContext()
     print(selectedProfile.father)
     print(selectedProfile.mother)
@@ -132,11 +139,11 @@ class LineageTableView: UITableViewController {
   func saveContext () {
     if managedObjectContext.hasChanges {
       do {
-        try managedObjectContext.save()
+          try managedObjectContext.save()
       } catch {
-        let nserror = error as NSError
-        NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
-        abort()
+          let nserror = error as NSError
+          NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+          abort()
       }
     }
   }
