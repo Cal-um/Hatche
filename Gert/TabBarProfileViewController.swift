@@ -137,7 +137,7 @@ class TabBarProfileViewController: UIViewController, UINavigationBarDelegate, UI
   func keyboardWillShow(notification: NSNotification) {
     if let userInfo = notification.userInfo {
       if let keyboardSize =  (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-        kbHeight = keyboardSize.height
+        kbHeight = keyboardSize.height - CGRectGetHeight((tabBarController?.tabBar.frame)!)
         self.animateTextView(true)
       }
     }

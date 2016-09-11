@@ -27,7 +27,9 @@ class entryTableViewController: UITableViewController {
   
 
   override func viewDidLoad() {
-      super.viewDidLoad()
+		super.viewDidLoad()
+		
+		view.backgroundColor = UIColor.whiteColor()
 
     if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
       managedObjectContext = appDelegate.managedObjectContext
