@@ -4,7 +4,7 @@ Hatche is a Poke'mon styled pet manager for iOS targeted at reptiles. The user c
 ## Credits
 iOS Charts by Daniel Gindi. www.github.com/danielgindi/Charts
 
-Custom icons and buttons by George Neilson. www.linkedin.com/in/georgina-neilson
+Custom icons and buttons by Georgina Neilson. www.linkedin.com/in/georgina-neilson
 
 ## Installation
 
